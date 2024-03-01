@@ -9,37 +9,37 @@ import jakarta.persistence.Entity;
 public class Pessoa extends PanacheEntity {
 
     @Column(length = 200, nullable = false)
-    public String nome;
+    private String nome;
 
     @Column(length = 300,nullable = false)
-    public String email;
+    private String email;
 
     @Column(length = 60, nullable = false)
-    public String cargo;
+    private String cargo;
 
     @Column(length = 60, nullable = false)
-    public String cpf;
+    private String cpf;
 
     @Column(length = 8, nullable = false)
-    public String cep;
+    private String cep;
 
     @Column(length = 200, nullable = false)
-    public String endereco;
+    private String endereco;
 
     @Column(length = 200, nullable = false)
-    public String complemento;
+    private String complemento;
 
     @Column(length = 60, nullable = false)
-    public String cidade;
+    private String cidade;
 
     @Column(length = 30, nullable = false)
-    public String estado;
+    private String estado;
 
     @Column(length = 11, nullable = false) 
-    public String telefone;
+    private String telefone;
 
     @Column(length = 10, nullable = false)
-    public LocalDate aniversario;
+    private LocalDate aniversario;
 
     public Long getId() {
         return id;
