@@ -1,5 +1,7 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -7,51 +9,63 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
+@Entity
 public class Cameras {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     @NotBlank(message = "Nome da camera é obrigatório")
-    private String nome;
+    private String nomeProduto;
 
+    @Column
     @NotBlank(message = "O preço do produto é obrigatório")
     private Double preco;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Marca marca;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Sensor sensor;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Processador processador;
 
+    @Column
     private String resolucao;
 
+    @Column
     @Enumerated(EnumType.STRING)
-    private Lente lente;
+    private Lentes lente;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Bateria bateria;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private FormatoAudio formatoAudio;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private FormatoVideo formatoVideo;
     
+    @Column
     @Enumerated(EnumType.STRING)
     private FormatoImagem formatoImagem;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Iso iso;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Obturador obturador;
-
-    
-
 
     public Long getId() {
         return id;
@@ -62,11 +76,11 @@ public class Cameras {
     }
 
     public String getNome() {
-        return nome;
+        return nomeProduto;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nomeProduto = nome;
     }
 
     public Double getPreco() {
@@ -109,11 +123,11 @@ public class Cameras {
         this.resolucao = resolucao;
     }
 
-    public Lente getLente() {
+    public Lentes getLentes() {
         return lente;
     }
 
-    public void setLente(Lente lente) {
+    public void setLentes(Lentes lente) {
         this.lente = lente;
     }
 
@@ -212,7 +226,7 @@ public class Cameras {
         }
     }
 
-    public enum Lente{
+    public enum Lentes{
         LENTE_50MM("Lente 50mm f/1.8"),
         LENTE_24_70MM("Lente 24-70mm f/2.8"),
         LENTE_70_200MM("Lente 70-200mm f/2.8"),
@@ -224,7 +238,7 @@ public class Cameras {
 
         private String lente;
 
-        Lente(String lente){
+        Lentes(String lente){
             this.lente = lente;
         }
     }
