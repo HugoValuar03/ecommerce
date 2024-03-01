@@ -1,7 +1,5 @@
 package br.unitins.topicos1.model;
 
-import org.hibernate.annotations.DialectOverride.GeneratedColumn;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -170,7 +168,7 @@ public class Lentes{
         FISHEYE("Olho de Peixe"),
         MACRO("Macro");
 
-        private String distanciaFocal;
+        public String distanciaFocal;
 
         DistanciaFocal(String distanciaFocal){
             this.distanciaFocal = distanciaFocal;
@@ -188,7 +186,7 @@ public class Lentes{
         F16("f/16"),
         F22("f/22");
 
-        private String abertura;
+        public String abertura;
 
         Abertura(String abertura){
             this.abertura = abertura;
@@ -202,7 +200,7 @@ public class Lentes{
         PERSPECTIVE_CONTROL("Perspective Control"),
         ANAMORPHIC("Anamórfica");
 
-        private String lente;
+        public String lente;
 
         Lente(String lente){
             this.lente = lente;
@@ -219,7 +217,7 @@ public class Lentes{
         PENTAX("Pentax"),
         LEICA("Leica");
 
-        private String compatibilidade;
+        public String compatibilidade;
 
         Compatibilidade(String compatibilidade) {
             this.compatibilidade = compatibilidade;

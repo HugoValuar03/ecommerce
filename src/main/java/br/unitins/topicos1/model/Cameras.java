@@ -187,7 +187,7 @@ public class Cameras {
         FUJFILM("Fujfilm"),
         PANASONIC("Panasonic");
     
-        private String marca;
+        public String marca;
     
         Marca(String marca){
             this.marca = marca;
@@ -204,7 +204,7 @@ public class Cameras {
         CCD( "CCD" ),
         CMOS("CMOS");
 
-        private String sensor;
+        public String sensor;
 
         Sensor(String  sensor) {
             this.sensor = sensor;
@@ -219,7 +219,7 @@ public class Cameras {
         X_PROCESSOR("X-Processor"),
         PRIME("PRIME (PENTAX REAL IMAGE ENGINE)");
 
-        private String processador;
+        public String processador;
 
         Processador(String processador){
             this.processador = processador;
@@ -236,7 +236,7 @@ public class Cameras {
         LENTE_PRIME("Lente Prime 85mm f/1.4"),
         LENTE_SUPERZOOM("Lente Superzoom 18-300mm f/3.5-6.3");
 
-        private String lente;
+        public String lente;
 
         Lentes(String lente){
             this.lente = lente;
@@ -252,7 +252,7 @@ public class Cameras {
         BATERIA_ZINCO_AR("Bateria de Zinco-Ar"),
         BATERIA_LITIO_AR("Bateria de Lítio-Ar");
 
-        private String bateria;
+        public String bateria;
 
         Bateria(String bateria){
             this.bateria = bateria;
@@ -269,7 +269,7 @@ public class Cameras {
         WMV("WMV"),
         FLV("FLV");
     
-        private String formatoVideo;
+        public String formatoVideo;
     
         FormatoVideo(String formato){
             this.formatoVideo = formato;
@@ -286,7 +286,7 @@ public class Cameras {
         ALAC("ALAC"),
         OGG("OGG");
     
-        private String formatoAudio;
+        public String formatoAudio;
     
         FormatoAudio(String formato){
             this.formatoAudio = formato;
@@ -302,7 +302,7 @@ public class Cameras {
         BMP("BMP"),
         WEBP("WEBP");
     
-        private String formatoImagem;
+        public String formatoImagem;
     
         FormatoImagem(String formato){
             this.formatoImagem = formato;
@@ -318,7 +318,7 @@ public class Cameras {
         BMP("BMP"),
         WEBP("WEBP");
     
-        private String iso;
+        public String iso;
     
         Iso(String iso){
             this.iso = iso;
@@ -329,7 +329,7 @@ public class Cameras {
         OBTURADOR_MECANICO("Obturador Mecânico"),
         OBTURADOR_ELETRONICO_MECANICO("Obturador Eletrônico e Mecânico");
     
-        private String obturador;
+        public String obturador;
     
         Obturador(String obturador){
             this.obturador = obturador;

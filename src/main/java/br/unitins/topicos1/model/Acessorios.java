@@ -21,6 +21,20 @@ public class Acessorios {
     @Column
     @NotBlank(message = "O campo de preço é obrigatório")
     private  Double preco;
-
     
+    @Column
+    private TipoAcessorio acessorio;
+    
+    public enum TipoAcessorio{
+        TRIPE("Tripé"),
+        FILTROS("Filtro"),
+        FLASHS("Flashs"),
+        BATERIAS("Baterias");
+
+        public String acessorio;
+
+        TipoAcessorio(String acessorio){
+            this.acessorio= acessorio;
+        }
+    }
 }
