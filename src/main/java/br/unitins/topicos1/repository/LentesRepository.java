@@ -11,6 +11,7 @@ public class LentesRepository implements PanacheRepository<Lentes>{
     
     public List<Lentes> findByNome(String nomeProduto){
         return find("UPPER(marcaProduto) LIKE ?1", "%" + nomeProduto.toUpperCase() + "%").list();
+        
     }
 
     public List<Lentes> findByMarca(String marcaProduto){
