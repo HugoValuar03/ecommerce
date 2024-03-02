@@ -42,7 +42,6 @@ public class Bolsas {
     @Column
     private Double altura;
 
-
     public String getNome() {
         return nome;
     }

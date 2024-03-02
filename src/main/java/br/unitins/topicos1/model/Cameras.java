@@ -1,20 +1,21 @@
 package br.unitins.topicos1.model;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+//import jakarta.persistence.GeneratedValue;
+//import jakarta.persistence.GenerationType;
+//import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Cameras {
+public class Cameras extends PanacheEntity {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long id;
 
     @Column
     @NotBlank(message = "Nome da camera é obrigatório")
@@ -59,6 +60,21 @@ public class Cameras {
     @Enumerated(EnumType.STRING)
     private FormatoImagem formatoImagem;
 
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
+    public Lentes getLente() {
+        return lente;
+    }
+
+    public void setLente(Lentes lente) {
+        this.lente = lente;
+    }
     @Column
     @Enumerated(EnumType.STRING)
     private Iso iso;
@@ -73,14 +89,6 @@ public class Cameras {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nomeProduto;
-    }
-
-    public void setNome(String nome) {
-        this.nomeProduto = nome;
     }
 
     public Double getPreco() {

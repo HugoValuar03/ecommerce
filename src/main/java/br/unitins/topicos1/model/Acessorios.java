@@ -24,6 +24,24 @@ public class Acessorios {
     
     @Column
     private TipoAcessorio acessorio;
+
+    @Column
+    private Compatibilidade compatibilidade;
+
+    @Column
+    private Double altura;
+
+    @Column 
+    private Double largura;
+
+    @Column
+    private String Material;
+
+    @Column 
+    private Double peso;
+
+    @Column 
+    private Cor cor;
     
     public enum TipoAcessorio{
         TRIPE("Tripé"),
@@ -35,6 +53,34 @@ public class Acessorios {
 
         TipoAcessorio(String acessorio){
             this.acessorio= acessorio;
+        }
+    }
+
+    public enum Compatibilidade{
+        CANON("Canon"),
+        NIKON("Nikon"),
+        SONY("Sony"),
+        FUJIFILM("Fujifilm"),
+        PANASONIC("Panasonic"),
+        OLYMPUS("Olympus"),
+        PENTAX("Pentax"),
+        LEICA("Leica");
+
+        public String compatibilidade;
+
+        Compatibilidade(String compatibilidade) {
+            this.compatibilidade = compatibilidade;
+        }
+    }
+
+    public enum Cor{
+        PRETO("Preto"),
+        BRANCO("Branco");
+
+        public String cor;
+
+        Cor(String cor){
+            this.cor = cor;
         }
     }
 }
