@@ -7,15 +7,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
-@Entity
+@Entity //Indicação de que a classe está mapeada para uma tabela no banco de dados
 public class Acessorios {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //Identifica a chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Os valores serão gerados automaticamente pelo BD.
     private Long idAcessorio;
 
-    @Column
-    @NotBlank(message =  "O campo nome é obrigatório")
+    @Column //Adiciona uma coluna na tabela do banco de dados
+    @NotBlank(message =  "O campo nome é obrigatório") //Caso o campo não ser preenchido, aparecerá esta mensagem.
     private String nomeProduto;
 
     @Column
@@ -51,8 +51,8 @@ public class Acessorios {
 
         public String acessorio;
 
-        TipoAcessorio(String acessorio){
-            this.acessorio= acessorio;
+        TipoAcessorio(String acessorio){  // Construtor que recebe um parâmetro "acessorio" e inicializa o atributo "acessorio"
+            this.acessorio = acessorio;
         }
     }
 
