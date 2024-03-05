@@ -1,21 +1,20 @@
 package br.unitins.topicos1.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Cameras extends PanacheEntity {
+public class Cameras{
     
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     @NotBlank(message = "Nome da camera é obrigatório")
@@ -28,30 +27,30 @@ public class Cameras extends PanacheEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private Marca marca;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
     private Sensor sensor;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
     private Processador processador;
 
     @Column
     private String resolucao;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
     private Lentes lente;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
     private Bateria bateria;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
     private FormatoAudio formatoAudio;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
     private FormatoVideo formatoVideo;
@@ -59,22 +58,7 @@ public class Cameras extends PanacheEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private FormatoImagem formatoImagem;
-
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
-
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
-
-    public Lentes getLente() {
-        return lente;
-    }
-
-    public void setLente(Lentes lente) {
-        this.lente = lente;
-    }
+    
     @Column
     @Enumerated(EnumType.STRING)
     private Iso iso;
@@ -82,6 +66,22 @@ public class Cameras extends PanacheEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private Obturador obturador;
+    
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+    
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+    
+    public Lentes getLente() {
+        return lente;
+    }
+    
+    public void setLente(Lentes lente) {
+        this.lente = lente;
+    }
 
     public Long getId() {
         return id;

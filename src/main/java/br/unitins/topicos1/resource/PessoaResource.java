@@ -62,7 +62,6 @@ public class PessoaResource {
     public PessoaResponseDTO create(PessoaDTO dto){
 
         Pessoa pessoa = new Pessoa();
-        pessoa.setId(dto.id());
         pessoa.setNome(dto.nome());
         pessoa.setCargo(dto.cargo());
         pessoa.setAniversario(dto.aniversario());
