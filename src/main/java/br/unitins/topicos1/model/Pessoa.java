@@ -2,16 +2,18 @@ package br.unitins.topicos1.model;
 
 import java.time.LocalDate;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-public class Pessoa extends PanacheEntity{
+public class Pessoa{
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(length = 200, nullable = false)
     private String nome;
@@ -81,7 +83,7 @@ public class Pessoa extends PanacheEntity{
     public String getCep() {
         return cep;
     }
-
+    
     public void setCep(String cep) {
         this.cep = cep;
     }
@@ -141,5 +143,6 @@ public class Pessoa extends PanacheEntity{
     public void setId(Long id) {
         this.id = id;
     }
+
 }
 

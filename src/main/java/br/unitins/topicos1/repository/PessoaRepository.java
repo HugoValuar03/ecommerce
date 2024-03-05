@@ -15,7 +15,6 @@ public class PessoaRepository implements PanacheRepository<Pessoa>{
         persist(pessoa);
         return pessoa;
     }
-
     
     public List<Pessoa> findByNome(String nome){
         return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase()  + "%").list();
