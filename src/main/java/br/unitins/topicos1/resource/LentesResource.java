@@ -65,6 +65,7 @@ public class LentesResource {
 
         lente.setNome(createLente.getNome());
         lente.setMarcaLente(createLente.getMarcaLente());
+        
 
         lente.persist();
 

@@ -75,6 +75,7 @@ public class PessoaResource {
         pessoa.setEstado(dto.estado());
 
         pessoaRepository.persist(pessoa);
+
         return PessoaResponseDTO.valueof(pessoa);
     }
 
@@ -94,5 +95,4 @@ public class PessoaResource {
     public void delete(@PathParam("id") Long id) {
         pessoaRepository.deleteById(id);
     }
-
 }

@@ -100,14 +100,14 @@ public class Cameras{
     }
 
     public Marca getMarca() {
-        return marca;
-    }
+		return marca;
+	}
 
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
 
-    public Sensor getSensor() {
+	public Sensor getSensor() {
         return sensor;
     }
 
@@ -129,14 +129,6 @@ public class Cameras{
 
     public void setResolucao(String resolucao) {
         this.resolucao = resolucao;
-    }
-
-    public Lentes getLentes() {
-        return lente;
-    }
-
-    public void setLentes(Lentes lente) {
-        this.lente = lente;
     }
 
     public Bateria getBateria() {

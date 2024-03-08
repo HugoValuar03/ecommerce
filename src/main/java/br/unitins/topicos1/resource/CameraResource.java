@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import java.util.List;
 
+import br.unitins.topicos1.dto.CamerasDTO;
 import br.unitins.topicos1.model.Cameras;
 import br.unitins.topicos1.repository.CamerasRepository;
 import jakarta.inject.Inject;
@@ -62,13 +63,12 @@ public class CameraResource {
 
     @POST  
     @Transactional
-    public Response createCameras(Cameras createCameras){
+    public CamerasDTO createCameras(CamerasDTO dto){
         Cameras cameras = new Cameras();
 
-        cameras.setNomeProduto(createCameras.getNomeProduto());
-        cameras.setMarca(createCameras.getMarca());
+        cameras.setNomeProduto(dto.nomeProduto());
 
-        cameras.persist();
+        CamerasRepository.pe;
 
         return Response.ok(cameras).build();
 

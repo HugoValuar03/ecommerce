@@ -16,13 +16,12 @@ public record PessoaResponseDTO(
     String cidade,
     String estado,
     String telefone,
-    LocalDate aniversario,
-    Long id
+    LocalDate aniversario
 
 ) {
 
     public static PessoaResponseDTO valueof(Pessoa pessoa){
-        return new PessoaResponseDTO(pessoa.getNome(), pessoa.getEmail(), pessoa.getCargo(), pessoa.getCpf(), pessoa.getCep(), pessoa.getEndereco(), pessoa.getComplemento(), pessoa.getCidade(), pessoa.getEstado(), pessoa.getTelefone(), pessoa.getAniversario(),pessoa.getId());      
+        return new PessoaResponseDTO(pessoa.getNome(), pessoa.getEmail(), pessoa.getCargo(), pessoa.getCpf(), pessoa.getCep(), pessoa.getEndereco(), pessoa.getComplemento(), pessoa.getCidade(), pessoa.getEstado(), pessoa.getTelefone(), pessoa.getAniversario());      
     }
  
 }
