@@ -11,8 +11,8 @@ public record BolsasResponseDTO(
     Marca marca,
     Modelo modelo,
     Cor cor,
-    Double largura,
-    Double altura
+    Integer largura,
+    Integer altura
 ) {
 
     public static BolsasResponseDTO valueof(Bolsas bolsas){

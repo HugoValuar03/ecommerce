@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -37,12 +39,26 @@ public class Bolsas {
     private Cor cor;
 
     @Column
-    private Double largura;
+    private Integer largura;
 
     @Column
-    private Double altura;
+    private Integer altura;
 
-    public String getNome() {
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
+
+    public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+
+	public String getNome() {
         return nome;
     }
 
@@ -102,22 +118,22 @@ public class Bolsas {
     }
 
 
-    public Double getLargura() {
+    public Integer getLargura() {
         return largura;
     }
 
 
-    public void setLargura(Double largura) {
+    public void setLargura(Integer largura) {
         this.largura = largura;
     }
 
 
-    public Double getAltura() {
+    public Integer getAltura() {
         return altura;
     }
 
 
-    public void setAltura(Double altura) {
+    public void setAltura(Integer altura) {
         this.altura = altura;
     }
 

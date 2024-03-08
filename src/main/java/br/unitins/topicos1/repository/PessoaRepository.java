@@ -11,10 +11,6 @@ import jakarta.transaction.Transactional;
 public class PessoaRepository implements PanacheRepository<Pessoa>{
 
     @Transactional// Se o método for bem-sucedido, todas as alterações no banco de dados serão confirmadas quando a transação for concluída. 
-    public Pessoa save(Pessoa pessoa) {
-        persist(pessoa);
-        return pessoa;
-    }
     
     public List<Pessoa> findByNome(String nome){
         return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase()  + "%").list();

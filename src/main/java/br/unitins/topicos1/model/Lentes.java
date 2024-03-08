@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -51,6 +53,10 @@ public class Lentes extends PanacheEntity{
     
     @Column 
     private Double peso;
+
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -128,7 +134,15 @@ public class Lentes extends PanacheEntity{
         return peso;
     }
 
-    public void setPeso(Double peso) {
+    public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public void setPeso(Double peso) {
         this.peso = peso;
     }
 
@@ -198,10 +212,10 @@ public class Lentes extends PanacheEntity{
         PERSPECTIVE_CONTROL("Perspective Control"),
         ANAMORPHIC("Anamórfica");
 
-        public String tipoLente;
+        public String lente;
 
         TipoLente(String tipoLente){
-            this.tipoLente = tipoLente;
+            this.lente = tipoLente;
         }
     }
 

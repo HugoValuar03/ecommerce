@@ -11,8 +11,8 @@ public record BolsasDTO(
     Marca marca,
     Modelo modelo,
     Cor cor,
-    Double largura,
-    Double altura
+    Integer largura,
+    Integer altura
 ){
 
 }

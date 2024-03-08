@@ -10,8 +10,8 @@ public record AcessoriosResponseDTO(
     Double preco,
     TipoAcessorio acessorio,
     Compatibilidade compatibilidade,
-    Double altura,
-    Double largura,
+    Integer altura,
+    Integer largura,
     String material,
     Double peso,
     Cor cor

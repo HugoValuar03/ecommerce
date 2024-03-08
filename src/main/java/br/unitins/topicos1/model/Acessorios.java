@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity //Indicação de que a classe está mapeada para uma tabela no banco de dados
@@ -29,10 +31,10 @@ public class Acessorios {
     private Compatibilidade compatibilidade;
 
     @Column
-    private Double altura;
+    private Integer altura;
 
     @Column 
-    private Double largura;
+    private Integer largura;
 
     @Column
     private String material;
@@ -42,6 +44,10 @@ public class Acessorios {
 
     @Column 
     private Cor cor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
     
     public enum TipoAcessorio{
         TRIPE("Tripé"),
@@ -49,14 +55,15 @@ public class Acessorios {
         FLASHS("Flashs"),
         BATERIAS("Baterias");
 
-        public String acessorio;
-
+        
+		public String acessorio;
+        
         TipoAcessorio(String acessorio){  // Construtor que recebe um parâmetro "acessorio" e inicializa o atributo "acessorio"
-            this.acessorio = acessorio;
-        }
+        this.acessorio = acessorio;
     }
+}
 
-    public enum Compatibilidade{
+public enum Compatibilidade{
         CANON("Canon"),
         NIKON("Nikon"),
         SONY("Sony"),
@@ -65,25 +72,24 @@ public class Acessorios {
         OLYMPUS("Olympus"),
         PENTAX("Pentax"),
         LEICA("Leica");
-
+        
         public String compatibilidade;
-
+        
         Compatibilidade(String compatibilidade) {
             this.compatibilidade = compatibilidade;
         }
     }
-
+    
     public enum Cor{
         PRETO("Preto"),
         BRANCO("Branco");
-
+        
         public String cor;
-
+        
         Cor(String cor){
             this.cor = cor;
         }
     }
-
 	public Long getIdAcessorio() {
 		return idAcessorio;
 	}
@@ -124,19 +130,19 @@ public class Acessorios {
 		this.compatibilidade = compatibilidade;
 	}
 
-	public Double getAltura() {
+	public Integer getAltura() {
 		return altura;
 	}
 
-	public void setAltura(Double altura) {
+	public void setAltura(Integer altura) {
 		this.altura = altura;
 	}
 
-	public Double getLargura() {
+	public Integer getLargura() {
 		return largura;
 	}
 
-	public void setLargura(Double largura) {
+	public void setLargura(Integer largura) {
 		this.largura = largura;
 	}
 
@@ -164,5 +170,12 @@ public class Acessorios {
 		this.cor = cor;
 	}
 
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
     
 }

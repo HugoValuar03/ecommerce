@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -66,6 +68,10 @@ public class Cameras{
     @Column
     @Enumerated(EnumType.STRING)
     private Obturador obturador;
+
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
     
     public String getNomeProduto() {
         return nomeProduto;
@@ -335,4 +341,11 @@ public class Cameras{
             this.obturador = obturador;
         }
     }
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
 }
