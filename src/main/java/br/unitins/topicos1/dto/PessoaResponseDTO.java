@@ -21,7 +21,19 @@ public record PessoaResponseDTO(
 ) {
 
     public static PessoaResponseDTO valueof(Pessoa pessoa){
-        return new PessoaResponseDTO(pessoa.getNome(), pessoa.getEmail(), pessoa.getCargo(), pessoa.getCpf(), pessoa.getCep(), pessoa.getEndereco(), pessoa.getComplemento(), pessoa.getCidade(), pessoa.getEstado(), pessoa.getTelefone(), pessoa.getAniversario());      
+        return new PessoaResponseDTO(
+            pessoa.getNome(), 
+            pessoa.getEmail(), 
+            pessoa.getCargo(), 
+            pessoa.getCpf(), 
+            pessoa.getCep(), 
+            pessoa.getEndereco(), 
+            pessoa.getComplemento(), 
+            pessoa.getCidade(), 
+            pessoa.getEstado(), 
+            pessoa.getTelefone(), 
+            pessoa.getAniversario()
+        );      
     }
  
 }

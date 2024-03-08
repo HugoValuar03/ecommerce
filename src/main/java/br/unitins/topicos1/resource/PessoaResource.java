@@ -87,6 +87,15 @@ public class PessoaResource {
 
         estadoBanco.setNome(dto.nome());
         estadoBanco.setCargo(dto.cargo());
+        estadoBanco.setCep(dto.cep());
+        estadoBanco.setCidade(dto.cidade());
+        estadoBanco.setComplemento(dto.complemento());
+        estadoBanco.setEmail(dto.email());
+        estadoBanco.setEndereco(dto.endereco());
+        estadoBanco.setEstado(dto.estado());
+        estadoBanco.setNome(dto.nome());
+        estadoBanco.setTelefone(dto.telefone());
+        
     }
 
     @DELETE //Chamado para deletar algum elemento, neste método, será deletado apartir o id passado

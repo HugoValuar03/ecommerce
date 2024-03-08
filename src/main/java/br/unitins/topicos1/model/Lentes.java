@@ -40,7 +40,7 @@ public class Lentes extends PanacheEntity{
     
     @Column 
     @Enumerated(EnumType.STRING)
-    private Lente lente;
+    private TipoLente tipoLente;
     
     @Column
     @Enumerated(EnumType.STRING)
@@ -52,12 +52,12 @@ public class Lentes extends PanacheEntity{
     @Column 
     private Double peso;
 
-    public String getNome() {
+    public String getNomeProduto() {
         return nomeProduto;
     }
 
-    public void setNome(String nome) {
-        this.nomeProduto = nome;
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public Double getPreco() {
@@ -100,12 +100,12 @@ public class Lentes extends PanacheEntity{
         this.abertura = abertura;
     }
 
-    public Lente getLente() {
-        return lente;
+    public TipoLente getLente() {
+        return tipoLente;
     }
 
-    public void setLente(Lente lente) {
-        this.lente = lente;
+    public void setLente(TipoLente tipoLente) {
+        this.tipoLente = tipoLente;
     }
 
     public Compatibilidade getCompatibilidade() {
@@ -191,17 +191,17 @@ public class Lentes extends PanacheEntity{
         }
     }
 
-    public enum Lente{
+    public enum TipoLente{
         PRIME("Lente Prime"),
         ZOOM("Lente Zoom"),
         TILT_SHIFT("Tilt-shift"),
         PERSPECTIVE_CONTROL("Perspective Control"),
         ANAMORPHIC("Anamórfica");
 
-        public String lente;
+        public String tipoLente;
 
-        Lente(String lente){
-            this.lente = lente;
+        TipoLente(String tipoLente){
+            this.tipoLente = tipoLente;
         }
     }
 

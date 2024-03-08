@@ -4,7 +4,6 @@ import br.unitins.topicos1.model.Cameras;
 
 public record CamerasResponseDTO (
 
-    Long id,
     String nomeProduto,
     Double preco,
     Cameras.Marca marca,
@@ -20,7 +19,21 @@ public record CamerasResponseDTO (
     String resolucao
 ) {
     public static CamerasResponseDTO valueof(Cameras cameras){
-        return new CamerasResponseDTO(cameras.getId(), cameras.getNomeProduto(), cameras.getPreco(), cameras.getMarca(), cameras.getSensor(), cameras.getBateria(), cameras.getFormatoAudio(), cameras.getFormatoImagem(), cameras.getFormatoVideo(), cameras.getIso(), cameras.getLente(),cameras.getObturador(), cameras.getProcessador(),cameras.getResolucao());
+        return new CamerasResponseDTO(
+            cameras.getNomeProduto(), 
+            cameras.getPreco(), 
+            cameras.getMarca(), 
+            cameras.getSensor(), 
+            cameras.getBateria(), 
+            cameras.getFormatoAudio(), 
+            cameras.getFormatoImagem(), 
+            cameras.getFormatoVideo(), 
+            cameras.getIso(), 
+            cameras.getLente(),
+            cameras.getObturador(), 
+            cameras.getProcessador(),
+            cameras.getResolucao()
+        );
     }
 
 }

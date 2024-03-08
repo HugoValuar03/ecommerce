@@ -3,6 +3,7 @@ package br.unitins.topicos1.resource;
 import java.util.List;
 
 import br.unitins.topicos1.dto.CamerasDTO;
+import br.unitins.topicos1.dto.CamerasResponseDTO;
 import br.unitins.topicos1.model.Cameras;
 import br.unitins.topicos1.repository.CamerasRepository;
 import jakarta.inject.Inject;
@@ -16,9 +17,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-
-
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -28,30 +26,50 @@ public class CameraResource {
     public CamerasRepository camerasRepository;
 
     @GET
-    public List<Cameras> findAll() {
-        return camerasRepository.listAll();
+    public List<CamerasResponseDTO> findAll() {
+        return camerasRepository
+        .listAll()
+        .stream()
+        .map(e -> CamerasResponseDTO.valueof(e)).toList();
     }
 
     @GET
     @Path("/search/nome/{nome}") 
-    public List<Cameras> findByNome(@PathParam("nome") String nome){
-        return camerasRepository.findByNomeProduto(nome);
+    public List<CamerasResponseDTO> findByNome(@PathParam("nome") String nome){
+        return camerasRepository
+        .findByNomeProduto(nome)
+        .stream()
+        .map(e -> CamerasResponseDTO.valueof(e)).toList();
     }
 
     @GET
     @Path("/search/cargo/{cargo}") 
-    public List<Cameras> findByCargo(@PathParam("marca") String marca){
-        return camerasRepository.findByMarca(marca);
+    public List<CamerasResponseDTO> findByCargo(@PathParam("marca") String marca){
+        return camerasRepository
+        .findByMarca(marca)
+        .stream()
+        .map(e -> CamerasResponseDTO.valueof(e)).toList();
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    public void update(@PathParam("id") Long id, Cameras cameras) {
+    public void update(@PathParam("id") Long id, CamerasDTO dto) {
         Cameras estadoBanco =  camerasRepository.findById(id);
 
-        estadoBanco.setNomeProduto(cameras.getNomeProduto());
-        estadoBanco.setMarca(cameras.getMarca());
+        estadoBanco.setNomeProduto(dto.nomeProduto());
+        estadoBanco.setMarca(dto.marca());
+        estadoBanco.setBateria(dto.bateria());
+        estadoBanco.setFormatoAudio(dto.formatoAudio());
+        estadoBanco.setFormatoImagem(dto.formatoImagem());
+        estadoBanco.setFormatoVideo(dto.formatoVideo());
+        estadoBanco.setIso(dto.iso());
+        estadoBanco.setLente(dto.lentes());
+        estadoBanco.setObturador(dto.obturador());
+        estadoBanco.setPreco(dto.preco());
+        estadoBanco.setProcessador(dto.processador());
+        estadoBanco.setSensor(dto.sensor());
+
     }
 
     @DELETE
@@ -63,14 +81,25 @@ public class CameraResource {
 
     @POST  
     @Transactional
-    public CamerasDTO createCameras(CamerasDTO dto){
+    public CamerasResponseDTO createCameras(CamerasDTO dto){
         Cameras cameras = new Cameras();
 
         cameras.setNomeProduto(dto.nomeProduto());
+        cameras.setBateria(dto.bateria());
+        cameras.setFormatoAudio(dto.formatoAudio());
+        cameras.setFormatoImagem(dto.formatoImagem());
+        cameras.setFormatoVideo(dto.formatoVideo());
+        cameras.setIso(dto.iso());
+        cameras.setLente(dto.lentes());
+        cameras.setMarca(dto.marca());
+        cameras.setObturador(dto.obturador());
+        cameras.setPreco(dto.preco());
+        cameras.setProcessador(dto.processador());
+        cameras.setSensor(dto.sensor());
 
-        CamerasRepository.pe;
+        camerasRepository.persist(cameras);
 
-        return Response.ok(cameras).build();
+        return CamerasResponseDTO.valueof(cameras);
 
     }
 }

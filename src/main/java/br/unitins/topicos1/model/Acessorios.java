@@ -35,7 +35,7 @@ public class Acessorios {
     private Double largura;
 
     @Column
-    private String Material;
+    private String material;
 
     @Column 
     private Double peso;
@@ -83,4 +83,86 @@ public class Acessorios {
             this.cor = cor;
         }
     }
+
+	public Long getIdAcessorio() {
+		return idAcessorio;
+	}
+
+	public void setIdAcessorio(Long idAcessorio) {
+		this.idAcessorio = idAcessorio;
+	}
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public TipoAcessorio getAcessorio() {
+		return acessorio;
+	}
+
+	public void setAcessorio(TipoAcessorio acessorio) {
+		this.acessorio = acessorio;
+	}
+
+	public Compatibilidade getCompatibilidade() {
+		return compatibilidade;
+	}
+
+	public void setCompatibilidade(Compatibilidade compatibilidade) {
+		this.compatibilidade = compatibilidade;
+	}
+
+	public Double getAltura() {
+		return altura;
+	}
+
+	public void setAltura(Double altura) {
+		this.altura = altura;
+	}
+
+	public Double getLargura() {
+		return largura;
+	}
+
+	public void setLargura(Double largura) {
+		this.largura = largura;
+	}
+
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+
+	public Double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Double peso) {
+		this.peso = peso;
+	}
+
+	public Cor getCor() {
+		return cor;
+	}
+
+	public void setCor(Cor cor) {
+		this.cor = cor;
+	}
+
+    
 }
