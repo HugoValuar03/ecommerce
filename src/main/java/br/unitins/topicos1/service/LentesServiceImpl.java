@@ -88,11 +88,11 @@ public class LentesServiceImpl implements LentesService {
            
            lentes.setNomeProduto(dto.nomeProduto());
            lentes.setPreco(dto.preco());
-           lentes.setMaterial(dto.mate);
-           lentes.set
-           lentes.set
-           lentes.set
-           lentes.set
+           lentes.setMaterial(dto.material());
+           lentes.setAbertura(dto.abertura());
+           lentes.setCompatibilidade(dto.compatibilidade());
+           lentes.setDistanciaFocal(dto.distanciaFocal());
+           lentes.setFornecedor(dto.f);
     //     Pessoa pessoa = new Pessoa();
     //     pessoa.setNome(dto.nome());
 

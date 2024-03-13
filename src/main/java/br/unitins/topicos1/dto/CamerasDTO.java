@@ -12,12 +12,14 @@ import br.unitins.topicos1.model.Cameras.Sensor;
 
 public record CamerasDTO(
 
+    String nomeProduto,
     String marca, 
     Sensor sensor, 
     Bateria bateria, 
     FormatoAudio formatoAudio, 
     FormatoImagem formatoImagem, 
     FormatoVideo formatoVideo, 
+    Double preco,
     Iso iso, 
     Lentes lentes, 
     Obturador obturador, 

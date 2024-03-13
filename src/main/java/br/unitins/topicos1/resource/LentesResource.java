@@ -92,7 +92,7 @@ public class LentesResource {
         lente.setPreco(dto.preco());
         lente.setTipoMontagem(dto.tipoMontagem());
     
-        lente.persist();
+        lentesRepository.persist(lente);
 
         return LentesResponseDTO.valueOf(lente);
 
