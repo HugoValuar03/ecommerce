@@ -63,8 +63,8 @@ public class BolsasResource {
         estadoBanco.setLargura(dto.largura());
         estadoBanco.setMarca(dto.marca());
         estadoBanco.setModelo(dto.modelo());
-        estadoBanco.setNome(dto.nome());
-        estadoBanco.setValor(dto.valor());
+        estadoBanco.setNomeProduto(dto.nome());
+        estadoBanco.setPreco(dto.valor());
 
     }
 
@@ -85,8 +85,8 @@ public class BolsasResource {
         bolsas.setLargura(dto.largura());
         bolsas.setMarca(dto.marca());
         bolsas.setModelo(dto.modelo());
-        bolsas.setNome(dto.nome());
-        bolsas.setValor(dto.valor());
+        bolsas.setNomeProduto(dto.nome());
+        bolsas.setPreco(dto.valor());
 
         bolsasRepository.persist(bolsas);
 

@@ -20,7 +20,7 @@ public record PessoaResponseDTO(
 
 ) {
 
-    public static PessoaResponseDTO valueof(Pessoa pessoa){
+    public static PessoaResponseDTO valueOf(Pessoa pessoa){
         return new PessoaResponseDTO(
             pessoa.getNome(), 
             pessoa.getEmail(), 

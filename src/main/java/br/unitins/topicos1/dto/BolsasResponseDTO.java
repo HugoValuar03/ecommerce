@@ -2,13 +2,12 @@ package br.unitins.topicos1.dto;
 
 import br.unitins.topicos1.model.Bolsas;
 import br.unitins.topicos1.model.Bolsas.Cor;
-import br.unitins.topicos1.model.Bolsas.Marca;
 import br.unitins.topicos1.model.Bolsas.Modelo;
 
 public record BolsasResponseDTO(
-    Double valor,
+    Double preco,
     String nome,
-    Marca marca,
+    String marca,
     Modelo modelo,
     Cor cor,
     Integer largura,
@@ -17,8 +16,8 @@ public record BolsasResponseDTO(
 
     public static BolsasResponseDTO valueof(Bolsas bolsas){
         return new BolsasResponseDTO(
-        bolsas.getValor(),
-        bolsas.getNome(),
+        bolsas.getPreco(),
+        bolsas.getNomeProduto(),
         bolsas.getMarca(),
         bolsas.getModelo(),
         bolsas.getCor(),

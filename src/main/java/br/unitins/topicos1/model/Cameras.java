@@ -9,26 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Cameras{
+public class Cameras extends Produto{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
-    @NotBlank(message = "Nome da camera é obrigatório")
-    private String nomeProduto;
-
-    @Column
-    @NotBlank(message = "O preço do produto é obrigatório")
-    private Double preco;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Marca marca;
+    private Long idCameras;
     
     @Column
     @Enumerated(EnumType.STRING)
@@ -72,48 +59,16 @@ public class Cameras{
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
-    
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
-    
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
-    
-    public Lentes getLente() {
-        return lente;
-    }
-    
-    public void setLente(Lentes lente) {
-        this.lente = lente;
+
+    public Long getIdCameras() {
+        return idCameras;
     }
 
-    public Long getId() {
-        return id;
+    public void setIdCameras(Long idCameras) {
+        this.idCameras = idCameras;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
-
-    public Marca getMarca() {
-		return marca;
-	}
-
-	public void setMarca(Marca marca) {
-		this.marca = marca;
-	}
-
-	public Sensor getSensor() {
+    public Sensor getSensor() {
         return sensor;
     }
 
@@ -135,6 +90,14 @@ public class Cameras{
 
     public void setResolucao(String resolucao) {
         this.resolucao = resolucao;
+    }
+
+    public Lentes getLente() {
+        return lente;
+    }
+
+    public void setLente(Lentes lente) {
+        this.lente = lente;
     }
 
     public Bateria getBateria() {
@@ -185,20 +148,28 @@ public class Cameras{
         this.obturador = obturador;
     }
 
-    public enum Marca{
+    public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
 
-        CANON("Canon"),
-        NIKON("Nikon"),
-        SONY("Sony"),
-        FUJFILM("Fujfilm"),
-        PANASONIC("Panasonic");
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+    // public enum Marca{
+
+    //     CANON("Canon"),
+    //     NIKON("Nikon"),
+    //     SONY("Sony"),
+    //     FUJFILM("Fujfilm"),
+    //     PANASONIC("Panasonic");
     
-        public String marca;
+    //     public String marca;
     
-        Marca(String marca){
-            this.marca = marca;
-        }
-    }
+    //     Marca(String marca){
+    //         this.marca = marca;
+    //     }
+    // }
 
     public enum Sensor{
         FULL_FRAME("Full Frame"),
@@ -341,11 +312,6 @@ public class Cameras{
             this.obturador = obturador;
         }
     }
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
+    
+	
 }

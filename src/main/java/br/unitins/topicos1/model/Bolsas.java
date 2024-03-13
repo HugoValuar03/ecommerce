@@ -9,26 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Bolsas {
+public class Bolsas extends Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    @NotBlank(message = "O campo nome é obrigatório")
-    private String nome;
-
-    @Column
-    @NotBlank(message = "Coloque o preço")
-    private Double valor;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Marca marca;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -38,12 +25,6 @@ public class Bolsas {
     @Enumerated(EnumType.STRING)
     private Cor cor;
 
-    @Column
-    private Integer largura;
-
-    @Column
-    private Integer altura;
-
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
@@ -52,108 +33,50 @@ public class Bolsas {
 		return fornecedor;
 	}
 
-
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-
-
-	public String getNome() {
-        return nome;
-    }
-
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
 
     public Long getId() {
         return id;
     }
 
-
     public void setId(Long id) {
         this.id = id;
     }
-
-
-    public Double getValor() {
-        return valor;
-    }
-
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-
-    public Marca getMarca() {
-        return marca;
-    }
-
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
 
     public Modelo getModelo() {
         return modelo;
     }
 
-
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
-
 
     public Cor getCor() {
         return cor;
     }
 
-
     public void setCor(Cor cor) {
         this.cor = cor;
     }
 
-
-    public Integer getLargura() {
-        return largura;
-    }
-
-
-    public void setLargura(Integer largura) {
-        this.largura = largura;
-    }
-
-
-    public Integer getAltura() {
-        return altura;
-    }
-
-
-    public void setAltura(Integer altura) {
-        this.altura = altura;
-    }
-
-
-    public enum Marca {
-        LOWEPRO("Lowepro"),
-        PEAK_DESIGN("Peak Design"),
-        THINK_TANK_PHOTO("Think Tank Photo"),
-        MANFROTTO("Manfrotto"),
-        BILLINGHAM("Billigham"),
-        TENBA("Tenba"),
-        DOMKE("Domke"),
-        ONA("Ona");
+    // public enum Marca {
+    //     LOWEPRO("Lowepro"),
+    //     PEAK_DESIGN("Peak Design"),
+    //     THINK_TANK_PHOTO("Think Tank Photo"),
+    //     MANFROTTO("Manfrotto"),
+    //     BILLINGHAM("Billigham"),
+    //     TENBA("Tenba"),
+    //     DOMKE("Domke"),
+    //     ONA("Ona");
         
-	    public String descricao;
+	//     public String descricao;
 
-        Marca(String descricao){ 
-            this.descricao = descricao;
-        }
-    }
+    //     Marca(String descricao){ 
+    //         this.descricao = descricao;
+    //     }
+    // }
 
     public enum Modelo{
         BACKPACK("Mochila"),
@@ -183,4 +106,7 @@ public class Bolsas {
             this.cor = cor;
         }
     }
+
+
+    
 }

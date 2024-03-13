@@ -43,15 +43,6 @@ public class FornecedorResource {
         .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
     }
 
-    @GET
-    @Path("/search/cargo/{cargo}") 
-    public List<FornecedorResponseDTO> findByCnpj(@PathParam("marca") String marca){
-        return fornecedorRepository
-        .findByCnpj(marca)
-        .stream()
-        .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
-    }
-
     @PUT
     @Transactional
     @Path("/{id}")

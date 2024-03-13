@@ -9,12 +9,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class FornecedorRepository implements PanacheRepository<Fornecedor> {
     
-    public List<Fornecedor> findByNome(String nomeFornecedor){
-        return find("UPPER(nomeFornecedor) LIKE ?1", "%" + nomeFornecedor.toUpperCase() + "%").list();
+    public List<Fornecedor> findByNome(String nome){
+        return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
 
     public List<Fornecedor> findByCnpj(String cnpj){
-        return find("UPPER(marcaProduto) LIKE ?1", "%" + cnpj.toUpperCase() + "%").list();
+        return find("UPPER(cnpj) LIKE ?1", "%" + cnpj.toUpperCase() + "%").list();
         
     }
     

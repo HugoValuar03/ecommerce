@@ -4,9 +4,7 @@ import br.unitins.topicos1.model.Cameras;
 
 public record CamerasResponseDTO (
 
-    String nomeProduto,
-    Double preco,
-    Cameras.Marca marca,
+    String marca,
     Cameras.Sensor sensor,
     Cameras.Bateria bateria,
     Cameras.FormatoAudio formatoAudio,
@@ -17,11 +15,12 @@ public record CamerasResponseDTO (
     Cameras.Obturador obturador,
     Cameras.Processador processador,
     String resolucao
+
+
 ) {
+
     public static CamerasResponseDTO valueof(Cameras cameras){
         return new CamerasResponseDTO(
-            cameras.getNomeProduto(), 
-            cameras.getPreco(), 
             cameras.getMarca(), 
             cameras.getSensor(), 
             cameras.getBateria(), 

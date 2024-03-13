@@ -1,33 +1,27 @@
 package br.unitins.topicos1.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Lentes extends PanacheEntity{
-    
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id;
-
-    @Column(length = 200, nullable = false)
-    @NotBlank(message = "O campo Nome é obrigatório")
-    private String nomeProduto;
-
-    @Column
-    @NotBlank(message = "O preço é obrigatório")
-    private Double preco;
+public class Lentes extends Produto{
+     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idLentes;
 
     @Column
     @Enumerated(EnumType.STRING)
     private TipoMontagem tipoMontagem;
-
+    
     @Column
     @NotBlank(message = "A marca é obrigatória")
     private String marcaLente;
@@ -51,35 +45,32 @@ public class Lentes extends PanacheEntity{
     @Column
     private String dimensoes;
     
-    @Column 
-    private Double peso;
-
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
-
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
-
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
+    
+    public void setTipoMontagem(TipoMontagem tipoMontagem) {
+        this.tipoMontagem = tipoMontagem;
     }
 
     public TipoMontagem getTipoMontagem() {
         return tipoMontagem;
     }
 
-    public void setTipoMontagem(TipoMontagem tipoMontagem) {
-        this.tipoMontagem = tipoMontagem;
+    public Long getIdLentes() {
+        return idLentes;
+    }
+
+    public void setIdLentes(Long idLentes) {
+        this.idLentes = idLentes;
+    }
+
+    public TipoLente getTipoLente() {
+        return tipoLente;
+    }
+
+    public void setTipoLente(TipoLente tipoLente) {
+        this.tipoLente = tipoLente;
     }
 
     public String getMarcaLente() {
@@ -88,6 +79,22 @@ public class Lentes extends PanacheEntity{
 
     public void setMarcaLente(String marcaLente) {
         this.marcaLente = marcaLente;
+    }
+
+    public String getDimensoes() {
+        return dimensoes;
+    }
+
+    public void setDimensoes(String dimensoes) {
+        this.dimensoes = dimensoes;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public DistanciaFocal getDistanciaFocal() {
@@ -122,29 +129,6 @@ public class Lentes extends PanacheEntity{
         this.compatibilidade = compatibilidade;
     }
 
-    public String getDimensoes() {
-        return dimensoes;
-    }
-
-    public void setDimensoes(String dimensoes) {
-        this.dimensoes = dimensoes;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
-	public void setPeso(Double peso) {
-        this.peso = peso;
-    }
 
     public enum TipoMontagem{
         CANON_EF("Canon EF"),

@@ -1,6 +1,5 @@
 package br.unitins.topicos1.dto;
 
-import br.unitins.topicos1.model.Cameras.Marca;
 import br.unitins.topicos1.model.Cameras.Bateria;
 import br.unitins.topicos1.model.Cameras.FormatoAudio;
 import br.unitins.topicos1.model.Cameras.FormatoImagem;
@@ -12,9 +11,8 @@ import br.unitins.topicos1.model.Cameras.Processador;
 import br.unitins.topicos1.model.Cameras.Sensor;
 
 public record CamerasDTO(
-    String nomeProduto, 
-    Double preco, 
-    Marca marca, 
+
+    String marca, 
     Sensor sensor, 
     Bateria bateria, 
     FormatoAudio formatoAudio, 
