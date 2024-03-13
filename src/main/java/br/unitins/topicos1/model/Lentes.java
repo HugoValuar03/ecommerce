@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Lentes extends Produto{
@@ -21,10 +20,6 @@ public class Lentes extends Produto{
     @Column
     @Enumerated(EnumType.STRING)
     private TipoMontagem tipoMontagem;
-    
-    @Column
-    @NotBlank(message = "A marca é obrigatória")
-    private String marcaLente;
     
     @Column
     @Enumerated(EnumType.STRING)
@@ -71,14 +66,6 @@ public class Lentes extends Produto{
 
     public void setTipoLente(TipoLente tipoLente) {
         this.tipoLente = tipoLente;
-    }
-
-    public String getMarcaLente() {
-        return marcaLente;
-    }
-
-    public void setMarcaLente(String marcaLente) {
-        this.marcaLente = marcaLente;
     }
 
     public String getDimensoes() {

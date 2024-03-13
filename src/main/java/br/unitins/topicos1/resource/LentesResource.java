@@ -1,13 +1,10 @@
 package br.unitins.topicos1.resource;
 
-import java.util.List;
-
 import br.unitins.topicos1.dto.LentesDTO;
-import br.unitins.topicos1.dto.LentesResponseDTO;
-import br.unitins.topicos1.model.Lentes;
-import br.unitins.topicos1.repository.LentesRepository;
+import br.unitins.topicos1.service.LentesService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -17,84 +14,61 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/admin/lentes")
 public class LentesResource {
+    
     @Inject
-    public LentesRepository lentesRepository;
+    public LentesService lentesService;
 
     @GET
-    public List<LentesResponseDTO> findAll() {
-        return lentesRepository
-        .listAll()
-        .stream()
-        .map(e -> LentesResponseDTO.valueOf(e)).toList();
+    public Response findAll() {
+        return Response.ok(lentesService.findAll()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id") Long id){
+        return Response.ok(lentesService.findAll()).build();
     }
 
     @GET
     @Path("/search/nome/{nome}") 
-    public List<LentesResponseDTO> findByNome(@PathParam("nome") String nome){
-        return lentesRepository
-        .findByNome(nome)
-        .stream()
-        .map(e -> LentesResponseDTO.valueOf(e)).toList();
+    public Response findByNome(@PathParam("nome") String nome){
+        return Response.ok(lentesService.findByNome(nome)).build();
     }
 
     @GET
-    @Path("/search/cargo/{cargo}") 
-    public List<LentesResponseDTO> findByMarca(@PathParam("marca") String marca){
-        return lentesRepository
-        .findByMarca(marca)
-        .stream()
-        .map(e -> LentesResponseDTO.valueOf(e)).toList();
+    @Path("/search/cargo/{marca}") 
+    public Response findByMarca(@PathParam("marca") String marca){
+        return Response.ok(lentesService.findByMarca(marca)).build();
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    public void update(@PathParam("id") Long id, LentesDTO dto) {
-        Lentes estadoBanco =  lentesRepository.findById(id);
+    public Response update(@PathParam("id") Long id, LentesDTO dto) {
+        lentesService.update(id, dto);
 
-        estadoBanco.setNomeProduto(dto.nomeProduto());
-        estadoBanco.setMarcaLente(dto.marcaLente());
-        estadoBanco.setAbertura(dto.abertura());
-        estadoBanco.setCompatibilidade(dto.compatibilidade());
-        estadoBanco.setDimensoes(dto.dimensoes());
-        estadoBanco.setDistanciaFocal(dto.distanciaFocal());
-        estadoBanco.setLente(dto.lentes());
-        estadoBanco.setPeso(dto.peso());
-        estadoBanco.setPreco(dto.preco());
-        estadoBanco.setTipoMontagem(dto.tipoMontagem());
+        return Response.status(Status.NO_CONTENT).build();
 
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
-        lentesRepository.deleteById(id);
+    public Response delete(@PathParam("id") Long id) {
+        lentesService.delete(id);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @POST  
     @Transactional
-    public LentesResponseDTO createLente(LentesDTO dto){
-        Lentes lente = new Lentes();
-
-        lente.setNomeProduto(dto.nomeProduto());
-        lente.setMarcaLente(dto.marcaLente());
-        lente.setAbertura(dto.abertura());
-        lente.setCompatibilidade(dto.compatibilidade());
-        lente.setDimensoes(dto.dimensoes());
-        lente.setDistanciaFocal(dto.distanciaFocal());
-        lente.setLente(dto.lentes());
-        lente.setPeso(dto.peso());
-        lente.setPreco(dto.preco());
-        lente.setTipoMontagem(dto.tipoMontagem());
-    
-        lentesRepository.persist(lente);
-
-        return LentesResponseDTO.valueOf(lente);
-
+    public Response createLente(@Valid LentesDTO dto){
+        return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
     }
 }

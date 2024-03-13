@@ -24,7 +24,7 @@ public record LentesDTO(
 
     @NotBlank(message = "Marca de lente necessario")
     @Size(min = 3, max = 10, message = "Deve ter entre 3 e 10 caracteres")
-    String marcaLente, 
+    String marca, 
 
     @NotBlank(message = "Marca de lente necessario")
     @Size(min = 3, max = 10, message = "Deve ter entre 3 e 10 caracteres")

@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Pessoa{
+public class Funcionario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

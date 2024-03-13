@@ -1,7 +1,7 @@
 package br.unitins.topicos1.resource;
 
-import br.unitins.topicos1.dto.PessoaDTO;
-import br.unitins.topicos1.service.PessoaService;
+import br.unitins.topicos1.dto.FuncionarioDTO;
+import br.unitins.topicos1.service.FuncionarioService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -18,21 +18,21 @@ import jakarta.ws.rs.core.Response.Status;
 @Produces(MediaType.APPLICATION_JSON) //Usada para fornecer instâncias de objetos que podem ser injetadas em outros componentes da aplicação
 @Consumes(MediaType.APPLICATION_JSON) //Usada para indicar que um método de um recurso web ou um endpoint de serviço web pode consumir uma determinada representação de dados recebida  em uma solicitação HTTP.
 @Path("/admin/pessoas") //Define o caminho da pesquisa, ex: "localhost:8080/admin/pessoas"
-public class PessoaResource {
+public class FuncionarioResource {
 
     @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo contêiner CDI.
-    public PessoaService pessoaService;
+    public FuncionarioService funcionarioService;
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id")Long id){
-        return Response.ok(pessoaService.findById(id)).build(); 
+        return Response.ok(funcionarioService.findById(id)).build(); 
     }
 
     @GET //Usado para retornar uma solicitação feita pelo usuário.
     @Path("/retorno")
     public Response findAll(){
-        return Response.ok(pessoaService.findAll()).build();
+        return Response.ok(funcionarioService.findAll()).build();
     }
         // public List<PessoaResponseDTO> findAll() { //Declara uma lista de objetos do tipo `Pessoa`
         //     Object pessoaRepository;
@@ -45,7 +45,7 @@ public class PessoaResource {
     @GET
     @Path("/search/nome/{nome}") //Neste caso o caminho será "localhost:8080/admin/pesoas/search/nome/{Nome passado pelo usuário}".
     public  Response findByName(@PathParam("nome") String nome){
-        return Response.ok(pessoaService.findByNome(nome)).build();
+        return Response.ok(funcionarioService.findByNome(nome)).build();
     }
     // public List<PessoaResponseDTO> findByNome(@PathParam("nome") String nome){
         //     return pessoaRepository
@@ -57,13 +57,13 @@ public class PessoaResource {
     @GET
     @Path("/search/cargo/{cargo}") 
     public Response findByCargo(@PathParam("cargo") String cargo){
-        return Response.ok(pessoaService.findByCargo(cargo)).build();
+        return Response.ok(funcionarioService.findByCargo(cargo)).build();
     }
 
     @POST //Chamado para criar um novo objeto de Pessoa
-    public Response create(PessoaDTO dto){
+    public Response create(FuncionarioDTO dto){
         
-        return Response.status(Status.CREATED).entity(pessoaService.create(dto)).build();
+        return Response.status(Status.CREATED).entity(funcionarioService.create(dto)).build();
         // Pessoa pessoa = new Pessoa();
         // pessoa.setNome(dto.nome());
         // pessoa.setCargo(dto.cargo());
@@ -83,9 +83,9 @@ public class PessoaResource {
 
     @PUT //Chamado quando para atualizar algum dado
     @Path("/{id}") //"localhost:8080/admin/pessoas/{id que o usuario passar}"
-    public Response update(@PathParam("id") Long id, PessoaDTO dto) {
+    public Response update(@PathParam("id") Long id, FuncionarioDTO dto) {
 
-        pessoaService.update(id, dto);
+        funcionarioService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
 
         // Pessoa estadoBanco =  pessoaRepository.findById(id);
@@ -106,7 +106,7 @@ public class PessoaResource {
     @DELETE //Chamado para deletar algum elemento, neste método, será deletado apartir o id passado
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        pessoaService.delete(id);
+        funcionarioService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
         // pessoaRepository.deleteById(id);
     }

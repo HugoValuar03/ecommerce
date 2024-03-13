@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record PessoaDTO(
+public record FuncionarioDTO(
     
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 65, message = "O Tamanho deve ser entre 3 e 65 caracteres")
