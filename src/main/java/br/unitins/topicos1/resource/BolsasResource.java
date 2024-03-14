@@ -1,11 +1,7 @@
 package br.unitins.topicos1.resource;
 
-import java.util.List;
-
 import br.unitins.topicos1.dto.BolsasDTO;
-import br.unitins.topicos1.dto.BolsasResponseDTO;
-import br.unitins.topicos1.model.Bolsas;
-import br.unitins.topicos1.repository.BolsasRepoistory;
+import br.unitins.topicos1.service.BolsasService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -17,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -24,73 +22,44 @@ import jakarta.ws.rs.core.MediaType;
 public class BolsasResource {
     
     @Inject
-    private BolsasRepoistory bolsasRepository;
+    private BolsasService bolsasService;
 
     @GET
-    public List<BolsasResponseDTO> findAll() {
-        return bolsasRepository
-        .listAll()
-        .stream()
-        .map(e -> BolsasResponseDTO.valueof(e)).toList();
+    public Response findAll() {
+        return Response.ok(bolsasService.findAll()).build();
     }
 
     @GET
     @Path("/search/nome/{nome}") 
-    public List<BolsasResponseDTO> findByNome(@PathParam("nome") String nome){
-        return bolsasRepository
-        .findByNome(nome)
-        .stream()
-        .map(e -> BolsasResponseDTO.valueof(e)).toList();
+    public Response findByNome(@PathParam("nome") String nome){
+        return Response.ok(bolsasService.findByNome(nome)).build();
     }
 
     @GET
-    @Path("/search/cargo/{cargo}") 
-    public List<BolsasResponseDTO> findByCargo(@PathParam("marca") String marca){
-        return bolsasRepository
-        .findByMarca(marca)
-        .stream()
-        .map(e -> BolsasResponseDTO.valueof(e)).toList();
+    @Path("/search/marca/{marca}") 
+    public  Response findByMarca(@PathParam("marca") String marca){
+        return Response.ok(bolsasService.findByMarca(marca)).build();
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    public void update(@PathParam("id") Long id, BolsasDTO dto) {
-        Bolsas estadoBanco =  bolsasRepository.findById(id);
-
-        estadoBanco.setAltura(dto.altura());
-        estadoBanco.setCor(dto.cor());
-        estadoBanco.setLargura(dto.largura());
-        estadoBanco.setMarca(dto.marca());
-        estadoBanco.setModelo(dto.modelo());
-        estadoBanco.setNomeProduto(dto.nome());
-        estadoBanco.setPreco(dto.valor());
-
+    public Response update(@PathParam("id") Long id, BolsasDTO dto) {
+        bolsasService.update(id, dto);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
-        bolsasRepository.deleteById(id);
+    public Response delete(@PathParam("id") Long id) {
+        bolsasService.delete(id);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @POST  
     @Transactional
-    public BolsasResponseDTO createCameras(BolsasDTO dto){
-        Bolsas bolsas = new Bolsas();
-
-        bolsas.setAltura(dto.altura());
-        bolsas.setCor(dto.cor());
-        bolsas.setLargura(dto.largura());
-        bolsas.setMarca(dto.marca());
-        bolsas.setModelo(dto.modelo());
-        bolsas.setNomeProduto(dto.nome());
-        bolsas.setPreco(dto.valor());
-
-        bolsasRepository.persist(bolsas);
-
-        return BolsasResponseDTO.valueof(bolsas);
-
+    public Response create(BolsasDTO dto){
+        return Response.status(Status.CREATED).entity(bolsasService.create(dto)).build();
     }
 }

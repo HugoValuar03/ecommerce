@@ -69,7 +69,7 @@ public class AcessoriosResource {
 
     @POST  
     @Transactional
-    public AcessoriosResponseDTO createCameras(AcessoriosDTO dto){
+    public AcessoriosResponseDTO create(AcessoriosDTO dto){
         Acessorios acessorios = new Acessorios();
 
         acessorios.setAcessorio(dto.acessorio());

@@ -1,13 +1,10 @@
 package br.unitins.topicos1.resource;
 
-import java.util.List;
-
 import br.unitins.topicos1.dto.FornecedorDTO;
-import br.unitins.topicos1.dto.FornecedorResponseDTO;
-import br.unitins.topicos1.model.Fornecedor;
-import br.unitins.topicos1.repository.FornecedorRepository;
+import br.unitins.topicos1.service.FornecedorService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -17,6 +14,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -24,60 +23,44 @@ import jakarta.ws.rs.core.MediaType;
 public class FornecedorResource {
     
     @Inject
-    public FornecedorRepository fornecedorRepository;
+    public FornecedorService fornecedorService;
 
     @GET
-    public List<FornecedorResponseDTO> findAll() {
-        return fornecedorRepository
-        .listAll()
-        .stream()
-        .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
+    public Response findAll() {
+        return Response.ok(fornecedorService.findAll()).build();
     }
 
     @GET
     @Path("/search/nome/{nome}") 
-    public List<FornecedorResponseDTO> findByNome(@PathParam("nome") String nome){
-        return fornecedorRepository
-        .findByNome(nome)
-        .stream()
-        .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
+    public Response findByNome(@PathParam("nome") String nome){
+            return Response.ok(fornecedorService.findByNome(nome)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id")Long id){
+        return Response.ok(fornecedorService.findById(id)).build(); 
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    public void update(@PathParam("id") Long id, FornecedorDTO dto) {
-        Fornecedor estadoBanco =  fornecedorRepository.findById(id);
-
-        estadoBanco.setNome(dto.nome());
-        estadoBanco.setEndereco(dto.endereco());
-        estadoBanco.setCnpj(dto.cnpj());
-        estadoBanco.setEmail(dto.email());
-        estadoBanco.setTelefone(dto.telefone());
-
+    public Response update(@PathParam("id") Long id, FornecedorDTO dto) {
+        fornecedorService.update(id, dto);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
-        fornecedorRepository.deleteById(id);
+    public Response delete(@PathParam("id") Long id) {
+        fornecedorService.delete(id);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @POST  
     @Transactional
-    public FornecedorResponseDTO createLente(FornecedorDTO dto){
-        Fornecedor fornecedor = new Fornecedor();
-
-        fornecedor.setNome(dto.nome());
-        fornecedor.setEndereco(dto.endereco());
-        fornecedor.setCnpj(dto.cnpj());
-        fornecedor.setEmail(dto.email());
-        fornecedor.setTelefone(dto.telefone());
-    
-        fornecedorRepository.persist(fornecedor);
-
-        return FornecedorResponseDTO.valueOf(fornecedor);
-
+    public Response create(@Valid FornecedorDTO dto){
+        return Response.status(Status.CREATED).entity(fornecedorService.create(dto)).build();
     }
 }

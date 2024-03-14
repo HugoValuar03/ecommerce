@@ -43,7 +43,7 @@ public class LentesResource {
     }
 
     @GET
-    @Path("/search/cargo/{marca}") 
+    @Path("/search/marca/{marca}") 
     public Response findByMarca(@PathParam("marca") String marca){
         return Response.ok(lentesService.findByMarca(marca)).build();
     }
@@ -68,7 +68,7 @@ public class LentesResource {
 
     @POST  
     @Transactional
-    public Response createLente(@Valid LentesDTO dto){
+    public Response create(@Valid LentesDTO dto){
         return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
     }
 }

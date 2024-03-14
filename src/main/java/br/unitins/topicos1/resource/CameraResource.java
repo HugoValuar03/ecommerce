@@ -36,7 +36,7 @@ public class CameraResource {
     }
 
     @GET
-    @Path("/search/cargo/{marca}") 
+    @Path("/search/marca/{marca}") 
     public Response findByCargo(@PathParam("marca") String marca){
         return Response.ok(camerasService.findByMarca(marca)).build();
     }
@@ -55,7 +55,7 @@ public class CameraResource {
     }
 
     @POST  
-    public Response createCameras(@Valid CamerasDTO dto){
+    public Response create(@Valid CamerasDTO dto){
         return Response.status(Status.CREATED).entity(camerasService.create(dto)).build();
     }
 }
