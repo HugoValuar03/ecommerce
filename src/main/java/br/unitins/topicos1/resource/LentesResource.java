@@ -53,10 +53,8 @@ public class LentesResource {
     @Path("/{id}")
     public Response update(@PathParam("id") Long id, LentesDTO dto) {
         lentesService.update(id, dto);
-
         return Response.status(Status.NO_CONTENT).build();
-
-    }
+   }
 
     @DELETE
     @Transactional

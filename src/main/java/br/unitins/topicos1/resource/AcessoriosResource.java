@@ -1,11 +1,7 @@
 package br.unitins.topicos1.resource;
 
-import java.util.List;
-
 import br.unitins.topicos1.dto.AcessoriosDTO;
-import br.unitins.topicos1.dto.AcessoriosResponseDTO;
-import br.unitins.topicos1.model.Acessorios;
-import br.unitins.topicos1.repository.AcessoriosRepository;
+import br.unitins.topicos1.service.AcessoriosService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -17,74 +13,53 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/admin/acessorios")
 public class AcessoriosResource {
     @Inject
-    private AcessoriosRepository acessoriosRepository;
+    private AcessoriosService acessoriosService;
 
     @GET
-    public List<AcessoriosResponseDTO> findAll() {
-        return acessoriosRepository
-        .listAll()
-        .stream()
-        .map(a -> AcessoriosResponseDTO.valueOf(a)).toList();
+    public Response findAll() {
+        return Response.ok(acessoriosService.findAll()).build();
     }
 
     @GET
     @Path("/search/nome/{nome}") 
-    public List<AcessoriosResponseDTO> findByNome(@PathParam("nome") String nome){
-        return acessoriosRepository
-        .findByNomeAcessorios(nome)
-        .stream()
-        .map(a -> AcessoriosResponseDTO.valueOf(a)).toList();
+    public Response findByNome(@PathParam("nome") String nome){
+        return Response.ok(acessoriosService.findByNome(nome)).build();
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    public void update(@PathParam("id") Long id, AcessoriosDTO dto) {
-        Acessorios estadoBanco =  acessoriosRepository.findById(id);
-
-        estadoBanco.setAcessorio(dto.acessorio());
-        estadoBanco.setAltura(dto.altura());
-        estadoBanco.setCompatibilidade(dto.compatibilidade());
-        estadoBanco.setCor(dto.cor());
-        estadoBanco.setLargura(dto.largura());
-        estadoBanco.setMaterial(dto.material());
-        estadoBanco.setNomeProduto(dto.nomeProduto());
-        estadoBanco.setPeso(dto.peso());
-        estadoBanco.setPreco(dto.preco());
-
+    public Response update(@PathParam("id") Long id, AcessoriosDTO dto) {
+        acessoriosService.update(id, dto);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
-        acessoriosRepository.deleteById(id);
+    public Response delete(@PathParam("id") Long id) {
+        acessoriosService.delete(id);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @POST  
     @Transactional
-    public AcessoriosResponseDTO create(AcessoriosDTO dto){
-        Acessorios acessorios = new Acessorios();
-
-        acessorios.setAcessorio(dto.acessorio());
-        acessorios.setAltura(dto.altura());
-        acessorios.setCompatibilidade(dto.compatibilidade());
-        acessorios.setCor(dto.cor());
-        acessorios.setLargura(dto.largura());
-        acessorios.setMaterial(dto.material());
-        acessorios.setNomeProduto(dto.nomeProduto());
-        acessorios.setPeso(dto.peso());
-        acessorios.setPreco(dto.preco());
-
-        acessoriosRepository.persist(acessorios);
-
-        return AcessoriosResponseDTO.valueOf(acessorios);
-
+    public Response create(AcessoriosDTO dto){
+        return Response.status(Status.CREATED).entity(acessoriosService.create(dto)).build();
     }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id")Long id){
+        return Response.ok(acessoriosService.findById(id)).build(); 
+    }
+    
 }

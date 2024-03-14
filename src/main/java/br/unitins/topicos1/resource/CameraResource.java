@@ -50,12 +50,19 @@ public class CameraResource {
 
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
-        
+    public Response delete(@PathParam("id") Long id) {
+        camerasService.delete(id);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @POST  
     public Response create(@Valid CamerasDTO dto){
         return Response.status(Status.CREATED).entity(camerasService.create(dto)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id")Long id){
+        return Response.ok(camerasService.findById(id)).build(); 
     }
 }

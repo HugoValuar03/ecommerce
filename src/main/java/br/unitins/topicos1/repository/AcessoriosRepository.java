@@ -9,7 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class AcessoriosRepository implements PanacheRepository<Acessorios>{
     
-    public List<Acessorios> findByNomeAcessorios(String nomeAcessorios){
-        return find("UPPER(nomeAcessorios) LIKE ?1", "%" + nomeAcessorios.toUpperCase() + "%").list();
+    public List<Acessorios> findByNome(String nome){
+        return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
 }

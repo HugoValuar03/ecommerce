@@ -62,4 +62,10 @@ public class BolsasResource {
     public Response create(BolsasDTO dto){
         return Response.status(Status.CREATED).entity(bolsasService.create(dto)).build();
     }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id")Long id){
+        return Response.ok(bolsasService.findById(id)).build(); 
+    }
 }
