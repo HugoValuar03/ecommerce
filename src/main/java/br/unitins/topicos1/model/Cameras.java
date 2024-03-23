@@ -237,13 +237,11 @@ public class Cameras extends Produto{
     }
 
     public enum FormatoVideo{
-        MPEG_4("MPEG-4"),
-        AVCHD("AVCHD"),
-        H_264("H.264"),
-        H_265("H.265"),
-        MOV("MOV"),
         MP4("MP4"),
-        WMV("WMV"),
+        AVI("AVI"),
+        MOV("MOV"),
+        WMV("MWV"),
+        MKV("WMV"),
         FLV("FLV");
     
         public String formatoVideo;
@@ -254,13 +252,10 @@ public class Cameras extends Produto{
     }
 
     public enum FormatoAudio{
-        PCM("PCM"),
-        AAC("AAC"),
         MP3("MP3"),
         WAV("WAV"),
-        AIFF("AIFF"),
         FLAC("FLAC"),
-        ALAC("ALAC"),
+        AAC("AAC"),
         OGG("OGG");
     
         public String formatoAudio;
@@ -274,11 +269,8 @@ public class Cameras extends Produto{
         PNG("PNG"),
         TIFF("TIFF"),
         RAW("RAW"),
-        DNG("DNG"),
-        GIF("GIF"),
-        BMP("BMP"),
-        WEBP("WEBP");
-    
+        DNG("DNG");
+
         public String formatoImagem;
     
         FormatoImagem(String formato){
@@ -286,18 +278,16 @@ public class Cameras extends Produto{
         }
     }
     public enum Iso{
-        JPEG("JPEG"),
-        PNG("PNG"),
-        TIFF("TIFF"),
-        RAW("RAW"),
-        DNG("DNG"),
-        GIF("GIF"),
-        BMP("BMP"),
-        WEBP("WEBP");
+        ISO_100(100),
+        ISO_200(200),
+        ISO_400(400),
+        ISO_800(800),
+        ISO_1600(1600),
+        ISO_3200(3200);
     
-        public String iso;
+        public Integer iso;
     
-        Iso(String iso){
+        Iso(Integer iso){
             this.iso = iso;
         }
     }
@@ -314,4 +304,4 @@ public class Cameras extends Produto{
     }
     
 	
-}
+} 

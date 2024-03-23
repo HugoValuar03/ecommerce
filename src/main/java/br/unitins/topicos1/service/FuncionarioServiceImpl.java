@@ -22,7 +22,6 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public FuncionarioResponseDTO create (FuncionarioDTO dto){
         Funcionario funcionario = new Funcionario();
         funcionario.setNome(dto.nome());
-        //Colocar todos os métodos correspondentes
 
         funcionarioRepository.persist(funcionario);
         return FuncionarioResponseDTO.valueOf(funcionario);
@@ -34,7 +33,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario estadoBanco = funcionarioRepository.findById(id);
 
         estadoBanco.setNome(dto.nome());
-        //Colocar todos os métodos correspondentes
+
     }
 
     @Override
@@ -44,7 +43,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<FuncionarioResponseDTO> findAll() { //Declara uma lista de objetos do tipo `funcionario`
+    public List<FuncionarioResponseDTO> findAll() { //Declara uma lista de objetos do tipo funcionario
         return funcionarioRepository
         .listAll()
         .stream()

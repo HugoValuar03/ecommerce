@@ -83,7 +83,7 @@ public class Bolsas extends Produto {
         SHOULDER_BAG("Bolsa de Ombro"),
         SLING_BAG("Bolsa Sling"),
         ROLLER_BAG("Bolsa de Rodinhas"),
-        MESSENGER_BAG("Bolsa Mensageiro"),
+        COMPACT_BAG("Bolsa Compacta"),
         HARDCASE("Case Rígido"),
         BELT_PACK("Bolsa Cinto");
 
