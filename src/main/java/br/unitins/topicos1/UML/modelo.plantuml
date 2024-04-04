@@ -7,43 +7,38 @@ class Pessoa{
   - aniversario : LocalDate
 }
 
+class Cadastro{
+  - responsavel : String
+  - categoria : String
+  - status : Status 
+  - dataCadastro : LocalDateTime
+
+}
+
+Enum Status{
+  ATIVO : int
+  INATIVO : int
+  PENDENTE : int
+}
+
+Cadastro "1" -- "1" Status
+Cadastro <-- Funcionario
+Cadastro --> Produto
+
 class Funcionario{
   - idFuncionario : Long
   - cargo : String 
   - salario : String
 }
 
-class Cliente{
-  - idCliente : Long
-  - ativo : boolean
-  - pontuacao : String
-}
-
-Enum TipoCliente{
-  PESSOA_FISICA:int
-  PESSOA_JURIDICA:int
-}
-
-class Endereco{
-  - cep : String 
-  - endereco : String
-  - complemento : String
-}
-
 Funcionario "1" --> "1" Pessoa
-Cliente "1" --> "1" Pessoa
-Cliente  "1"*-->"1..*" Endereco
-TipoCliente "1"<--"*" Cliente
 
 Enum Sexo{
   FEMININO : int
   MASCULINO : int
 }
 
-Sexo "1" -- "*" Cliente
 Funcionario "*"--"1" Sexo
-
-Cliente "1" --> "*" Pedido
 
 class Fornecedor{
   - idFornecedor : Long
@@ -64,45 +59,17 @@ class Produto{
   - peso : Integer
 }
 
-Enum Modelo{
-BACKPACK : String
-SHOLDER_BAG : String
-SLING_BAG : String
-ROLLER_BAG : String
-COMPACT_BAG : String
-HARDCASE : String
-BELT_PACK : String
-}
-
-Enum Cor{
-PRETO : int
-CINZA : int
-BRANCO : int
-}
-
-Modelo "1" <- "1" Bolsa
-Cor "1" <-- "1" Bolsa
-
 class Camera{
   - idCameras : Long
   - sensor : List<sensor>
   - processador : List<processador>
   - resolucao : String
-  - lentes : List<lentes>
+  - lente : List<lente>
   - formatoAudio : FormatoAudio
   - formatoImagem : FormatoImagem
   - iso : String
   - obturador : Obturador
   - peso : Double
-}
-
-Enum Bateria{
-BATERIA_LITHIUM_ION : String
-BATERIA_NIMH : String
-BATERIA_ALCALINA : String
-BATERIA_RECARREGAVEL : String
-BATERIA_ZINCO_AR : String
-BATERIA_LITIO_AR : String
 }
 
 Enum FormatoVideo{
@@ -136,33 +103,10 @@ OBTURADOR_MECANICO : String
 OBTURADOR_ELETRONICO_MECANICO : String
 }
 
-Obturador "*" <- "1" Camera
-Camera "1" --> "*" FormatoImagem
-FormatoAudio "*" <-- "1" Camera
-Camera "1" --> "*" FormatoVideo
-Bateria "1" <-- "*" Camera
-
-Enum TipoAcessorio{
-TRIPE : String
-FILTROS : String
-FLASHS : String
-BATERIAS : String
-}
-
-Enum Compatibilidade{
-CANON : String
-NIKON : String
-SONY : String
-FUJIFILM : String
-PANASONIC : String
-OLYMPUS : String
-PENTAX : String
-LEICA : String
-}
-
-Acessorio "1" --> "1" TipoAcessorio 
-Acessorio "1" --> "1" Cor
-Compatibilidade "*" <-- "1" Acessorio
+Camera "1" -- "*" Obturador
+Camera "1" -- "*" FormatoImagem
+Camera "1" -- "*" FormatoAudio
+Camera "1" -- "*" FormatoVideo
 
 class Lente{
   - tipoMontagem : TipoMontagem
@@ -172,17 +116,6 @@ class Lente{
   - compatibilidade : Compatibilidade
   - dimensoes : String
   - peso : Double
-}
-
-Enum TipoMontagem{
-  CANON_EF : String
-  NIKON_F : String
-  SONY_E : String
-  SONY_FE : String
-  MFT : String
-  FUJFILM_X : String
-  PENTAX_K : String
-  LEICA_M : String
 }
 
 Enum DistanciaFocal{
@@ -215,49 +148,12 @@ Enum TipoLente{
   ANAMORPHIC : String
 }
 
-Camera "*" --> "*" Lente
-Lente "1" --> "1" TipoMontagem
-Lente "1" --> "1" DistanciaFocal
-Lente "1" --> "1" TipoLente
-Lente "1" --> "1..*" Abertura
-Lente "1" --> "1..*" Compatibilidade
+Lente "*" <-- "*" Camera
+Abertura "*" --"1" Lente
+Lente "1" -- "1" TipoLente
+DistanciaFocal "1..*"-- "1" Lente
 
-class Pedido{
-  - dataPedido : LocalDate
-  - clienteNome : String
-  - clienteEmail : String
-  - valorTotal : double
-  - pago : boolean
-  - enderecoEntrega : String
-  - status : Status
-  - metodoPagamento : Pagamento
-  - dataEntregaPrevista : LocalDate
-  - frete : Double
-  - numeroRastreamento : String
-}
-
-Enum Status{
-ENTREGUE : String
-CANCELADO : String
-CHEGOU_TRANSPORTADORA : String
-PROCESSAMENTO : String
-}
-
-Status "*" <-- "*" Pedido
-
-Enum Pagamento{
-  CREDITO : int
-  DEBITO : int
-  PIX : int
-  BOLETO : int
-} 
-
-Pagamento "1" <-- "1" Pedido
-
-Pedido "*" <-- "*" Produto
 Fornecedor "1" --> "n" Produto
 Produto <|-- Camera
-Produto <|-- Bolsa
-Produto <|-- Acessorio
 Produto <|-- Lente
 @enduml
