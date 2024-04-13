@@ -2,8 +2,6 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,39 +16,20 @@ public class Lentes extends Produto{
     private Long idLentes;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private TipoMontagem tipoMontagem;
-    
+    private Integer distanciaFocal;
+
     @Column
-    @Enumerated(EnumType.STRING)
-    private DistanciaFocal distanciaFocal;
-    
+    private String compatibilidade;
+
     @Column
-    @Enumerated(EnumType.STRING)
-    private Abertura abertura;
-    
-    @Column 
-    @Enumerated(EnumType.STRING)
-    private TipoLente tipoLente;
-    
+    private Integer diametroFiltro;
+
     @Column
-    @Enumerated(EnumType.STRING)
-    private Compatibilidade compatibilidade;
-    
-    @Column
-    private String dimensoes;
+    private String montagem;
     
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
-    
-    public void setTipoMontagem(TipoMontagem tipoMontagem) {
-        this.tipoMontagem = tipoMontagem;
-    }
-
-    public TipoMontagem getTipoMontagem() {
-        return tipoMontagem;
-    }
 
     public Long getIdLentes() {
         return idLentes;
@@ -58,22 +37,6 @@ public class Lentes extends Produto{
 
     public void setIdLentes(Long idLentes) {
         this.idLentes = idLentes;
-    }
-
-    public TipoLente getTipoLente() {
-        return tipoLente;
-    }
-
-    public void setTipoLente(TipoLente tipoLente) {
-        this.tipoLente = tipoLente;
-    }
-
-    public String getDimensoes() {
-        return dimensoes;
-    }
-
-    public void setDimensoes(String dimensoes) {
-        this.dimensoes = dimensoes;
     }
 
     public Fornecedor getFornecedor() {
@@ -84,126 +47,38 @@ public class Lentes extends Produto{
         this.fornecedor = fornecedor;
     }
 
-    public DistanciaFocal getDistanciaFocal() {
+    public Integer getDistanciaFocal() {
         return distanciaFocal;
     }
 
-    public void setDistanciaFocal(DistanciaFocal distanciaFocal) {
+    public void setDistanciaFocal(Integer distanciaFocal) {
         this.distanciaFocal = distanciaFocal;
     }
 
-    public Abertura getAbertura() {
-        return abertura;
-    }
-
-    public void setAbertura(Abertura abertura) {
-        this.abertura = abertura;
-    }
-
-    public TipoLente getLente() {
-        return tipoLente;
-    }
-
-    public void setLente(TipoLente tipoLente) {
-        this.tipoLente = tipoLente;
-    }
-
-    public Compatibilidade getCompatibilidade() {
+    public String getCompatibilidade() {
         return compatibilidade;
     }
 
-    public void setCompatibilidade(Compatibilidade compatibilidade) {
+    public void setCompatibilidade(String compatibilidade) {
         this.compatibilidade = compatibilidade;
     }
 
-
-    public enum TipoMontagem{
-        CANON_EF("Canon EF"),
-        NIKON_F("Nikon F"),
-        SONY_E("Sony E"),
-        SONY_FE("Sony FE"),
-        MFT("Micro Four Third (MFT)"),
-        FUJFILM_X("Fujfilm X"),
-        PENTAX_K("Pentax K"),
-        LEICA_M("Leica M");
-
-        public String getTipoMontagem() {
-            return tipoMontagem;
-        }
-
-        public void setTipoMontagem(String tipoMontagem) {
-            this.tipoMontagem = tipoMontagem;
-        }
-
-        private String tipoMontagem;
-
-        TipoMontagem(String montagem){
-            this.tipoMontagem=montagem;
-        }
+    public Integer getDiametroFiltro() {
+        return diametroFiltro;
     }
 
-    public enum DistanciaFocal{
-        WIDE_ANGLE("Grande Angular"),
-        ULTRA_WIDE_ANGLE("Ultra Grande Angular"),
-        STANDARD("Padrão"),
-        TELEPHOTO("Telefoto"),
-        SUPER_TELEPHOTO("Super Telefoto"),
-        FISHEYE("Olho de Peixe"),
-        MACRO("Macro");
-
-        public String distanciaFocal;
-
-        DistanciaFocal(String distanciaFocal){
-            this.distanciaFocal = distanciaFocal;
-        }
+    public void setDiametroFiltro(Integer diametroFiltro) {
+        this.diametroFiltro = diametroFiltro;
     }
 
-    public enum Abertura{
-        F1_4("f/1.4"),
-        F2("f/2"),
-        F2_8("f/2.8"),
-        F4("f/4"),
-        F5_6("f/5.6"),
-        F8("f/8"),
-        F11("f/11"),
-        F16("f/16"),
-        F22("f/22");
-
-        public String abertura;
-
-        Abertura(String abertura){
-            this.abertura = abertura;
-        }
+    public String getMontagem() {
+        return montagem;
     }
 
-    public enum TipoLente{
-        PRIME("Lente Prime"),
-        ZOOM("Lente Zoom"),
-        TILT_SHIFT("Tilt-shift"),
-        PERSPECTIVE_CONTROL("Perspective Control"),
-        ANAMORPHIC("Anamórfica");
-
-        public String lente;
-
-        TipoLente(String tipoLente){
-            this.lente = tipoLente;
-        }
+    public void setMontagem(String montagem) {
+        this.montagem = montagem;
     }
 
-    public enum Compatibilidade{
-        CANON("Canon"),
-        NIKON("Nikon"),
-        SONY("Sony"),
-        FUJIFILM("Fujifilm"),
-        PANASONIC("Panasonic"),
-        OLYMPUS("Olympus"),
-        PENTAX("Pentax"),
-        LEICA("Leica");
-
-        public String compatibilidade;
-
-        Compatibilidade(String compatibilidade) {
-            this.compatibilidade = compatibilidade;
-        }
-    }
+    
+    
 }

@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -17,88 +19,93 @@ public class Produto {
     @Column
     @NotBlank(message = "Nome da camera é obrigatório")
     private String nomeProduto;
+    
+    @Column
+    private String nomeModelo;
 
     @Column
     @NotBlank(message = "O preço do produto é obrigatório")
     private Double preco;
 
     @Column
-    private Integer altura;
-
-    @Column
-    private Integer largura;
-
-    @Column
-    private String marca;
-
-    @Column
-    private Double peso;
-
-    @Column
     private String material;
+    
+    @Column
+    private String dimensoes;
 
-    public String getMarca() {
-        return marca;
-    }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
+    @ManyToMany
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
 
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
 
     public Long getIdProduto() {
         return idProduto;
     }
 
+
     public void setIdProduto(Long idProduto) {
         this.idProduto = idProduto;
     }
+
 
     public String getNomeProduto() {
         return nomeProduto;
     }
 
+
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
+
+
+    public String getNomeModelo() {
+        return nomeModelo;
+    }
+
+
+    public void setNomeModelo(String nomeModelo) {
+        this.nomeModelo = nomeModelo;
+    }
+
 
     public Double getPreco() {
         return preco;
     }
 
+
     public void setPreco(Double preco) {
         this.preco = preco;
     }
 
-    public Integer getAltura() {
-        return altura;
+
+    public String getMaterial() {
+        return material;
     }
 
-    public void setAltura(Integer altura) {
-        this.altura = altura;
+
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
-    public Integer getLargura() {
-        return largura;
+
+    public String getDimensoes() {
+        return dimensoes;
     }
 
-    public void setLargura(Integer largura) {
-        this.largura = largura;
+
+    public void setDimensoes(String dimensoes) {
+        this.dimensoes = dimensoes;
     }
 
-    public Double getPeso() {
-        return peso;
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
 
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
 }
