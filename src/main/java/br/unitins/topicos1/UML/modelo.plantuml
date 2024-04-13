@@ -3,42 +3,49 @@ class Pessoa{
   - nome : String
   - email : String
   - cpf : String
-  - telefone : String
   - aniversario : LocalDate
+  - listaTelefone : List<Telefone>
 }
 
+Pessoa "1" --> "*" Telefone
+
 class Cadastro{
+  - idCadastro : Long
   - responsavel : String
   - categoria : String
   - status : Status 
-  - dataCadastro : LocalDateTime
-
 }
+
+DefaultEntity <|-- Cadastro
 
 Enum Status{
-  ATIVO : int
-  INATIVO : int
-  PENDENTE : int
+  ATIVO
+  INATIVO
+  PENDENTE
 }
 
-Cadastro "1" -- "1" Status
-Cadastro <-- Funcionario
+Cadastro "1" --> "1" Status
+Cadastro "*" <-- "1" Funcionario
 Cadastro --> Produto
 
 class Funcionario{
   - idFuncionario : Long
   - cargo : String 
-  - salario : String
 }
 
-Funcionario "1" --> "1" Pessoa
+class Cliente{
+  - idCliente
+}
+
+Pessoa "1" <-- "1" Funcionario
+Pessoa "1" <-- "1" Cliente
 
 Enum Sexo{
-  FEMININO : int
-  MASCULINO : int
+  FEMININO
+  MASCULINO
 }
 
-Funcionario "*"--"1" Sexo
+Pessoa "*"-->"1" Sexo
 
 class Fornecedor{
   - idFornecedor : Long
@@ -54,106 +61,54 @@ class Produto{
   - nomeProduto : String
   - preco : Double
   - material : String
-  - altura : Integer
-  - largura: Integer
-  - peso : Integer
+  - dimensoes : String
+  - nomeModelo : String
 }
 
 class Camera{
   - idCameras : Long
-  - sensor : List<sensor>
-  - processador : List<processador>
+  - marca : String
+  - conectividade : String
   - resolucao : String
-  - lente : List<lente>
-  - formatoAudio : FormatoAudio
-  - formatoImagem : FormatoImagem
+  - telaArticulavel : Boolean
+  - telaSensivelToque : Boolean
+  - tela : String
   - iso : String
-  - obturador : Obturador
-  - peso : Double
+  - flashPopUp : Boolean
+  - garantia : Integer
 }
 
-Enum FormatoVideo{
-MP4 : String
-AVI : String
-MOV : String
-WMV : String
-MKV : String
-FLV : String
+class Marca{
+  - idMarca : Long
+  - nome : String
 }
 
-Enum FormatoAudio{
-MP3 : String
-WAV : String
-FLAC : String
-AAC : String
-OGG : String
-}
-
-Enum FormatoImagem{
-JPEG : String
-PNG : String
-TIFF : String
-RAW : String
-DNG : String
-}
-
-Enum Obturador{
-OBTURADOR_ELETRONICO : String
-OBTURADOR_MECANICO : String
-OBTURADOR_ELETRONICO_MECANICO : String
-}
-
-Camera "1" -- "*" Obturador
-Camera "1" -- "*" FormatoImagem
-Camera "1" -- "*" FormatoAudio
-Camera "1" -- "*" FormatoVideo
+Marca "1" <-- "*" Produto
 
 class Lente{
-  - tipoMontagem : TipoMontagem
-  - distanciaFocal : DistanciaFocal
-  - abertura : Abertura
-  - tipoLente : TipoLente
-  - compatibilidade : Compatibilidade
-  - dimensoes : String
-  - peso : Double
+  - idLente : String
+  - compatibilidade : String
+  - distanciaFocal : Integer
+  - diametroFiltro : Integer
+  - montagem : String
+  - tipoMontagem : String
 }
 
-Enum DistanciaFocal{
-  WIDE_ANGLE : String
-  ULTRA_WIDE_ANGLE : String
-  STANDARD : String
-  TELEPHOTO : String
-  SUPER_TELEPHOTO : String
-  FISHEYE : String
-  MACRO : String
+class DefaultEntity{
+  - id : Long
+  - dataCadastro : LocalDateTime
+  - dataAlteracao : LocalDateTime
 }
 
-Enum Abertura{
-  F1_4 : String
-  F2 : String
-  F2_8 : String
-  F4 : String
-  F5_6 : String
-  F8 : String
-  F11 : String
-  F16 : String
-  F22 : String
+class Telefone{
+  - codigoArea : String
+  - numero : String
 }
 
-Enum TipoLente{
-  PRIME : String
-  ZOOM : String
-  TILT_SHIFT : String
-  PERSPECTIVE_CONTROL : String
-  ANAMORPHIC : String
-}
+DefaultEntity <|-- Telefone
+DefaultEntity <|-- Pessoa
 
-Lente "*" <-- "*" Camera
-Abertura "*" --"1" Lente
-Lente "1" -- "1" TipoLente
-DistanciaFocal "1..*"-- "1" Lente
-
-Fornecedor "1" --> "n" Produto
+Fornecedor "*" -- "*" Produto
 Produto <|-- Camera
 Produto <|-- Lente
 @enduml
