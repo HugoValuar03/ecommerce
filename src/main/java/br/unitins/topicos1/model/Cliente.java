@@ -2,10 +2,11 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.Id;
 
-public class Cliente {
+public class Cliente extends Pessoa {
 
     @Id
     private Long idCliente;
+
 
     public Long getIdCliente() {
         return idCliente;

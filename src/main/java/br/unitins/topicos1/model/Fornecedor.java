@@ -1,9 +1,12 @@
 package br.unitins.topicos1.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
 @Entity
 public class Fornecedor {
@@ -12,7 +15,16 @@ public class Fornecedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFornecedor;
 
-    private String cargo;
+    private String nome;
+
+	@Email
+	private String email;
+
+	private String endereco;
+
+	private List<Telefone> listaTelefone;
+
+	private String cnpj;
 
 	public Long getIdFornecedor() {
 		return idFornecedor;
@@ -22,14 +34,46 @@ public class Fornecedor {
 		this.idFornecedor = idFornecedor;
 	}
 
-	public String getCargo() {
-		return cargo;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Telefone> getListaTelefone() {
+		return listaTelefone;
+	}
+
+	public void setListaTelefone(List<Telefone> listaTelefone) {
+		this.listaTelefone = listaTelefone;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 	
 
+	
 }

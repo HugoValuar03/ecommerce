@@ -9,13 +9,17 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa extends DefaultEntity{
     
     private String nome;
+
+    @Email
     private String email;
+
     private Sexo sexo;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
