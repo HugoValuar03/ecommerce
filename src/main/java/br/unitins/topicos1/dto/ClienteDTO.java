@@ -3,15 +3,15 @@ package br.unitins.topicos1.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-public record FuncionarioDTO(
+public record ClienteDTO(
 
-    String cargo,
     String nome,
     String email,
     String cpf,
-    Integer idSexo,
     LocalDate aniversario,
+    Integer idSexo,
     List<TelefoneDTO> listaTelefone
-
-){}
     
+) {
+    
+}
