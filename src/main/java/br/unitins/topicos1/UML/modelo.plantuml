@@ -4,6 +4,7 @@ class Pessoa{
   - email : String
   - cpf : String
   - aniversario : LocalDate
+  - sexo : Sexo
   - listaTelefone : List<Telefone>
 }
 
@@ -54,6 +55,7 @@ class Fornecedor{
   - email : String
   - telefone : String
   - cnpj : String
+  - listaTelefone : List<Telefone>
 }
 
 class Produto{
@@ -91,7 +93,6 @@ class Lente{
   - distanciaFocal : Integer
   - diametroFiltro : Integer
   - montagem : String
-  - tipoMontagem : String
 }
 
 class DefaultEntity{
