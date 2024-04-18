@@ -8,7 +8,7 @@ class Pessoa{
   - listaTelefone : List<Telefone>
 }
 
-Pessoa "1" --> "*" Telefone
+Pessoa "1" *--> "*" Telefone
 
 class Cadastro{
   - idCadastro : Long
@@ -25,9 +25,9 @@ Enum Status{
   PENDENTE
 }
 
-Cadastro "1" --> "1" Status
-Cadastro "*" <-- "1" Funcionario
-Cadastro --> Produto
+Cadastro --> Status
+Cadastro "*" --> "1" Funcionario
+Cadastro "1" --> "1" Produto
 
 class Funcionario{
   - idFuncionario : Long
@@ -46,14 +46,13 @@ Enum Sexo{
   MASCULINO
 }
 
-Pessoa "*"-->"1" Sexo
+Pessoa --> Sexo
 
 class Fornecedor{
   - idFornecedor : Long
   - nome : String
   - endereco : String 
   - email : String
-  - telefone : String
   - cnpj : String
   - listaTelefone : List<Telefone>
 }
@@ -69,7 +68,6 @@ class Produto{
 
 class Camera{
   - idCameras : Long
-  - marca : String
   - conectividade : String
   - resolucao : String
   - telaArticulavel : Boolean
@@ -85,7 +83,7 @@ class Marca{
   - nome : String
 }
 
-Marca "1" <-- "*" Produto
+Marca "1" --> "*" Produto
 
 class Lente{
   - idLente : String
