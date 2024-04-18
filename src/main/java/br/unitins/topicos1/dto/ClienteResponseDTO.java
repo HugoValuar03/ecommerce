@@ -8,7 +8,7 @@ import br.unitins.topicos1.model.Sexo;
 
 public record ClienteResponseDTO(
 
-     Long id,
+    Long id,
     String nome,
     String email,
     String cpf,
