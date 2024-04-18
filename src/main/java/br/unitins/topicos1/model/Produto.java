@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -33,6 +34,9 @@ public class Produto {
     @Column
     private String dimensoes;
 
+    @ManyToOne
+    @JoinColumn(name="idMarca")
+    private Marca marca;
 
     @ManyToMany
     @JoinColumn(name = "id_fornecedor")
@@ -106,6 +110,16 @@ public class Produto {
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
     
 }

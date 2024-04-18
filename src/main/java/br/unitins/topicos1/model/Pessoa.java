@@ -9,6 +9,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 
 @Entity
@@ -25,6 +26,12 @@ public class Pessoa extends DefaultEntity{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_pessoa")
     private List<Telefone> listaTelefone;
+
+    @OneToOne
+    private Cliente cliente;
+
+    @OneToOne
+    private Pessoa pessoa;
 
     private LocalDate aniversario;
     private String cpf;

@@ -2,6 +2,8 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Cadastro extends DefaultEntity {
@@ -13,6 +15,10 @@ public class Cadastro extends DefaultEntity {
     private String categoria;
     
     private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "id_funcionario")
+    private Funcionario funcionario;
 
     public Long getIdCadastro() {
         return idCadastro;
@@ -44,6 +50,14 @@ public class Cadastro extends DefaultEntity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
 }
