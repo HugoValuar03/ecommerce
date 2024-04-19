@@ -13,7 +13,7 @@ public class LentesRepository implements PanacheRepository<Lentes>{
     @Transactional
 
     public List<Lentes> findByNome(String nomeProduto){
-        return find("UPPER(marcaProduto) LIKE ?1", "%" + nomeProduto.toUpperCase() + "%").list();
+        return find("UPPER(nomeProduto) LIKE ?1", "%" + nomeProduto.toUpperCase() + "%").list();
         
     }
 
