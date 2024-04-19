@@ -20,41 +20,42 @@ public class CamerasServiceImpl implements CamerasService{
     public CamerasResponseDTO create(@Valid CamerasDTO dto) {
         Cameras cameras = new Cameras();
 
-        cameras.setNomeProduto(dto.nomeProduto());
-        cameras.setBateria(dto.bateria());
-        cameras.setFormatoAudio(dto.formatoAudio());
-        cameras.setFormatoImagem(dto.formatoImagem());
-        cameras.setFormatoVideo(dto.formatoVideo());
+        cameras.setConectividade(dto.conectividade());
+        cameras.setResolucao(dto.resolucao());
+        cameras.setTelaArticulavel(dto.telaArticulavel());
+        cameras.setTelaSensivelToque(dto.telaSensivelToque());
+        cameras.setTipoTela(dto.tela());
         cameras.setIso(dto.iso());
-        cameras.setLente(dto.lentes());
-        cameras.setMarca(dto.marca());
-        cameras.setObturador(dto.obturador());
+        cameras.setFlashPopUp(dto.flashPopUp());
+        cameras.setGarantia(dto.garantia());
+        cameras.setNomeProduto(dto.nomeProduto());
         cameras.setPreco(dto.preco());
-        cameras.setProcessador(dto.processador());
-        cameras.setSensor(dto.sensor());
+        cameras.setMaterial(dto.material());
+        cameras.setDimensoes(dto.dimensoes());
+        cameras.setNomeModelo(dto.nomeModelo());
 
         camerasRepository.persist(cameras);
-
         return CamerasResponseDTO.valueof(cameras);
     }
 
     @Override
     @Transactional
     public void update(Long id, CamerasDTO dto) {
-        Cameras estadoBanco =  camerasRepository.findById(id);
+        Cameras camerasBanco =  camerasRepository.findById(id);
 
-        estadoBanco.setNomeProduto(dto.nomeProduto());
-        estadoBanco.setMarca(dto.marca());
-        estadoBanco.setBateria(dto.bateria());
-        estadoBanco.setFormatoAudio(dto.formatoAudio());
-        estadoBanco.setFormatoImagem(dto.formatoImagem());
-        estadoBanco.setFormatoVideo(dto.formatoVideo());
-        estadoBanco.setIso(dto.iso());
-        estadoBanco.setLente(dto.lentes());
-        estadoBanco.setObturador(dto.obturador());
-        estadoBanco.setPreco(dto.preco());
-        estadoBanco.setProcessador(dto.processador());
-        estadoBanco.setSensor(dto.sensor());
+        camerasBanco.setConectividade(dto.conectividade());
+        camerasBanco.setResolucao(dto.resolucao());
+        camerasBanco.setTelaArticulavel(dto.telaArticulavel());
+        camerasBanco.setTelaSensivelToque(dto.telaSensivelToque());
+        camerasBanco.setTipoTela(dto.tela());
+        camerasBanco.setIso(dto.iso());
+        camerasBanco.setFlashPopUp(dto.flashPopUp());
+        camerasBanco.setGarantia(dto.garantia());
+        camerasBanco.setNomeProduto(dto.nomeProduto());
+        camerasBanco.setPreco(dto.preco());
+        camerasBanco.setMaterial(dto.material());
+        camerasBanco.setDimensoes(dto.dimensoes());
+        camerasBanco.setNomeModelo(dto.nomeModelo());
     }
 
     @Override
@@ -77,9 +78,9 @@ public class CamerasServiceImpl implements CamerasService{
     }
 
     @Override
-    public List<CamerasResponseDTO> findByNome(String nome) {
+    public List<CamerasResponseDTO> findByNomeProduto(String nomeProduto) {
         return camerasRepository
-        .findByNomeProduto(nome)
+        .findByNomeProduto(nomeProduto)
         .stream()
         .map(e -> CamerasResponseDTO.valueof(e)).toList();
     }
@@ -91,5 +92,4 @@ public class CamerasServiceImpl implements CamerasService{
         .stream()
         .map(e -> CamerasResponseDTO.valueof(e)).toList();
     }
-    
 }
