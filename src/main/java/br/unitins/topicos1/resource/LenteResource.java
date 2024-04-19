@@ -1,7 +1,7 @@
 package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.LentesDTO;
-import br.unitins.topicos1.service.LentesService;
+import br.unitins.topicos1.service.LenteService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -20,10 +20,10 @@ import jakarta.ws.rs.core.Response.Status;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/admin/lentes")
-public class LentesResource {
+public class LenteResource {
     
     @Inject
-    public LentesService lentesService;
+    public LenteService lentesService;
 
     @GET
     public Response findAll() {
@@ -37,15 +37,15 @@ public class LentesResource {
     }
 
     @GET
-    @Path("/search/nome/{nome}") 
-    public Response findByNome(@PathParam("nome") String nome){
-        return Response.ok(lentesService.findByNome(nome)).build();
-    }
-
-    @GET
     @Path("/search/marca/{marca}") 
     public Response findByMarca(@PathParam("marca") String marca){
         return Response.ok(lentesService.findByMarca(marca)).build();
+    }
+    
+    @POST  
+    @Transactional
+    public Response create(@Valid LentesDTO dto){
+        return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
     }
 
     @PUT
@@ -57,16 +57,10 @@ public class LentesResource {
    }
 
     @DELETE
-    @Transactional
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         lentesService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    @POST  
-    @Transactional
-    public Response create(@Valid LentesDTO dto){
-        return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
-    }
 }

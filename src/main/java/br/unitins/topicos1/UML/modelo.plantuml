@@ -57,6 +57,8 @@ class Fornecedor{
   - listaTelefone : List<Telefone>
 }
 
+Fornecedor "1" *--> "*" Telefone
+
 class Produto{
   - idProduto : Long
   - nomeProduto : String
@@ -83,7 +85,7 @@ class Marca{
   - nome : String
 }
 
-Marca "1" --> "*" Produto
+Marca "1" <--* "*" Produto
 
 class Lente{
   - idLente : String
@@ -104,10 +106,9 @@ class Telefone{
   - numero : String
 }
 
-DefaultEntity <|-- Telefone
 DefaultEntity <|-- Pessoa
 
-Fornecedor "*" -- "*" Produto
+Fornecedor "1" --> "*" Produto
 Produto <|-- Camera
 Produto <|-- Lente
 @enduml

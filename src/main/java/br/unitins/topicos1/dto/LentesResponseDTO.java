@@ -1,6 +1,6 @@
 package br.unitins.topicos1.dto;
 
-import br.unitins.topicos1.model.Lentes;
+import br.unitins.topicos1.model.Lente;
 import br.unitins.topicos1.model.Marca;
 
 public record LentesResponseDTO(
@@ -17,7 +17,7 @@ public record LentesResponseDTO(
     Marca marca
 
 ) {
-    public static LentesResponseDTO valueOf(Lentes lentes){
+    public static LentesResponseDTO valueOf(Lente lentes){
         return new LentesResponseDTO(
             lentes.getIdProduto(),
             lentes.getCompatibilidade(),

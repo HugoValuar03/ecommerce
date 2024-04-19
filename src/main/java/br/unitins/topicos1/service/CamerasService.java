@@ -13,7 +13,6 @@ public interface CamerasService {
     public void delete(Long id); 
     public CamerasResponseDTO findById(Long id);
     public List<CamerasResponseDTO> findAll();
-    public List<CamerasResponseDTO> findByNome(String nome);
+    public List<CamerasResponseDTO> findByNomeProduto(String nomeProduto);
     public List<CamerasResponseDTO> findByMarca(String marca);
-
 }

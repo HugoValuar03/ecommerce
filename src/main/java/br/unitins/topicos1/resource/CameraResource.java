@@ -31,13 +31,13 @@ public class CameraResource {
 
     @GET
     @Path("/search/nome/{nome}") 
-    public Response findByNome(@PathParam("nome") String nome){
-        return Response.ok(camerasService.findByNome(nome)).build();
+    public Response findByNomeProduto(@PathParam("nome") String nomeProduto){
+        return Response.ok(camerasService.findByNomeProduto(nomeProduto)).build();
     }
 
     @GET
     @Path("/search/marca/{marca}") 
-    public Response findByCargo(@PathParam("marca") String marca){
+    public Response findByMarca(@PathParam("marca") String marca){
         return Response.ok(camerasService.findByMarca(marca)).build();
     }
 

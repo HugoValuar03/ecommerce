@@ -1,10 +1,13 @@
 package br.unitins.topicos1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.unitins.topicos1.dto.FornecedorDTO;
 import br.unitins.topicos1.dto.FornecedorResponseDTO;
+import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Fornecedor;
+import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.FornecedorRepository;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -22,25 +25,41 @@ public class FornecedorServiceImpl implements FornecedorService {
 
         fornecedor.setNome(dto.nome());
         fornecedor.setEndereco(dto.endereco());
-        fornecedor.setCnpj(dto.cnpj());
         fornecedor.setEmail(dto.email());
-        fornecedor.setTelefone(dto.telefone());
-    
-        fornecedorRepository.persist(fornecedor);
+        fornecedor.setCnpj(dto.cnpj());
+        fornecedor.setListaTelefone(new ArrayList<Telefone>());
+        fornecedor.setProduto(dto.produto());
 
+        for (TelefoneDTO tel : dto.telefones()) {
+            Telefone t = new Telefone();
+            t.setCodigoArea(tel.codigoArea());
+            t.setNumero(tel.numero());
+            fornecedor.getListaTelefone().add(t);
+        }
+
+        fornecedorRepository.persist(fornecedor);
         return FornecedorResponseDTO.valueOf(fornecedor);
     }
 
     @Override
     @Transactional
     public void update(Long id, FornecedorDTO dto) {
-        Fornecedor estadoBanco =  fornecedorRepository.findById(id);
+        Fornecedor fornecedorBanco =  fornecedorRepository.findById(id);
 
-        estadoBanco.setNome(dto.nome());
-        estadoBanco.setEndereco(dto.endereco());
-        estadoBanco.setCnpj(dto.cnpj());
-        estadoBanco.setEmail(dto.email());
-        estadoBanco.setTelefone(dto.telefone());
+        fornecedorBanco.setNome(dto.nome());
+        fornecedorBanco.setEndereco(dto.endereco());
+        fornecedorBanco.setCnpj(dto.cnpj());
+        fornecedorBanco.setEmail(dto.email());
+        fornecedorBanco.setProduto(dto.produto());
+        fornecedorBanco.getListaTelefone().clear();
+        
+        for (TelefoneDTO tel : dto.telefones()) {
+            Telefone t = new Telefone();
+            t.setCodigoArea(tel.codigoArea());
+            t.setNumero(tel.numero());
+            fornecedorBanco.getListaTelefone().add(t);
+        }
+        
     }
 
     @Override
@@ -63,12 +82,6 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    public List<FornecedorResponseDTO> findByCnpj(String cnpj) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByCnpj'");
-    }
-
-    @Override
     public List<FornecedorResponseDTO> findByNome(String nome) {
         return fornecedorRepository
         .findByNome(nome)
@@ -76,6 +89,11 @@ public class FornecedorServiceImpl implements FornecedorService {
         .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
     }
 
-   
-    
+    @Override
+    public List<FornecedorResponseDTO> findByCnpj(String cnpj) {
+        return fornecedorRepository
+        .findByNome(cnpj)
+        .stream()
+        .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
+    }
 }

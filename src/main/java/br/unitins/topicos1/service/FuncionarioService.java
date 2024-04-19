@@ -14,7 +14,6 @@ public interface FuncionarioService {
     public FuncionarioResponseDTO findById(Long id);
     public List<FuncionarioResponseDTO> findAll();
     public List<FuncionarioResponseDTO> findByCargo(String cargo);
-    public List<FuncionarioResponseDTO> findBySigla(String sigla);
     public List<FuncionarioResponseDTO> findByNome(String nome);
 
 }

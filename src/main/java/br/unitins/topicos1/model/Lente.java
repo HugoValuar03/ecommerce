@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Lentes extends Produto{
+public class Lente extends Produto{
      
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

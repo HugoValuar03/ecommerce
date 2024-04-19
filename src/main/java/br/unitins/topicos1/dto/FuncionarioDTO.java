@@ -11,7 +11,7 @@ public record FuncionarioDTO(
     String cpf,
     Integer idSexo,
     LocalDate aniversario,
-    List<TelefoneDTO> listaTelefone
+    List<TelefoneDTO> telefones
 
 ){}
     

@@ -7,8 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Email;
 
 @Entity
@@ -29,18 +28,16 @@ public class Fornecedor {
 
 	private String cnpj;
 
-	@ManyToMany
-	@JoinTable(name = "Fornecedor_Produto",
-		joinColumns = @JoinColumn(name = "idFornecedor"),
-		inverseJoinColumns = @JoinColumn(name = "idProduto"))
-	private List<Produto> listaProduto;	
+	@ManyToOne
+	@JoinColumn(name="id_produto")	
+	private Produto produto;	
 
-	public List<Produto> getListaProduto() {
-		return listaProduto;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setListaProduto(List<Produto> listaProduto) {
-		this.listaProduto = listaProduto;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Long getIdFornecedor() {

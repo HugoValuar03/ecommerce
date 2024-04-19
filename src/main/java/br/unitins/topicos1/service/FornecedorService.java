@@ -13,6 +13,6 @@ public interface FornecedorService {
     public void delete(Long id); 
     public FornecedorResponseDTO findById(Long id);
     public List<FornecedorResponseDTO> findAll();
-    public List<FornecedorResponseDTO> findByCnpj(String cnpj);
     public List<FornecedorResponseDTO> findByNome(String nome);
+    public List<FornecedorResponseDTO> findByCnpj(String cnpj);
 }

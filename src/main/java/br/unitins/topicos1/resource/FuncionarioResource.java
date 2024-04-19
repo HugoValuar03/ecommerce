@@ -21,8 +21,13 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/admin/pessoas") //Define o caminho da pesquisa, ex: "localhost:8080/admin/pessoas"
 public class FuncionarioResource {
 
-    @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo contêiner CDI.
+    @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo conteiner CDI.
     public FuncionarioService funcionarioService;
+
+    @GET //Usado para retornar uma solicitação feita pelo usuário.
+    public Response findAll(){
+        return Response.ok(funcionarioService.findAll()).build();
+    }
 
     @GET
     @Path("/{id}")
@@ -30,11 +35,6 @@ public class FuncionarioResource {
         return Response.ok(funcionarioService.findById(id)).build(); 
     }
 
-    @GET //Usado para retornar uma solicitação feita pelo usuário.
-    @Path("/retorno")
-    public Response findAll(){
-        return Response.ok(funcionarioService.findAll()).build();
-    }
         // public List<PessoaResponseDTO> findAll() { //Declara uma lista de objetos do tipo `Pessoa`
         //     Object pessoaRepository;
         //     return pessoaRepository
@@ -64,7 +64,8 @@ public class FuncionarioResource {
     @POST //Chamado para criar um novo objeto de Pessoa
     public Response create(@Valid FuncionarioDTO dto){
         
-        return Response.status(Status.CREATED).entity(funcionarioService.create(dto)).build();
+        return Response.status(Status.CREATED)
+            .entity(funcionarioService.create(dto)).build();
         // Pessoa pessoa = new Pessoa();
         // pessoa.setNome(dto.nome());
         // pessoa.setCargo(dto.cargo());
@@ -85,7 +86,6 @@ public class FuncionarioResource {
     @PUT //Chamado quando para atualizar algum dado
     @Path("/{id}") //"localhost:8080/admin/pessoas/{id que o usuario passar}"
     public Response update(@PathParam("id") Long id, FuncionarioDTO dto) {
-
         funcionarioService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
 

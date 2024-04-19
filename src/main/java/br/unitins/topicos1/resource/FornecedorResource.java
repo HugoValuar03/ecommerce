@@ -3,7 +3,6 @@ package br.unitins.topicos1.resource;
 import br.unitins.topicos1.dto.FornecedorDTO;
 import br.unitins.topicos1.service.FornecedorService;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -33,7 +32,13 @@ public class FornecedorResource {
     @GET
     @Path("/search/nome/{nome}") 
     public Response findByNome(@PathParam("nome") String nome){
-            return Response.ok(fornecedorService.findByNome(nome)).build();
+        return Response.ok(fornecedorService.findByNome(nome)).build();
+    }
+
+    @GET
+    @Path("/search/cnpj/{cnpj}") 
+    public Response findByCnpj(@PathParam("cnpj") String cnpj){
+        return Response.ok(fornecedorService.findByCnpj(cnpj)).build();
     }
 
     @GET
@@ -43,24 +48,23 @@ public class FornecedorResource {
     }
 
     @PUT
-    @Transactional
     @Path("/{id}")
     public Response update(@PathParam("id") Long id, FornecedorDTO dto) {
         fornecedorService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
 
+    @POST  
+    public Response create(@Valid FornecedorDTO dto){
+        return Response.status(Status.CREATED)
+        .entity(fornecedorService.create(dto)).build();
+    }
+
     @DELETE
-    @Transactional
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         fornecedorService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    @POST  
-    @Transactional
-    public Response create(@Valid FornecedorDTO dto){
-        return Response.status(Status.CREATED).entity(fornecedorService.create(dto)).build();
-    }
 }
