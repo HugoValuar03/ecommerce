@@ -1,6 +1,6 @@
 package br.unitins.topicos1.model;
 
-public class Telefone extends DefaultEntity {
+public class Telefone {
     
     private String codigoArea;
     private String numero;

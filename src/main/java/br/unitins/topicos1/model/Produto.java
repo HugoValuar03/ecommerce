@@ -1,5 +1,7 @@
 package br.unitins.topicos1.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,9 +40,8 @@ public class Produto {
     @JoinColumn(name="idMarca")
     private Marca marca;
 
-    @ManyToMany
-    @JoinColumn(name = "id_fornecedor")
-    private Fornecedor fornecedor;
+    @ManyToMany (mappedBy = "listaProduto")
+    private List<Fornecedor> listaFornecedor;
 
 
     public Long getIdProduto() {
@@ -102,17 +103,6 @@ public class Produto {
         this.dimensoes = dimensoes;
     }
 
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
-
     public Marca getMarca() {
         return marca;
     }
@@ -120,6 +110,16 @@ public class Produto {
 
     public void setMarca(Marca marca) {
         this.marca = marca;
+    }
+
+
+    public List<Fornecedor> getListaFornecedor() {
+        return listaFornecedor;
+    }
+
+
+    public void setListaFornecedor(List<Fornecedor> listaFornecedor) {
+        this.listaFornecedor = listaFornecedor;
     }
     
 }

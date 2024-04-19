@@ -28,10 +28,12 @@ public class Pessoa extends DefaultEntity{
     private List<Telefone> listaTelefone;
 
     @OneToOne
+    @JoinColumn(name = "idCliente")
     private Cliente cliente;
 
     @OneToOne
-    private Pessoa pessoa;
+    @JoinColumn(name = "idFuncionario")
+    private Funcionario funcionario;
 
     private LocalDate aniversario;
     private String cpf;

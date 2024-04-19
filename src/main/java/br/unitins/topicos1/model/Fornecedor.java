@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 
 @Entity
@@ -25,6 +28,20 @@ public class Fornecedor {
 	private List<Telefone> listaTelefone;
 
 	private String cnpj;
+
+	@ManyToMany
+	@JoinTable(name = "Fornecedor_Produto",
+		joinColumns = @JoinColumn(name = "idFornecedor"),
+		inverseJoinColumns = @JoinColumn(name = "idProduto"))
+	private List<Produto> listaProduto;	
+
+	public List<Produto> getListaProduto() {
+		return listaProduto;
+	}
+
+	public void setListaProduto(List<Produto> listaProduto) {
+		this.listaProduto = listaProduto;
+	}
 
 	public Long getIdFornecedor() {
 		return idFornecedor;

@@ -9,7 +9,7 @@ public enum Status {
 
     @Id
     private int id;
-    
+
     private String nome;
 
     private Status(int id, String nome) {
