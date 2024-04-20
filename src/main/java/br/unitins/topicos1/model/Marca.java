@@ -1,7 +1,9 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@Entity
 public class Marca {
     
     @Id

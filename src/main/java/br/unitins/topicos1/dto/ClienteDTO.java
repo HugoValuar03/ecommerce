@@ -11,5 +11,4 @@ public record ClienteDTO(
     LocalDate aniversario,
     Integer idSexo,
     List<TelefoneDTO> telefones
-    
 ) {}

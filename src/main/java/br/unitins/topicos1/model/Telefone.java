@@ -1,6 +1,9 @@
 package br.unitins.topicos1.model;
 
-public class Telefone {
+import jakarta.persistence.Entity;
+
+@Entity
+public class Telefone extends DefaultEntity{
     
     private String codigoArea;
     private String numero;

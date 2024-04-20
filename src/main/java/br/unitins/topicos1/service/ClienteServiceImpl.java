@@ -10,10 +10,12 @@ import br.unitins.topicos1.model.Cliente;
 import br.unitins.topicos1.model.Sexo;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.ClienteRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
+@ApplicationScoped
 public class ClienteServiceImpl implements ClienteService {
     
     @Inject
@@ -43,27 +45,28 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    @Transactional
     public void update(Long id, ClienteDTO dto) {
         Cliente clienteBanco = clienteRepository.findById(id);
+            clienteBanco.getPessoa().setNome(dto.nome());
+            clienteBanco.getPessoa().setEmail(dto.email());
+            clienteBanco.getPessoa().setCpf(dto.cpf());
+            clienteBanco.getPessoa().setAniversario(dto.aniversario());
+            clienteBanco.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
+            clienteBanco.getPessoa().setListaTelefone(new ArrayList<Telefone>());
 
-        clienteBanco.getPessoa().setNome(dto.nome());
-        clienteBanco.getPessoa().setEmail(dto.email());
-        clienteBanco.getPessoa().setCpf(dto.cpf());
-        clienteBanco.getPessoa().setAniversario(dto.aniversario());
-        clienteBanco.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
-        clienteBanco.getPessoa().setListaTelefone(new ArrayList<Telefone>());
-
-        clienteBanco.getPessoa().getListaTelefone().clear();
-        
-        for (TelefoneDTO tel : dto.telefones()) {
-            Telefone t = new Telefone();
-            t.setCodigoArea(tel.codigoArea());
-            t.setNumero(tel.numero());
-            clienteBanco.getPessoa().getListaTelefone().add(t); 
-        } 
+            clienteBanco.getPessoa().getListaTelefone().clear();
+            
+            for (TelefoneDTO tel : dto.telefones()) {
+                Telefone t = new Telefone();
+                t.setCodigoArea(tel.codigoArea());
+                t.setNumero(tel.numero());
+                clienteBanco.getPessoa().getListaTelefone().add(t); 
+        }
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         clienteRepository.deleteById(id);
     }

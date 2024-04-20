@@ -22,7 +22,7 @@ public record ClienteResponseDTO(
                                             .map(TelefoneResponseDTO::valueOf)
                                             .toList();
         return new ClienteResponseDTO(
-            cliente.getIdCliente(),
+            cliente.getPessoa().getId(),
             cliente.getPessoa().getNome(),
             cliente.getPessoa().getEmail(),
             cliente.getPessoa().getCpf(),

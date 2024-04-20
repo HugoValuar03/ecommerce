@@ -6,6 +6,7 @@ import br.unitins.topicos1.model.Pessoa;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 public class PessoaRepository implements PanacheRepository<Pessoa>{
+    
     public List<Pessoa> findByNome(String nomePessoa){
         return find("UPPER(marcaPessoa) LIKE ?1", "%" + nomePessoa.toUpperCase() + "%").list();
     }

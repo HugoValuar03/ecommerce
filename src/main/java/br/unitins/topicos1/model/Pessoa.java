@@ -27,8 +27,7 @@ public class Pessoa extends DefaultEntity{
     @JoinColumn(name = "id_pessoa")
     private List<Telefone> listaTelefone;
 
-    @OneToOne
-    @JoinColumn(name = "idCliente")
+    @OneToOne(mappedBy = "pessoa")
     private Cliente cliente;
 
     @OneToOne

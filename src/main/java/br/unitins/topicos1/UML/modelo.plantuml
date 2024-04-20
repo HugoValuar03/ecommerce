@@ -99,8 +99,8 @@ class Telefone{
 }
 
 Pessoa "1" *-right-> "*" Telefone
-Pessoa "1" <-- "1" Funcionario
-Pessoa "1" <-- "1" Cliente
+Pessoa "1" --> "1" Funcionario
+Pessoa "1" --> "1" Cliente
 Pessoa "*" *--> "1" Sexo
 
 DefaultEntity <|-- Cadastro

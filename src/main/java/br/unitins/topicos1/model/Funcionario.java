@@ -19,13 +19,21 @@ public class Funcionario{
 
     private String cargo;
 
-    @OneToOne
-    @JoinColumn(name = "idpessoa", unique = true)
-    private Pessoa pessoa;
-
     @OneToMany
     @JoinColumn(name = "idCadastro")
     private List<Cadastro> cadastro;
+
+    @OneToOne
+    @JoinColumn(name = "id_Pessoa", unique = true)
+    private Pessoa pessoa;
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 
     public Long getIdFuncionario() {
         return idFuncionario;
@@ -41,14 +49,6 @@ public class Funcionario{
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public List<Cadastro> getCadastro() {
