@@ -25,21 +25,20 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional 
     public FuncionarioResponseDTO create (FuncionarioDTO dto){
         Funcionario funcionario = new Funcionario();
-        funcionario.setNome(dto.nome());
-        funcionario.setEmail(dto.email());
-        funcionario.setCpf(dto.cpf());
-        funcionario.setAniversario(dto.aniversario());
+        funcionario.getPessoa().setNome(dto.nome());
+        funcionario.getPessoa().setEmail(dto.email());
+        funcionario.getPessoa().setCpf(dto.cpf());
+        funcionario.getPessoa().setAniversario(dto.aniversario());
         funcionario.setCargo(dto.cargo());
-        funcionario.setSexo(Sexo.valueOf(dto.idSexo()));
-        funcionario.setListaTelefone(new ArrayList<Telefone>());
+        funcionario.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
+        funcionario.getPessoa().setListaTelefone(new ArrayList<Telefone>());
         
         for (TelefoneDTO tel : dto.telefones()) {
             Telefone t = new Telefone();
             t.setCodigoArea(tel.codigoArea());
             t.setNumero(tel.numero());
-            funcionario.getListaTelefone().add(t);
+            funcionario.getPessoa().getListaTelefone().add(t);
         }
-
 
         funcionarioRepository.persist(funcionario);
         return FuncionarioResponseDTO.valueOf(funcionario);
@@ -49,19 +48,19 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional 
     public void update(Long id, FuncionarioDTO dto) {
         Funcionario funcionarioBanco = funcionarioRepository.findById(id);
-        funcionarioBanco.setNome(dto.nome());
-        funcionarioBanco.setEmail(dto.email());
-        funcionarioBanco.setCpf(dto.cpf());
-        funcionarioBanco.setAniversario(dto.aniversario());
+        funcionarioBanco.getPessoa().setNome(dto.nome());
+        funcionarioBanco.getPessoa().setEmail(dto.email());
+        funcionarioBanco.getPessoa().setCpf(dto.cpf());
+        funcionarioBanco.getPessoa().setAniversario(dto.aniversario());
         funcionarioBanco.setCargo(dto.cargo());
-        funcionarioBanco.setSexo(Sexo.valueOf(dto.idSexo()));
-        funcionarioBanco.getListaTelefone().clear();
+        funcionarioBanco.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
+        funcionarioBanco.getPessoa().getListaTelefone().clear();
         
         for (TelefoneDTO tel : dto.telefones()) {
             Telefone t = new Telefone();
             t.setCodigoArea(tel.codigoArea());
             t.setNumero(tel.numero());
-            funcionarioBanco.getListaTelefone().add(t);
+            funcionarioBanco.getPessoa().getListaTelefone().add(t);
         }
 
     }

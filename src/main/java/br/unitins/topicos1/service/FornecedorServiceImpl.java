@@ -9,10 +9,13 @@ import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Fornecedor;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.FornecedorRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
+
+@ApplicationScoped
 public class FornecedorServiceImpl implements FornecedorService {
 
     @Inject
@@ -28,7 +31,6 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedor.setEmail(dto.email());
         fornecedor.setCnpj(dto.cnpj());
         fornecedor.setListaTelefone(new ArrayList<Telefone>());
-        fornecedor.setProduto(dto.produto());
 
         for (TelefoneDTO tel : dto.telefones()) {
             Telefone t = new Telefone();
@@ -50,7 +52,6 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedorBanco.setEndereco(dto.endereco());
         fornecedorBanco.setCnpj(dto.cnpj());
         fornecedorBanco.setEmail(dto.email());
-        fornecedorBanco.setProduto(dto.produto());
         fornecedorBanco.getListaTelefone().clear();
         
         for (TelefoneDTO tel : dto.telefones()) {
@@ -59,7 +60,6 @@ public class FornecedorServiceImpl implements FornecedorService {
             t.setNumero(tel.numero());
             fornecedorBanco.getListaTelefone().add(t);
         }
-        
     }
 
     @Override

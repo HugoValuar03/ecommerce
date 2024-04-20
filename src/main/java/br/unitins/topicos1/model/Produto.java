@@ -1,20 +1,15 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Produto {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProduto;
 
     @Column
     @NotBlank(message = "Nome da camera é obrigatório")
@@ -33,16 +28,24 @@ public class Produto {
     @Column
     private String dimensoes;
 
-    @ManyToOne
-    @JoinColumn(name="idMarca")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_Marca")
     private Marca marca;
 
-    public Long getIdProduto() {
-        return idProduto;
+    @OneToOne
+    @JoinColumn(name = "id_Cadastro")
+    private Cadastro cadastro;
+
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    private Fornecedor fornecedor;
+
+    public Cadastro getCadastro() {
+        return cadastro;
     }
 
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+    public void setCadastro(Cadastro cadastro) {
+        this.cadastro = cadastro;
     }
 
     public String getNomeProduto() {

@@ -2,18 +2,11 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Lente extends Produto{
-     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idLentes;
 
     @Column
     private Integer distanciaFocal;
@@ -30,14 +23,6 @@ public class Lente extends Produto{
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
-
-    public Long getIdLentes() {
-        return idLentes;
-    }
-
-    public void setIdLentes(Long idLentes) {
-        this.idLentes = idLentes;
-    }
 
     public Fornecedor getFornecedor() {
         return fornecedor;

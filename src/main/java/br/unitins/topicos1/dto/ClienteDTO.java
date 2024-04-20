@@ -10,8 +10,6 @@ public record ClienteDTO(
     String cpf,
     LocalDate aniversario,
     Integer idSexo,
-    List<TelefoneDTO> listaTelefone
+    List<TelefoneDTO> telefones
     
-) {
-    
-}
+) {}

@@ -17,17 +17,17 @@ public record ClienteResponseDTO(
     List<TelefoneResponseDTO> listaTelefone
 ){
     public static ClienteResponseDTO valueOf(Cliente cliente){
-    List<TelefoneResponseDTO> lista = cliente.getListaTelefone()
+    List<TelefoneResponseDTO> lista = cliente.getPessoa().getListaTelefone()
                                             .stream()
                                             .map(TelefoneResponseDTO::valueOf)
                                             .toList();
         return new ClienteResponseDTO(
             cliente.getIdCliente(),
-            cliente.getNome(),
-            cliente.getEmail(),
-            cliente.getCpf(),
-            cliente.getSexo(),
-            cliente.getAniversario(),
+            cliente.getPessoa().getNome(),
+            cliente.getPessoa().getEmail(),
+            cliente.getPessoa().getCpf(),
+            cliente.getPessoa().getSexo(),
+            cliente.getPessoa().getAniversario(),
             lista
         );      
     }

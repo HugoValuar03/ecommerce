@@ -1,14 +1,16 @@
 package br.unitins.topicos1.model;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
-public class Cliente extends Pessoa {
+public class Cliente{
 
     @Id
     private Long idCliente;
 
     @OneToOne
+    @JoinColumn(name = "id_pessoa", unique = true)
     private Pessoa pessoa;
 
     public Long getIdCliente() {

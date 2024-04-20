@@ -20,18 +20,18 @@ public record FuncionarioResponseDTO(
 ) {
 
     public static FuncionarioResponseDTO valueOf(Funcionario funcionario){
-        List<TelefoneResponseDTO> lista = funcionario.getListaTelefone()
+        List<TelefoneResponseDTO> lista = funcionario.getPessoa().getListaTelefone()
                                             .stream()
                                             .map(TelefoneResponseDTO::valueOf)
                                             .toList();
         return new FuncionarioResponseDTO(
             funcionario.getIdFuncionario(),
             funcionario.getCargo(),
-            funcionario.getNome(),
-            funcionario.getEmail(),
-            funcionario.getCpf(),
-            funcionario.getSexo(),
-            funcionario.getAniversario(),
+            funcionario.getPessoa().getNome(),
+            funcionario.getPessoa().getEmail(),
+            funcionario.getPessoa().getCpf(),
+            funcionario.getPessoa().getSexo(),
+            funcionario.getPessoa().getAniversario(),
             lista
         );      
     }

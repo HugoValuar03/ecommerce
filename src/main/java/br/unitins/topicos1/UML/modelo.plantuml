@@ -8,7 +8,6 @@ class Pessoa{
   - listaTelefone : List<Telefone>
 }
 
-Pessoa "1" *--> "*" Telefone
 
 class Cadastro{
   - idCadastro : Long
@@ -17,17 +16,13 @@ class Cadastro{
   - status : Status 
 }
 
-DefaultEntity <|-- Cadastro
 
 Enum Status{
-  ATIVO
-  INATIVO
-  PENDENTE
+  ATIVO : Integer
+  INATIVO : Integer
+  PENDENTE : Integer
 }
 
-Cadastro --> Status
-Cadastro "*" --> "1" Funcionario
-Cadastro "1" --> "1" Produto
 
 class Funcionario{
   - idFuncionario : Long
@@ -38,15 +33,12 @@ class Cliente{
   - idCliente
 }
 
-Pessoa "1" <-- "1" Funcionario
-Pessoa "1" <-- "1" Cliente
 
 Enum Sexo{
-  FEMININO
-  MASCULINO
+  FEMININO : Integer
+  MASCULINO : Integer
 }
 
-Pessoa --> Sexo
 
 class Fornecedor{
   - idFornecedor : Long
@@ -55,13 +47,14 @@ class Fornecedor{
   - email : String
   - cnpj : String
   - listaTelefone : List<Telefone>
+  - listaProduto : List<Produto>
 }
 
-Fornecedor "1" *--> "*" Telefone
 
 class Produto{
   - idProduto : Long
   - nomeProduto : String
+  - marca : Marca
   - preco : Double
   - material : String
   - dimensoes : String
@@ -85,7 +78,6 @@ class Marca{
   - nome : String
 }
 
-Marca "1" <--* "*" Produto
 
 class Lente{
   - idLente : String
@@ -106,9 +98,22 @@ class Telefone{
   - numero : String
 }
 
+Pessoa "1" *-right-> "*" Telefone
+Pessoa "1" <-- "1" Funcionario
+Pessoa "1" <-- "1" Cliente
+Pessoa "*" *--> "1" Sexo
+
+DefaultEntity <|-- Cadastro
 DefaultEntity <|-- Pessoa
 
-Fornecedor "1" --> "*" Produto
+Cadastro "*" --> "1" Status
+Funcionario "1" o--> "*" Cadastro
+Cadastro "1" <--o "1" Produto
+
+Marca "1" <-left-* "*" Produto
+
+Fornecedor "1" *-left-> "*" Telefone
+Produto "*" --> "1" Fornecedor
 Produto <|-- Camera
 Produto <|-- Lente
 @enduml

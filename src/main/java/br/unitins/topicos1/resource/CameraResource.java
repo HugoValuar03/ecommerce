@@ -1,9 +1,8 @@
 package br.unitins.topicos1.resource;
 
-import br.unitins.topicos1.dto.CamerasDTO;
-import br.unitins.topicos1.service.CamerasService;
+import br.unitins.topicos1.dto.CameraDTO;
+import br.unitins.topicos1.service.CameraService;
 import jakarta.inject.Inject;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -22,7 +21,7 @@ import jakarta.ws.rs.core.Response.Status;
 public class CameraResource {
 
     @Inject
-    public CamerasService camerasService;
+    public CameraService camerasService;
 
     @GET
     public Response findAll() {
@@ -43,7 +42,7 @@ public class CameraResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, CamerasDTO dto) {
+    public Response update(@PathParam("id") Long id, CameraDTO dto) {
         camerasService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
@@ -56,7 +55,7 @@ public class CameraResource {
     }
 
     @POST  
-    public Response create(@Valid CamerasDTO dto){
+    public Response create(CameraDTO dto){
         return Response.status(Status.CREATED).entity(camerasService.create(dto)).build();
     }
 

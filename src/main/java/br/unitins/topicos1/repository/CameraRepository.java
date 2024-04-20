@@ -2,18 +2,18 @@ package br.unitins.topicos1.repository;
 
 import java.util.List;
 
-import br.unitins.topicos1.model.Cameras;
+import br.unitins.topicos1.model.Camera;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class CamerasRepository implements PanacheRepository<Cameras> {
+public class CameraRepository implements PanacheRepository<Camera> {
     
-    public List<Cameras> findByNomeProduto(String nomeProduto){
+    public List<Camera> findByNomeProduto(String nomeProduto){
         return find("UPPER(nomeProduto) LIKE ?1", "%" + nomeProduto.toUpperCase() + "%").list();
     }
 
-    public List<Cameras> findByMarca(String marca){
+    public List<Camera> findByMarca(String marca){
         return find("UPPER(marca) LIKE ?1", "%" + marca.toUpperCase() + "%").list();
     }
 }

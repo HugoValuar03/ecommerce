@@ -30,7 +30,12 @@ public class LenteServiceImpl implements LenteService {
            lentes.setPreco(dto.preco());
            lentes.setMaterial(dto.material());
            lentes.setDimensoes(dto.dimensoes());
-           lentes.setNomeModelo(dto.nomeModelo());           
+           lentes.setNomeModelo(dto.nomeModelo());   
+           lentes.getCadastro().setResponsavel(dto.responsavel());
+           lentes.getCadastro().setCategoria(dto.categoria());
+           lentes.getCadastro().setStatus(dto.status());
+           lentes.getCadastro().setDataCadastro(dto.dataCadastro());
+           lentes.getCadastro().setDataAlteracao(dto.dataAlteracao());        
 
            lentesRepository.persist(lentes);
            return LentesResponseDTO.valueOf(lentes);    
@@ -50,6 +55,11 @@ public class LenteServiceImpl implements LenteService {
         lentesBanco.setMaterial(dto.material());
         lentesBanco.setDimensoes(dto.dimensoes());
         lentesBanco.setNomeModelo(dto.nomeModelo());
+        lentesBanco.getCadastro().setResponsavel(dto.responsavel());
+        lentesBanco.getCadastro().setStatus(dto.status());
+        lentesBanco.getCadastro().setCategoria(dto.categoria());
+        lentesBanco.getCadastro().setDataAlteracao(dto.dataAlteracao());
+        lentesBanco.getCadastro().setDataCadastro(dto.dataCadastro());
 
     }
 

@@ -2,12 +2,13 @@ package br.unitins.topicos1.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 
 @Entity
@@ -24,21 +25,11 @@ public class Fornecedor {
 
 	private String endereco;
 
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_fornecedor")
 	private List<Telefone> listaTelefone;
 
 	private String cnpj;
-
-	@ManyToOne
-	@JoinColumn(name="id_produto")	
-	private Produto produto;	
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
 
 	public Long getIdFornecedor() {
 		return idFornecedor;

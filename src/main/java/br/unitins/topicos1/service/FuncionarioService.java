@@ -7,7 +7,6 @@ import br.unitins.topicos1.dto.FuncionarioResponseDTO;
 import jakarta.validation.Valid;
 
 public interface FuncionarioService {
-    
     public FuncionarioResponseDTO create(@Valid FuncionarioDTO dto); 
     public void update(Long id, FuncionarioDTO dto); 
     public void delete(Long id); 

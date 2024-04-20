@@ -22,5 +22,4 @@ public class CadastroRepository implements PanacheRepository<Cadastro> {
         return find("UPPER(dataAlteracao) LIKE ?1", "%" + dataAlteracao.toUpperCase() + "%").list();
     }
 
-
 }

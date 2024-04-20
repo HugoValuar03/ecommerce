@@ -7,6 +7,7 @@ import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
 
 public record PessoaResponseDTO(
+    Long id,
     String nome,
     String email,
     String cpf,
@@ -20,6 +21,7 @@ public record PessoaResponseDTO(
                                             .map(TelefoneResponseDTO::valueOf)
                                             .toList();  
         return new PessoaResponseDTO(
+            pessoa.getId(),
             pessoa.getNome(),
             pessoa.getEmail(), 
             pessoa.getCpf(),

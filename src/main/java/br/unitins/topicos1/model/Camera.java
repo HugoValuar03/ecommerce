@@ -2,16 +2,9 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
-public class Cameras extends Produto{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCameras;
+public class Camera extends Produto{
 
     @Column
     private String conectividade;
@@ -36,16 +29,6 @@ public class Cameras extends Produto{
 
     @Column 
     private Integer garantia;
-
-
-
-    public Long getIdCameras() {
-        return idCameras;
-    }
-
-    public void setIdCameras(Long idCameras) {
-        this.idCameras = idCameras;
-    }
 
     public String getConectividade() {
         return conectividade;

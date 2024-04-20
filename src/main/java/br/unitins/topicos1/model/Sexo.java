@@ -1,14 +1,13 @@
 package br.unitins.topicos1.model;
 
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Sexo {
     MASCULINO(1, "Masculino"),
     FEMININO(2, "Feminino");
 
-    @Id
     private int id;
-    
     private String nome;
 
     private Sexo(int id, String nome) {
