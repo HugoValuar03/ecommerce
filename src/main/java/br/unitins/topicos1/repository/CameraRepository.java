@@ -14,6 +14,6 @@ public class CameraRepository implements PanacheRepository<Camera> {
     }
 
     public List<Camera> findByMarca(String marca){
-        return find("UPPER(marca) LIKE ?1", "%" + marca.toUpperCase() + "%").list();
+        return find("UPPER(marca) LIKE ?1", marca.toUpperCase() ).list();
     }
 }

@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -26,7 +25,6 @@ public class Produto {
     private String nomeModelo;
 
     @Column
-    @NotBlank(message = "O preço do produto é obrigatório")
     private Double preco;
 
     @Column
@@ -39,24 +37,12 @@ public class Produto {
     @JoinColumn(name="id_Marca")
     private Marca marca;
 
-    @OneToOne
-    @JoinColumn(name = "id_Cadastro")
-    private Cadastro cadastro;
-
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
 
     public Long getIdProduto() {
         return idProduto;
-    }
-
-    public Cadastro getCadastro() {
-        return cadastro;
-    }
-
-    public void setCadastro(Cadastro cadastro) {
-        this.cadastro = cadastro;
     }
 
     public void setIdProduto(Long idProduto) {

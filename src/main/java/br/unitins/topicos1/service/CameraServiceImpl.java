@@ -35,13 +35,7 @@ public class CameraServiceImpl implements CameraService{
         camera.setPreco(dto.preco());
         camera.setMaterial(dto.material());
         camera.setDimensoes(dto.dimensoes());
-        camera.setNomeModelo(dto.nomeModelo());
-        camera.getCadastro().setDataAlteracao(dto.dataAlteracao());
-        camera.getCadastro().setDataCadastro(dto.dataCadastro());
-        camera.getCadastro().setStatus(dto.status());
-        camera.getCadastro().setCategoria(dto.categoria());
-        camera.getCadastro().setResponsavel(dto.responsavel());
-        
+        camera.setNomeModelo(dto.nomeModelo());        
 
         cameraRepository.persist(camera);
         return CameraResponseDTO.valueof(camera);
@@ -66,11 +60,6 @@ public class CameraServiceImpl implements CameraService{
         cameraBanco.setMaterial(dto.material());
         cameraBanco.setDimensoes(dto.dimensoes());
         cameraBanco.setNomeModelo(dto.nomeModelo());
-        cameraBanco.getCadastro().setDataAlteracao(dto.dataAlteracao());
-        cameraBanco.getCadastro().setDataCadastro(dto.dataCadastro());
-        cameraBanco.getCadastro().setStatus(dto.status());
-        cameraBanco.getCadastro().setCategoria(dto.categoria());
-        cameraBanco.getCadastro().setResponsavel(dto.responsavel());
     }
 
     @Override

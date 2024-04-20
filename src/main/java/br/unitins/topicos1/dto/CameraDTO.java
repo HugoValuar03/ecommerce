@@ -1,9 +1,6 @@
 package br.unitins.topicos1.dto;
 
-import java.time.LocalDateTime;
-
 import br.unitins.topicos1.model.Marca;
-import br.unitins.topicos1.model.Status;
 
 public record CameraDTO(
 
@@ -20,11 +17,6 @@ public record CameraDTO(
     Double preco,
     String material,
     String dimensoes,
-    String nomeModelo,
-    Status status,
-    String categoria,
-    String responsavel,
-    LocalDateTime dataCadastro,
-    LocalDateTime dataAlteracao
+    String nomeModelo
 
 ) {}
