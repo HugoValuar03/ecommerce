@@ -30,7 +30,6 @@ public class CameraServiceImpl implements CameraService{
         camera.setIso(dto.iso());
         camera.setFlashPopUp(dto.flashPopUp());
         camera.setGarantia(dto.garantia());
-        camera.setNomeProduto(dto.nomeProduto());
         camera.setMarca(dto.marca());
         camera.setPreco(dto.preco());
         camera.setMaterial(dto.material());
@@ -55,7 +54,6 @@ public class CameraServiceImpl implements CameraService{
         cameraBanco.setIso(dto.iso());
         cameraBanco.setFlashPopUp(dto.flashPopUp());
         cameraBanco.setGarantia(dto.garantia());
-        cameraBanco.setNomeProduto(dto.nomeProduto());
         cameraBanco.setPreco(dto.preco());
         cameraBanco.setMaterial(dto.material());
         cameraBanco.setDimensoes(dto.dimensoes());

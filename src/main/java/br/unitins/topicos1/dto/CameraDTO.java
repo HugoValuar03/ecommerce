@@ -13,7 +13,6 @@ public record CameraDTO(
     String iso,
     Boolean flashPopUp,
     Integer garantia,
-    String nomeProduto,
     Double preco,
     String material,
     String dimensoes,

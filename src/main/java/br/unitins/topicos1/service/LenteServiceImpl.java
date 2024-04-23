@@ -20,20 +20,19 @@ public class LenteServiceImpl implements LenteService {
     @Override
     @Transactional
     public LentesResponseDTO create(@Valid LentesDTO dto) {
-           Lente lentes = new Lente();
-           
-           lentes.setCompatibilidade(dto.compatibilidade());
-           lentes.setDistanciaFocal(dto.distandicaFocal());
-           lentes.setDiametroFiltro(dto.diametroFiltro());
-           lentes.setMontagem(dto.montagem());
-           lentes.setNomeProduto(dto.nomeProduto());
-           lentes.setPreco(dto.preco());
-           lentes.setMaterial(dto.material());
-           lentes.setDimensoes(dto.dimensoes());
-           lentes.setNomeModelo(dto.nomeModelo());    
+        Lente lentes = new Lente();
+        
+        lentes.setCompatibilidade(dto.compatibilidade());
+        lentes.setDistanciaFocal(dto.distandicaFocal());
+        lentes.setDiametroFiltro(dto.diametroFiltro());
+        lentes.setMontagem(dto.montagem());
+        lentes.setPreco(dto.preco());
+        lentes.setMaterial(dto.material());
+        lentes.setDimensoes(dto.dimensoes());
+        lentes.setNomeModelo(dto.nomeModelo());    
 
-           lentesRepository.persist(lentes);
-           return LentesResponseDTO.valueOf(lentes);    
+        lentesRepository.persist(lentes);
+        return LentesResponseDTO.valueOf(lentes);    
     }
 
     @Override
@@ -45,7 +44,6 @@ public class LenteServiceImpl implements LenteService {
         lentesBanco.setDistanciaFocal(dto.distandicaFocal());
         lentesBanco.setDiametroFiltro(dto.diametroFiltro());
         lentesBanco.setMontagem(dto.montagem());
-        lentesBanco.setNomeProduto(dto.nomeProduto());
         lentesBanco.setPreco(dto.preco());
         lentesBanco.setMaterial(dto.material());
         lentesBanco.setDimensoes(dto.dimensoes());

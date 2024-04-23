@@ -1,38 +1,54 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Camera extends Produto{
 
-    @Column
+    @Column(length = 30, nullable = false)
     private String conectividade;
 
-    @Column 
+    @Column(length = 15, nullable = false)
     private String resolucao;
 
-    @Column
+    @Column(length = 5)
     private Boolean telaArticulavel;
 
-    @Column
+    @Column(length = 5)
     private Boolean telaSensivelToque;
     
-    @Column
+    @Column(length = 15)
     private String tipoTela;
 
-    @Column
+    @Column(length = 15)
     private String iso;
 
-    @Column
+    @Column(length = 5)
     private Boolean flashPopUp;
 
-    @Column 
+    @Column(length = 2)
     private Integer garantia;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_Marca")
+    private Marca marca;
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+    
     public String getConectividade() {
         return conectividade;
     }
+
 
     public void setConectividade(String conectividade) {
         this.conectividade = conectividade;

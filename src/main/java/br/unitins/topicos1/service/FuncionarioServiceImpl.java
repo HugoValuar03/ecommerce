@@ -25,6 +25,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional 
     public FuncionarioResponseDTO create (FuncionarioDTO dto){
         Funcionario funcionario = new Funcionario();
+        
         funcionario.getPessoa().setNome(dto.nome());
         funcionario.getPessoa().setEmail(dto.email());
         funcionario.getPessoa().setCpf(dto.cpf());

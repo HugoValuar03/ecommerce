@@ -1,5 +1,6 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -10,6 +11,23 @@ public class Lente extends Produto{
 
     @Column
     private Integer distanciaFocal;
+
+    public Lente(Integer distanciaFocal, String compatibilidade, Integer diametroFiltro, String montagem,
+            Fornecedor fornecedor) {
+        this.distanciaFocal = distanciaFocal;
+        this.compatibilidade = compatibilidade;
+        this.diametroFiltro = diametroFiltro;
+        this.montagem = montagem;
+        this.fornecedor = fornecedor;
+    }
+
+    public Lente() {
+        
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_marca")
+    private Marca marca;
 
     @Column
     private String compatibilidade;
@@ -23,6 +41,14 @@ public class Lente extends Produto{
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
 
     public Fornecedor getFornecedor() {
         return fornecedor;

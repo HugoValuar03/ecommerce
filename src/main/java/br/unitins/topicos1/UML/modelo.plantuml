@@ -8,22 +8,6 @@ class Pessoa{
   - listaTelefone : List<Telefone>
 }
 
-
-class Cadastro{
-  - idCadastro : Long
-  - responsavel : String
-  - categoria : String
-  - status : Status 
-}
-
-
-Enum Status{
-  ATIVO : Integer
-  INATIVO : Integer
-  PENDENTE : Integer
-}
-
-
 class Funcionario{
   - idFuncionario : Long
   - cargo : String 
@@ -98,21 +82,16 @@ class Telefone{
   - numero : String
 }
 
-Pessoa "1" *-right-> "*" Telefone
+Pessoa "1" *--> "*" Telefone
 Pessoa "1" --> "1" Funcionario
 Pessoa "1" --> "1" Cliente
 Pessoa "*" *--> "1" Sexo
 
-DefaultEntity <|-- Cadastro
-DefaultEntity <|-- Pessoa
-
-Cadastro "*" --> "1" Status
-Funcionario "1" o--> "*" Cadastro
-Cadastro "1" <--o "1" Produto
+Pessoa -up-|> DefaultEntity 
 
 Marca "1" <-left-* "*" Produto
 
-Fornecedor "1" *-left-> "*" Telefone
+Fornecedor "1" *--> "*" Telefone
 Produto "*" --> "1" Fornecedor
 Produto <|-- Camera
 Produto <|-- Lente
