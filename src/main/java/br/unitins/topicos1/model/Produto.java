@@ -1,5 +1,6 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +28,28 @@ public class Produto {
     @Column
     private String dimensoes;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_Marca")
+    private Marca marca;
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
     @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
+    @JoinColumn(name = "idfornecedor")
     private Fornecedor fornecedor;
 
     public Long getIdProduto() {

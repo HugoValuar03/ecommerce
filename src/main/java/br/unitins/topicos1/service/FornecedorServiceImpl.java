@@ -32,7 +32,7 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedor.setCnpj(dto.cnpj());
         fornecedor.setListaTelefone(new ArrayList<Telefone>());
 
-        for (TelefoneDTO tel : dto.telefone()) {
+        for (TelefoneDTO tel : dto.listaTelefone()) {
             Telefone t = new Telefone();
             t.setCodigoArea(tel.codigoArea());
             t.setNumero(tel.numero());
@@ -52,9 +52,10 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedorBanco.setEndereco(dto.endereco());
         fornecedorBanco.setCnpj(dto.cnpj());
         fornecedorBanco.setEmail(dto.email());
+
         fornecedorBanco.getListaTelefone().clear();
         
-        for (TelefoneDTO tel : dto.telefone()) {
+        for (TelefoneDTO tel : dto.listaTelefone()) {
             Telefone t = new Telefone();
             t.setCodigoArea(tel.codigoArea());
             t.setNumero(tel.numero());

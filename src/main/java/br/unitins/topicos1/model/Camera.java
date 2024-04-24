@@ -34,7 +34,7 @@ public class Camera extends Produto{
     private Integer garantia;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_Marca")
+    @JoinColumn(name="id_marca")
     private Marca marca;
 
     public Marca getMarca() {

@@ -6,6 +6,6 @@ public record FornecedorDTO(
     String nome,
     String endereco,
     String email,
-    List<TelefoneDTO> telefone,
+    List<TelefoneDTO> listaTelefone,
     String cnpj
 ) {}

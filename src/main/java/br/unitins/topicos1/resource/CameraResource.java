@@ -17,7 +17,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/admin/cameras")
+@Path("/admin/camera")
 public class CameraResource {
 
     @Inject

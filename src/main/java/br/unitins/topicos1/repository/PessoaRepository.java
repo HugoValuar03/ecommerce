@@ -4,7 +4,9 @@ import java.util.List;
 
 import br.unitins.topicos1.model.Pessoa;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class PessoaRepository implements PanacheRepository<Pessoa>{
     
     public List<Pessoa> findByNome(String nomePessoa){

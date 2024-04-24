@@ -86,13 +86,14 @@ Pessoa "1" *--> "*" Telefone
 Pessoa "1" --> "1" Funcionario
 Pessoa "1" --> "1" Cliente
 Pessoa "*" *--> "1" Sexo
+DefaultEntity <|-- Telefone
 
 Pessoa -up-|> DefaultEntity 
 
 Marca "1" <-left-* "*" Produto
 
-Fornecedor "1" *--> "*" Telefone
-Produto "*" --> "1" Fornecedor
+Fornecedor "1" *-up-> "*" Telefone
+Produto "*" o--> "1" Fornecedor
 Produto <|-- Camera
 Produto <|-- Lente
 @enduml
