@@ -1,12 +1,11 @@
 package br.unitins.topicos1.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.unitins.topicos1.dto.ClienteDTO;
 import br.unitins.topicos1.dto.ClienteResponseDTO;
-import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Cliente;
+import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.ClienteRepository;
@@ -25,19 +24,21 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public ClienteResponseDTO create(@Valid ClienteDTO dto){
         Cliente cliente = new Cliente();
-        cliente.getPessoa().setNome(dto.nome());
-        cliente.getPessoa().setEmail(dto.email());
-        cliente.getPessoa().setCpf(dto.cpf());
-        cliente.getPessoa().setAniversario(dto.aniversario());
-        cliente.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
-        cliente.getPessoa().setListaTelefone(new ArrayList<Telefone>());
+        Pessoa pessoa = new Pessoa();
 
-        for (TelefoneDTO tel : dto.telefones()) {
-            Telefone t = new Telefone();
-            t.setCodigoArea(tel.codigoArea());
-            t.setNumero(tel.numero());
-            cliente.getPessoa().getListaTelefone().add(t);
-        }
+        pessoa.setNome(dto.pessoa().nome());
+        pessoa.setSexo(Sexo.valueOf(dto.pessoa().idSexo()));
+        pessoa.setAniversario(dto.pessoa().aniversario());
+        pessoa.setCpf(dto.pessoa().cpf());
+        pessoa.setEmail(dto.pessoa().email());
+
+        cliente.setPessoa(pessoa);
+
+        Telefone telefone = new Telefone();
+        telefone.setCodigoArea(dto.pessoa().telefone().codigoArea());
+        telefone.setNumero(dto.pessoa().telefone().numero());
+
+        pessoa.setTelefone(telefone);
 
         clienteRepository.persist(cliente);
         return ClienteResponseDTO.valueOf(cliente);
@@ -47,28 +48,31 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public void update(Long id, ClienteDTO dto) {
-        Cliente clienteBanco = clienteRepository.findById(id);
-            clienteBanco.getPessoa().setNome(dto.nome());
-            clienteBanco.getPessoa().setEmail(dto.email());
-            clienteBanco.getPessoa().setCpf(dto.cpf());
-            clienteBanco.getPessoa().setAniversario(dto.aniversario());
-            clienteBanco.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
-            clienteBanco.getPessoa().setListaTelefone(new ArrayList<Telefone>());
 
-            clienteBanco.getPessoa().getListaTelefone().clear();
+        Cliente clienteBanco = clienteRepository.findById(id);
+        Pessoa pessoaBanco = clienteBanco.getPessoa();
+
+        pessoaBanco.setNome(dto.pessoa().nome());
+        pessoaBanco.setAniversario(dto.pessoa().aniversario());
+        pessoaBanco.setEmail(dto.pessoa().email());
+        pessoaBanco.setCpf(dto.pessoa().cpf());
+        pessoaBanco.setAniversario(dto.pessoa().aniversario());
+        pessoaBanco.setSexo(Sexo.valueOf(dto.pessoa().idSexo()));
+        
+        Telefone telefone = clienteBanco.getPessoa().getTelefone();
+        telefone.setCodigoArea(dto.pessoa().telefone().codigoArea());
+        telefone.setNumero(dto.pessoa().telefone().numero());
+        
+        clienteBanco.setPessoa(pessoaBanco);
             
-            for (TelefoneDTO tel : dto.telefones()) {
-                Telefone t = new Telefone();
-                t.setCodigoArea(tel.codigoArea());
-                t.setNumero(tel.numero());
-                clienteBanco.getPessoa().getListaTelefone().add(t); 
-        }
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
+
         clienteRepository.deleteById(id);
+    
     }
 
     @Override
@@ -89,7 +93,4 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository.findByCpf(cpf).stream()
         .map(e -> ClienteResponseDTO.valueOf(e)).toList();
     }
-
-
-    
 }
