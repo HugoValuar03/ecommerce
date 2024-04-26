@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import br.unitins.topicos1.dto.ClienteDTO;
-import br.unitins.topicos1.dto.PessoaDTO;
 import br.unitins.topicos1.dto.TelefoneDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.MediaType;
@@ -19,12 +18,8 @@ public class ClienteResourceTest {
     @Test
     public void createTest(){
         TelefoneDTO telefone = new TelefoneDTO("62", "987773277");
-        
-        LocalDate dataNascimento = LocalDate.parse("2005-03-01");
 
-        PessoaDTO pessoa = new PessoaDTO("João", "joao@gmail.com", "01824865798", 1, dataNascimento, telefone);
-
-        ClienteDTO dto = new ClienteDTO(pessoa);
+        ClienteDTO dto = new ClienteDTO("João", "joao@gmail.com",  "01824865798", 1, LocalDate.parse("2003-03-10"), telefone);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -33,18 +28,14 @@ public class ClienteResourceTest {
             .post("/clientes")
         .then()
             .statusCode(201)
-            .body("nome", is("João"));
+            .body("pessoa.nome", is("João"));
     }
 
     @Test
     public void updateTest(){
         TelefoneDTO telefone = new TelefoneDTO("63", "987777777");
 
-        LocalDate dataNascimento = LocalDate.parse("2004-03-12");
-
-        PessoaDTO pessoa = new PessoaDTO("Rafael", "rafael@gmail.com", "08015749532", 1, dataNascimento, telefone);
-
-        ClienteDTO dto = new ClienteDTO(pessoa);
+        ClienteDTO dto = new ClienteDTO("Rafael", "rafael@gmail.com", "08015749532", 1, LocalDate.parse("2003-03-10"), telefone);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)

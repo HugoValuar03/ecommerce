@@ -19,7 +19,7 @@ public record LentesResponseDTO(
     public static LentesResponseDTO valueOf(Lente lentes){
         return new LentesResponseDTO(
 
-            lentes.getIdProduto(),
+            lentes.getId(),
             lentes.getCompatibilidade(),
             lentes.getDistanciaFocal(),
             lentes.getDiametroFiltro(),

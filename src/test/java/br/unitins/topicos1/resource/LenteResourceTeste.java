@@ -78,13 +78,13 @@ public class LenteResourceTeste {
             .body("montagem", everyItem(is("EF")));  
     }
 
-    // @Test
-    // public void deleteTest(){
-    //     given()
-    //     .when()
-    //     .pathParam("idProduto", 1)
-    //         .delete("/lentes/{idProduto}")
-    //     .then()
-    //         .statusCode(204);
-    // }
+    @Test
+     public void deleteTest(){
+         given()
+         .when()
+         .pathParam("id", 1)
+             .delete("/lentes/{id}")
+         .then()
+             .statusCode(204);
+     }
 }

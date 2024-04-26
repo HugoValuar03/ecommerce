@@ -4,7 +4,9 @@ INSERT INTO telefone(codigoArea, numero) VALUES ('62', '32243132');
 INSERT INTO telefone(codigoArea, numero) VALUES ('61', '32243141');
 
 -- Inserindo Cliente
-INSERT INTO usuario (nome, email, cpf, sexo, aniversario, telefone) VALUES ('João', 'joaogomes@gmail.com', '123.456.789-12', 1, '1998-02-24', 1);
+INSERT INTO pessoa (nome, email, cpf, sexo, aniversario, id_telefone) VALUES ('João', 'joaogomes@gmail.com', '123.456.789-12', 1, '1998-02-24', 1);
+INSERT INTO pessoa (nome, email, cpf, sexo, aniversario, id_telefone) VALUES ('Felipe', 'felipeomes@gmail.com', '123.456.389-12', 1, '1992-02-23', 2);
+INSERT INTO pessoa (nome, email, cpf, sexo, aniversario, id_telefone) VALUES ('Ana', 'anagomes@gmail.com', '123.456.729-12', 2, '1918-02-24', 3);
 
 INSERT INTO cliente(id_pessoa) VALUES (1);
 

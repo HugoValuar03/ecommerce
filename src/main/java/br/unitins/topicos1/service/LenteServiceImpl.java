@@ -52,8 +52,8 @@ public class LenteServiceImpl implements LenteService {
     }
 
     @Override
-    public void delete(Long idProduto) {
-        lentesRepository.deleteById(idProduto);
+    public void delete(Long id) {
+        lentesRepository.deleteById(id);
     }
 
     @Override

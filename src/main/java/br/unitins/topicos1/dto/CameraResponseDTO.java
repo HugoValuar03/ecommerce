@@ -24,7 +24,7 @@ public record CameraResponseDTO(
 
     public static CameraResponseDTO valueof(Camera camera){
         return new CameraResponseDTO(
-            camera.getIdProduto(),
+            camera.getId(),
             camera.getMarca(),
             camera.getConectividade(),
             camera.getResolucao(),

@@ -14,7 +14,7 @@ public class Produto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProduto;
+    private Long id;
     
     @Column
     private String nomeModelo;
@@ -51,15 +51,7 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-
-    public Long getIdProduto() {
-        return idProduto;
-    }
-
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
-    }
-
+    
     public String getNomeModelo() {
         return nomeModelo;
     }
@@ -90,5 +82,13 @@ public class Produto {
 
     public void setDimensoes(String dimensoes) {
         this.dimensoes = dimensoes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

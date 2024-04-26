@@ -63,8 +63,8 @@ public class LenteResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("idProduto") Long idProduto) {
-        lentesService.delete(idProduto);
+    public Response delete(@PathParam("id") Long id) {
+        lentesService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
 

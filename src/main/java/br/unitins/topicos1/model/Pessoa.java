@@ -23,7 +23,7 @@ public class Pessoa extends DefaultEntity{
     private Sexo sexo;
     
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_pessoa")
+    @JoinColumn(name = "id_telefone")
     private Telefone telefone;
     
     @Column(length = 10)

@@ -26,17 +26,17 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente cliente = new Cliente();
         Pessoa pessoa = new Pessoa();
 
-        pessoa.setNome(dto.pessoa().nome());
-        pessoa.setSexo(Sexo.valueOf(dto.pessoa().idSexo()));
-        pessoa.setAniversario(dto.pessoa().aniversario());
-        pessoa.setCpf(dto.pessoa().cpf());
-        pessoa.setEmail(dto.pessoa().email());
+        pessoa.setNome(dto.nome());
+        pessoa.setSexo(Sexo.valueOf(dto.idSexo()));
+        pessoa.setAniversario(dto.aniversario());
+        pessoa.setCpf(dto.cpf());
+        pessoa.setEmail(dto.email());
 
         cliente.setPessoa(pessoa);
 
         Telefone telefone = new Telefone();
-        telefone.setCodigoArea(dto.pessoa().telefone().codigoArea());
-        telefone.setNumero(dto.pessoa().telefone().numero());
+        telefone.setCodigoArea(dto.telefone().codigoArea());
+        telefone.setNumero(dto.telefone().numero());
 
         pessoa.setTelefone(telefone);
 
@@ -52,16 +52,16 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente clienteBanco = clienteRepository.findById(id);
         Pessoa pessoaBanco = clienteBanco.getPessoa();
 
-        pessoaBanco.setNome(dto.pessoa().nome());
-        pessoaBanco.setAniversario(dto.pessoa().aniversario());
-        pessoaBanco.setEmail(dto.pessoa().email());
-        pessoaBanco.setCpf(dto.pessoa().cpf());
-        pessoaBanco.setAniversario(dto.pessoa().aniversario());
-        pessoaBanco.setSexo(Sexo.valueOf(dto.pessoa().idSexo()));
+        pessoaBanco.setNome(dto.nome());
+        pessoaBanco.setAniversario(dto.aniversario());
+        pessoaBanco.setEmail(dto.email());
+        pessoaBanco.setCpf(dto.cpf());
+        pessoaBanco.setAniversario(dto.aniversario());
+        pessoaBanco.setSexo(Sexo.valueOf(dto.idSexo()));
         
         Telefone telefone = clienteBanco.getPessoa().getTelefone();
-        telefone.setCodigoArea(dto.pessoa().telefone().codigoArea());
-        telefone.setNumero(dto.pessoa().telefone().numero());
+        telefone.setCodigoArea(dto.telefone().codigoArea());
+        telefone.setNumero(dto.telefone().numero());
         
         clienteBanco.setPessoa(pessoaBanco);
             

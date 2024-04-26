@@ -10,7 +10,7 @@ public interface LenteService {
 
     public LentesResponseDTO create(@Valid LentesDTO dto); 
     public void update(Long id, LentesDTO dto); 
-    public void delete(Long idProduto); 
+    public void delete(Long id); 
     public LentesResponseDTO findById(Long id);
     public List<LentesResponseDTO> findAll();
     public List<LentesResponseDTO> findByMontagem(String montagem);
