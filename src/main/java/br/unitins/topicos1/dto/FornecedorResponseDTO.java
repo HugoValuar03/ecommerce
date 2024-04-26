@@ -1,7 +1,5 @@
 package br.unitins.topicos1.dto;
 
-import java.util.List;
-
 import br.unitins.topicos1.model.Fornecedor;
 
 public record FornecedorResponseDTO(
@@ -9,21 +7,17 @@ public record FornecedorResponseDTO(
     String nome,
     String endereco,
     String email,
-    List<TelefoneResponseDTO> listaTelefone,
+    TelefoneResponseDTO telefone,
     String cnpj
 ) {
     public static FornecedorResponseDTO valueOf(Fornecedor fornecedor){
-        List<TelefoneResponseDTO> lista = fornecedor.getListaTelefone()
-                                            .stream()
-                                            .map(TelefoneResponseDTO::valueOf)
-                                            .toList();  
 
         return new FornecedorResponseDTO(
             fornecedor.getIdFornecedor(),
             fornecedor.getNome(),
             fornecedor.getEndereco(),
             fornecedor.getEmail(),
-            lista,
+            TelefoneResponseDTO.valueOf(fornecedor.getTelefone()),
             fornecedor.getCnpj()
         );
     }

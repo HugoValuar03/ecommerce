@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/admin/clientes")
+@Path("/clientes")
 public class ClienteResource {
     
     @Inject

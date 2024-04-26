@@ -1,6 +1,7 @@
 package br.unitins.topicos1.resource;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -18,26 +19,72 @@ public class LenteResourceTeste {
     public void createTest(){
         Marca marca = new Marca(1L, "Canon");
 
-        LentesDTO dto = new LentesDTO("Canon", 10, 15, "LA", "Canon Lens", 4500.00, "Plástico", "10x20x15", "Canon Lens2", marca);
+        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 300.00, "10x5x8", "vidro", "Canon EF 50mm f/1.8 II", marca);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
-            .post("/admin/lente")
+            .post("/lentes")
         .then()
             .statusCode(201)
-            .body("compatibilidade", is("Canon"));
+            .body("compatibilidade", is("Canon EOS"));
     }
+
+    @Test
+    public void updateTest(){
+        Marca marca = new Marca(1L, "Canon");
+
+        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 250.00, "10x5x8" ,"vidro" , "Canon EF 50mm f/1.8 II", marca);
+
+        given()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(dto)
+        .when()
+            .pathParam("id", 1)
+            .put("/lentes/{id}")
+        .then()
+            .statusCode(204); 
+    }
+
 
     @Test
     public void findAllTest(){
         given()
             .when()
-                .get("/admin/lente")
+                .get("/lentes")
             .then()
                 .statusCode(200)
-                .body("nomeProduto", hasItem(is("Canon Lens")));
+                .body("material", hasItem("vidro"));
     }
 
+    @Test
+    public void findByIdTest(){
+        given()
+            .when()
+            .get("/lentes/2")
+            .then()
+            .statusCode(200)
+            .body("idProduto", hasItem(is(2)));
+    }
+
+    @Test
+    public void findByLenteTest(){
+        given()
+            .when()
+            .get("/lentes/search/montagem/EF")
+            .then()
+            .statusCode(200)
+            .body("montagem", everyItem(is("EF")));  
+    }
+
+    // @Test
+    // public void deleteTest(){
+    //     given()
+    //     .when()
+    //     .pathParam("idProduto", 1)
+    //         .delete("/lentes/{idProduto}")
+    //     .then()
+    //         .statusCode(204);
+    // }
 }

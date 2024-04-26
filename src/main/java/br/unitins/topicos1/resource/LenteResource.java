@@ -19,35 +19,40 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/admin/lente")
+@Path("/lentes")
 public class LenteResource {
     
     @Inject
     public LenteService lentesService;
 
+    // Teste feito
     @GET
     public Response findAll() {
         return Response.ok(lentesService.findAll()).build();
     }
 
+    // Teste feito
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
         return Response.ok(lentesService.findAll()).build();
     }
 
+    // Teste feito
     @GET
-    @Path("/search/marca/{marca}") 
-    public Response findByMarca(@PathParam("marca") String marca){
-        return Response.ok(lentesService.findByMarca(marca)).build();
+    @Path("/search/montagem/{montagem}") 
+    public Response findByMontagem(@PathParam("montagem") String montagem){
+        return Response.ok(lentesService.findByMontagem(montagem)).build();
     }
     
+    // Teste feito
     @POST  
     @Transactional
     public Response create(@Valid LentesDTO dto){
         return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
     }
 
+    // Teste feito
     @PUT
     @Transactional
     @Path("/{id}")
@@ -58,8 +63,8 @@ public class LenteResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
-        lentesService.delete(id);
+    public Response delete(@PathParam("idProduto") Long idProduto) {
+        lentesService.delete(idProduto);
         return Response.status(Status.NO_CONTENT).build();
     }
 

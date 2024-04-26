@@ -52,8 +52,8 @@ public class LenteServiceImpl implements LenteService {
     }
 
     @Override
-    public void delete(Long id) {
-        lentesRepository.deleteById(id);
+    public void delete(Long idProduto) {
+        lentesRepository.deleteById(idProduto);
     }
 
     @Override
@@ -70,11 +70,11 @@ public class LenteServiceImpl implements LenteService {
     }
 
     @Override
-    public List<LentesResponseDTO> findByMarca(String marca) {
+    public List<LentesResponseDTO> findByMontagem(String montagem) {
         return lentesRepository
-        .findByMarca(marca)
+        .findByMontagem(montagem)
         .stream()
         .map(e -> LentesResponseDTO.valueOf(e)).toList();
     }
-    
+   
 }

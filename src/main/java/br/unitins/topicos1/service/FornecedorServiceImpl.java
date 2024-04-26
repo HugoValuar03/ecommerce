@@ -1,6 +1,5 @@
 package br.unitins.topicos1.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.unitins.topicos1.dto.FornecedorDTO;
@@ -30,17 +29,12 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedor.setEndereco(dto.endereco());
         fornecedor.setEmail(dto.email());
         fornecedor.setCnpj(dto.cnpj());
-        fornecedor.setListaTelefone(new ArrayList<Telefone>());
-
-        for (TelefoneDTO tel : dto.listaTelefone()) {
-            Telefone t = new Telefone();
-            t.setCodigoArea(tel.codigoArea());
-            t.setNumero(tel.numero());
-            fornecedor.getListaTelefone().add(t);
-        }
+        fornecedor.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
 
         fornecedorRepository.persist(fornecedor);
         return FornecedorResponseDTO.valueOf(fornecedor);
+
+        
     }
 
     @Override
@@ -52,15 +46,11 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedorBanco.setEndereco(dto.endereco());
         fornecedorBanco.setCnpj(dto.cnpj());
         fornecedorBanco.setEmail(dto.email());
-
-        fornecedorBanco.getListaTelefone().clear();
         
-        for (TelefoneDTO tel : dto.listaTelefone()) {
-            Telefone t = new Telefone();
-            t.setCodigoArea(tel.codigoArea());
-            t.setNumero(tel.numero());
-            fornecedorBanco.getListaTelefone().add(t);
-        }
+        Telefone telefone = fornecedorBanco.getTelefone();
+        telefone.setCodigoArea(dto.telefone().codigoArea());
+        telefone.setNumero(dto.telefone().numero());
+        
     }
 
     @Override

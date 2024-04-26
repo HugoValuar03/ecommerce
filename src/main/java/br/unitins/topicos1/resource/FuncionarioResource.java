@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON) //Usada para fornecer instâncias de objetos que podem ser injetadas em outros componentes da aplicação
 @Consumes(MediaType.APPLICATION_JSON) //Usada para indicar que um método de um recurso web ou um endpoint de serviço web pode consumir uma determinada representação de dados recebida  em uma solicitação HTTP.
-@Path("/admin/pessoas") //Define o caminho da pesquisa, ex: "localhost:8080/admin/pessoas"
+@Path("/funcionarios") //Define o caminho da pesquisa, ex: "localhost:8080/admin/pessoas"
 public class FuncionarioResource {
 
     @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo conteiner CDI.

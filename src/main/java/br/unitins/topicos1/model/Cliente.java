@@ -1,19 +1,16 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Cliente {
-
-    @OneToOne
-    @JoinColumn(name = "id_Pessoa", unique = true)
+public class Cliente extends DefaultEntity{
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
-
-    @Id
-    private Long idCliente;
 
     public Pessoa getPessoa() {
         return pessoa;
@@ -23,12 +20,4 @@ public class Cliente {
         this.pessoa = pessoa;
     }
 
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
-    
 }

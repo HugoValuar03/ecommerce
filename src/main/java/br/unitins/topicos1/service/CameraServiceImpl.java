@@ -34,7 +34,7 @@ public class CameraServiceImpl implements CameraService{
         camera.setPreco(dto.preco());
         camera.setMaterial(dto.material());
         camera.setDimensoes(dto.dimensoes());
-        camera.setNomeModelo(dto.nomeModelo());        
+        camera.setNomeModelo(dto.nomeModelo());  
 
         cameraRepository.persist(camera);
         return CameraResponseDTO.valueof(camera);

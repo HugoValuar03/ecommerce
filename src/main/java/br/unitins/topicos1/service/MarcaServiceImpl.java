@@ -29,7 +29,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
-    @Transactional
+    @Transactional 
     public void update(Long id, MarcaDTO dto) {
         Marca marcaBanco = marcaRepository.findById(id);
 
@@ -37,6 +37,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         marcaRepository.deleteById(id);
     }
@@ -55,12 +56,11 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
-    public List<MarcaResponseDTO> findByMarca(String marca) {
+    public List<MarcaResponseDTO> findByNome(String nome) {
         return marcaRepository
-        .findByMarca(marca)
+        .findByNome(nome)
         .stream()
-        .map(e -> MarcaResponseDTO.valueOf(e)).toList();
-        
+        .map(e -> MarcaResponseDTO.valueOf(e)).toList();    
     }
     
 }

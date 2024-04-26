@@ -1,12 +1,11 @@
 package br.unitins.topicos1.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.dto.FuncionarioResponseDTO;
-import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Funcionario;
+import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.FuncionarioRepository;
@@ -25,21 +24,20 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional 
     public FuncionarioResponseDTO create (FuncionarioDTO dto){
         Funcionario funcionario = new Funcionario();
+        Pessoa pessoa = new Pessoa();
         
-        funcionario.getPessoa().setNome(dto.nome());
-        funcionario.getPessoa().setEmail(dto.email());
-        funcionario.getPessoa().setCpf(dto.cpf());
-        funcionario.getPessoa().setAniversario(dto.aniversario());
+        pessoa.setNome(dto.pessoa().nome());
+        pessoa.setEmail(dto.pessoa().email());
+        pessoa.setCpf(dto.pessoa().email());
+        pessoa.setAniversario(dto.pessoa().aniversario());
+        pessoa.setSexo(Sexo.valueOf(dto.pessoa().idSexo()));
+        
+        Telefone telefone = funcionario.getPessoa().getTelefone();
+        telefone.setCodigoArea(dto.pessoa().telefone().codigoArea());
+        telefone.setNumero(dto.pessoa().telefone().numero());
+
+        funcionario.setPessoa(pessoa);
         funcionario.setCargo(dto.cargo());
-        funcionario.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
-        funcionario.getPessoa().setListaTelefone(new ArrayList<Telefone>());
-        
-        for (TelefoneDTO tel : dto.telefones()) {
-            Telefone t = new Telefone();
-            t.setCodigoArea(tel.codigoArea());
-            t.setNumero(tel.numero());
-            funcionario.getPessoa().getListaTelefone().add(t);
-        }
 
         funcionarioRepository.persist(funcionario);
         return FuncionarioResponseDTO.valueOf(funcionario);
@@ -49,20 +47,20 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional 
     public void update(Long id, FuncionarioDTO dto) {
         Funcionario funcionarioBanco = funcionarioRepository.findById(id);
-        funcionarioBanco.getPessoa().setNome(dto.nome());
-        funcionarioBanco.getPessoa().setEmail(dto.email());
-        funcionarioBanco.getPessoa().setCpf(dto.cpf());
-        funcionarioBanco.getPessoa().setAniversario(dto.aniversario());
-        funcionarioBanco.setCargo(dto.cargo());
-        funcionarioBanco.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
-        funcionarioBanco.getPessoa().getListaTelefone().clear();
+        Pessoa pessoaBanco = funcionarioBanco.getPessoa();
+        pessoaBanco.setNome(dto.pessoa().nome());
+        pessoaBanco.setAniversario(dto.pessoa().aniversario());
+        pessoaBanco.setCpf(dto.pessoa().cpf());
+        pessoaBanco.setEmail(dto.pessoa().email());
+        pessoaBanco.setSexo(Sexo.valueOf(dto.pessoa().idSexo()));
         
-        for (TelefoneDTO tel : dto.telefones()) {
-            Telefone t = new Telefone();
-            t.setCodigoArea(tel.codigoArea());
-            t.setNumero(tel.numero());
-            funcionarioBanco.getPessoa().getListaTelefone().add(t);
-        }
+        Telefone telefone = funcionarioBanco.getPessoa().getTelefone();
+        telefone.setCodigoArea(dto.pessoa().telefone().codigoArea());
+        telefone.setNumero(dto.pessoa().telefone().numero());
+
+        funcionarioBanco.setCargo(dto.cargo());
+
+        funcionarioBanco.setPessoa(pessoaBanco);
 
     }
 

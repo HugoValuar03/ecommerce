@@ -32,6 +32,10 @@ public class Produto {
     @JoinColumn(name = "id_Marca")
     private Marca marca;
 
+    @ManyToOne
+    @JoinColumn(name = "idfornecedor")
+    private Fornecedor fornecedor;
+
     public Marca getMarca() {
         return marca;
     }
@@ -47,10 +51,6 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "idfornecedor")
-    private Fornecedor fornecedor;
 
     public Long getIdProduto() {
         return idProduto;

@@ -9,12 +9,11 @@ class Pessoa{
 }
 
 class Funcionario{
-  - idFuncionario : Long
   - cargo : String 
 }
 
 class Cliente{
-  - idCliente
+
 }
 
 
@@ -62,7 +61,6 @@ class Marca{
   - nome : String
 }
 
-
 class Lente{
   - idLente : String
   - compatibilidade : String
@@ -83,8 +81,8 @@ class Telefone{
 }
 
 Pessoa "1" *--> "*" Telefone
-Pessoa "1" --> "1" Funcionario
-Pessoa "1" --> "1" Cliente
+Pessoa "1" <-- "1" Funcionario
+Pessoa "1" <-- "1" Cliente
 Pessoa "*" *--> "1" Sexo
 DefaultEntity <|-- Telefone
 

@@ -11,20 +11,7 @@ public class Lente extends Produto{
 
     @Column
     private Integer distanciaFocal;
-
-    public Lente(Integer distanciaFocal, String compatibilidade, Integer diametroFiltro, String montagem,
-            Fornecedor fornecedor) {
-        this.distanciaFocal = distanciaFocal;
-        this.compatibilidade = compatibilidade;
-        this.diametroFiltro = diametroFiltro;
-        this.montagem = montagem;
-        this.fornecedor = fornecedor;
-    }
-
-    public Lente() {
-        
-    }
-
+    
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_marca")
     private Marca marca;
@@ -42,6 +29,18 @@ public class Lente extends Produto{
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
 
+    public Lente(Integer distanciaFocal, String compatibilidade, Integer diametroFiltro, String montagem,
+            Fornecedor fornecedor) {
+        this.distanciaFocal = distanciaFocal;
+        this.compatibilidade = compatibilidade;
+        this.diametroFiltro = diametroFiltro;
+        this.montagem = montagem;
+        this.fornecedor = fornecedor;
+    }
+
+    public Lente() {
+        
+    }
     public Marca getMarca() {
         return marca;
     }

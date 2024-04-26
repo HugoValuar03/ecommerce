@@ -1,5 +1,6 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Funcionario{
+public class Funcionario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +17,17 @@ public class Funcionario{
 
     private String cargo;
 
-    @OneToOne
-    @JoinColumn(name = "id_Pessoa", unique = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_pessoa", unique = true)
     private Pessoa pessoa;
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
 
     public Pessoa getPessoa() {
         return pessoa;
@@ -34,14 +43,6 @@ public class Funcionario{
 
     public void setIdFuncionario(Long idFuncionario) {
         this.idFuncionario = idFuncionario;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
     }
 
 }

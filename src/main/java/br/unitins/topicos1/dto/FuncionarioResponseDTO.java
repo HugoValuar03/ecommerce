@@ -1,7 +1,6 @@
 package br.unitins.topicos1.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import br.unitins.topicos1.model.Funcionario;
 import br.unitins.topicos1.model.Sexo;
@@ -15,15 +14,11 @@ public record FuncionarioResponseDTO(
     String cpf,
     Sexo sexo,
     LocalDate aniversario,
-    List<TelefoneResponseDTO> listaTelefone
+    TelefoneResponseDTO telefone
 
 ) {
 
     public static FuncionarioResponseDTO valueOf(Funcionario funcionario){
-        List<TelefoneResponseDTO> lista = funcionario.getPessoa().getListaTelefone()
-                                            .stream()
-                                            .map(TelefoneResponseDTO::valueOf)
-                                            .toList();
         return new FuncionarioResponseDTO(
             funcionario.getIdFuncionario(),
             funcionario.getCargo(),
@@ -32,8 +27,8 @@ public record FuncionarioResponseDTO(
             funcionario.getPessoa().getCpf(),
             funcionario.getPessoa().getSexo(),
             funcionario.getPessoa().getAniversario(),
-            lista
-        );      
+            TelefoneResponseDTO.valueOf(funcionario.getPessoa().getTelefone())
+        );     
     }
  
 }

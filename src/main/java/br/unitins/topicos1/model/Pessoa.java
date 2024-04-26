@@ -1,40 +1,35 @@
 package br.unitins.topicos1.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa extends DefaultEntity{
     
+    @Column(length = 200, nullable = false)
     private String nome;
 
     @Email
+    @Column(length = 250, nullable = false)
     private String email;
 
+    @Column(length = 8, nullable = false)
     private Sexo sexo;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_pessoa")
-    private List<Telefone> listaTelefone;
-
-    @OneToOne(mappedBy = "pessoa")
-    private Cliente cliente;
-
-    @OneToOne
-    @JoinColumn(name = "idFuncionario")
-    private Funcionario funcionario;
-
+    private Telefone telefone;
+    
+    @Column(length = 10)
     private LocalDate aniversario;
+
+    @Column(length = 14)
     private String cpf;
 
     public String getNome() {
@@ -61,14 +56,6 @@ public class Pessoa extends DefaultEntity{
         this.sexo = sexo;
     }
 
-    public List<Telefone> getListaTelefone() {
-        return listaTelefone;
-    }
-
-    public void setListaTelefone(List<Telefone> listaTelefone) {
-        this.listaTelefone = listaTelefone;
-    }
-
     public LocalDate getAniversario() {
         return aniversario;
     }
@@ -83,6 +70,14 @@ public class Pessoa extends DefaultEntity{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
     }
 
     

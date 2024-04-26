@@ -87,10 +87,10 @@ public class MarcaResourceTest {
     @Test
     public void deleteTest() {
         given()
-            .when()
+        .when()
             .pathParam("id", 3)
             .delete("/marcas/{id}")
-            .then()
+        .then()
             .statusCode(204);
     }
 

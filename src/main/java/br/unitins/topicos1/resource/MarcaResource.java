@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/admin/marca")
+@Path("/marcas")
 public class MarcaResource {
     
     @Inject
@@ -30,16 +30,16 @@ public class MarcaResource {
     }
 
     @GET
-    @Path("/search/{nome}") 
-    public Response findByNome(@PathParam("nome") String marca){
-        return Response.ok(marcaService.findByMarca(marca)).build();
+    @Path("/search/nome/{nome}") 
+    public Response findByNome(@PathParam("nome") String nome){
+        return Response.ok(marcaService.findByNome(nome)).build();
     }
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id")Long id){
         return Response.ok(marcaService.findById(id)).build(); 
-    }
+    } 
 
     @PUT
     @Path("/{id}")

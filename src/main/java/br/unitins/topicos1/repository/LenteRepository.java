@@ -9,7 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class LenteRepository implements PanacheRepository<Lente>{
 
-    public List<Lente> findByMarca(String marcaProduto){
-        return find("UPPER(marcaProduto) LIKE ?1", "%" + marcaProduto.toUpperCase() + "%").list();
+    public List<Lente> findByMontagem(String montagem){
+        return find("UPPER(montagem) LIKE ?1", "%" + montagem.toUpperCase() + "%").list();
     }
 }

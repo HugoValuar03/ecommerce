@@ -1,7 +1,6 @@
 package br.unitins.topicos1.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public record PessoaDTO(
 
@@ -10,6 +9,6 @@ public record PessoaDTO(
     String cpf,
     Integer idSexo,
     LocalDate aniversario,
-    List<TelefoneDTO> listaTelefone
+    TelefoneDTO telefone
     
 ){}
