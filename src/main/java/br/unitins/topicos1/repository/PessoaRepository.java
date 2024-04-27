@@ -9,11 +9,15 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class PessoaRepository implements PanacheRepository<Pessoa>{
     
-    public List<Pessoa> findByNome(String nomePessoa){
-        return find("UPPER(marcaPessoa) LIKE ?1", "%" + nomePessoa.toUpperCase() + "%").list();
+    public List<Pessoa> findByNome(String nome){
+        return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
 
-    public List<Pessoa> findByCpf(String cpfPessoa){
-        return find("UPPER(cpfPessoa) LIKE ?1", "%" + cpfPessoa.toUpperCase() + "%").list();
+    public List<Pessoa> findByCpf(String cpf){
+        return find("UPPER(cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").list();
+    }
+
+    public Pessoa validarCpf(String cpf){
+        return find("UPPER(cpf) LIKE ?1", cpf.toUpperCase()).firstResult();
     }
 }

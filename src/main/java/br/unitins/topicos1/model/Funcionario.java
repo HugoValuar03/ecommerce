@@ -18,7 +18,7 @@ public class Funcionario {
     private String cargo;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_pessoa", unique = true)
+    @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
 
     public String getCargo() {

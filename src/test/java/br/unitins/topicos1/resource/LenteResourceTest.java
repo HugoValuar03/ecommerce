@@ -2,88 +2,88 @@ package br.unitins.topicos1.resource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.everyItem;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
-
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import br.unitins.topicos1.dto.ClienteDTO;
-import br.unitins.topicos1.dto.TelefoneDTO;
+import br.unitins.topicos1.dto.LentesDTO;
+import br.unitins.topicos1.model.Marca;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.MediaType;
 
 @QuarkusTest
-public class ClienteResourceTest {
+public class LenteResourceTest {
     
     @Test
     public void createTest(){
-        TelefoneDTO telefone = new TelefoneDTO("62", "987773277");
+        Marca marca = new Marca(1L, "Canon");
 
-        ClienteDTO dto = new ClienteDTO("João", "joao@gmail.com",  "01824865798", 1, LocalDate.parse("2003-03-10"), telefone);
+        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 300.00, "10x5x8", "vidro", "Canon EF 50mm f/1.8 II", marca);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
-            .post("/clientes")
+            .post("/lentes")
         .then()
             .statusCode(201)
-            .body("pessoa.nome", is("João"));
+            .body("compatibilidade", is("Canon EOS"));
     }
 
     @Test
     public void updateTest(){
-        TelefoneDTO telefone = new TelefoneDTO("63", "987777777");
+        Marca marca = new Marca(1L, "Canon");
 
-        ClienteDTO dto = new ClienteDTO("Rafael", "rafael@gmail.com", "08015749532", 1, LocalDate.parse("2003-03-10"), telefone);
+        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 250.00, "10x5x8" ,"vidro" , "Canon EF 50mm f/1.8 II", marca);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
             .pathParam("id", 1)
-            .put("/clientes/{id}")
+            .put("/lentes/{id}")
         .then()
-            .statusCode(204);
+            .statusCode(204); 
     }
 
+
     @Test
-     public void findAllTest(){
+    public void findAllTest(){
         given()
             .when()
-                .get("/clientes")
+                .get("/lentes")
             .then()
                 .statusCode(200)
-                .body("cliente.nome", everyItem(is("Ana")));
-    }
-
-    @Test
-    public void findByCpf(){
-        given()
-            .when()
-            .get("/clientes/search/cpf/123.456.729-12")
-            .then()
-            .statusCode(200)
-            .body("clientes.cpf", everyItem(is("123.456.729-12"))); 
+                .body("material", hasItem("vidro"));
     }
 
     @Test
     public void findByIdTest(){
         given()
             .when()
-            .get("/clientes/1")
+            .get("/lentes/2")
             .then()
             .statusCode(200)
-            .body("id", is(1));
+            .body("id", hasItem(is(2)));
+    }
+
+    @Test
+    public void findByLenteTest(){
+        given()
+            .when()
+            .get("/lentes/search/montagem/EF")
+            .then()
+            .statusCode(200)
+            .body("montagem", everyItem(is("EF")));  
     }
 
     @Test
      public void deleteTest(){
          given()
          .when()
-         .pathParam("id", 1)
-             .delete("/clientes/{id}")
+         .pathParam("id", 3)
+             .delete("/lentes/{id}")
          .then()
              .statusCode(204);
      }

@@ -6,6 +6,7 @@ import br.unitins.topicos1.dto.CameraDTO;
 import br.unitins.topicos1.dto.CameraResponseDTO;
 import br.unitins.topicos1.model.Camera;
 import br.unitins.topicos1.repository.CameraRepository;
+import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,8 @@ public class CameraServiceImpl implements CameraService{
     @Override
     @Transactional
     public CameraResponseDTO create(@Valid CameraDTO dto) {
+       validarModelo(dto.nomeModelo());
+
         Camera camera = new Camera();
 
         camera.setConectividade(dto.conectividade());
@@ -40,12 +43,17 @@ public class CameraServiceImpl implements CameraService{
         return CameraResponseDTO.valueof(camera);
     }
 
+    public void validarModelo(String modelo) {
+        Camera camera = cameraRepository.validarModelo(modelo);
+        if (camera != null)
+            throw  new ValidationException("nomeModelo", "O modelo '"+ modelo +"' já existe.");
+    }
+
     @Override
     @Transactional
     public void update(Long id, CameraDTO dto) {
         Camera cameraBanco =  cameraRepository.findById(id);
 
-        
         cameraBanco.setConectividade(dto.conectividade());
         cameraBanco.setResolucao(dto.resolucao());
         cameraBanco.setTelaArticulavel(dto.telaArticulavel());
@@ -58,6 +66,7 @@ public class CameraServiceImpl implements CameraService{
         cameraBanco.setMaterial(dto.material());
         cameraBanco.setDimensoes(dto.dimensoes());
         cameraBanco.setNomeModelo(dto.nomeModelo());
+
     }
 
     @Override

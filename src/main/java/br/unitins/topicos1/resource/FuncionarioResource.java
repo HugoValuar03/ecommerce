@@ -24,11 +24,14 @@ public class FuncionarioResource {
     @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo conteiner CDI.
     public FuncionarioService funcionarioService;
 
+
+    //Teste Feito
     @GET //Usado para retornar uma solicitação feita pelo usuário.
     public Response findAll(){
         return Response.ok(funcionarioService.findAll()).build();
     }
 
+    //Teste Feito
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id")Long id){
@@ -42,25 +45,15 @@ public class FuncionarioResource {
         //     .stream()
         //     .map(e -> PessoaResponseDTO.valueOf(e)).toList(); //Lista todo os elementos da tabela Pessoa
         //}
-
-    @GET
-    @Path("/search/nome/{nome}") //Neste caso o caminho será "localhost:8080/admin/pesoas/search/nome/{Nome passado pelo usuário}".
-    public  Response findByName(@PathParam("nome") String nome){
-        return Response.ok(funcionarioService.findByNome(nome)).build();
-    }
-    // public List<PessoaResponseDTO> findByNome(@PathParam("nome") String nome){
-        //     return pessoaRepository
-        //     .findByNome(nome)
-        //     .stream()
-        //     .map(e -> PessoaResponseDTO.valueOf(e)).toList();
-        // }
         
+    //Teste Feito
     @GET
     @Path("/search/cargo/{cargo}") 
     public Response findByCargo(@PathParam("cargo") String cargo){
         return Response.ok(funcionarioService.findByCargo(cargo)).build();
     }
 
+    //Teste Feito
     @POST //Chamado para criar um novo objeto de Pessoa
     public Response create(@Valid FuncionarioDTO dto){
         
@@ -83,6 +76,7 @@ public class FuncionarioResource {
 
     }
 
+    //Teste Feito
     @PUT //Chamado quando para atualizar algum dado
     @Path("/{id}") //"localhost:8080/admin/pessoas/{id que o usuario passar}"
     public Response update(@PathParam("id") Long id, FuncionarioDTO dto) {
@@ -104,6 +98,7 @@ public class FuncionarioResource {
         
     }
 
+    //Teste Feito
     @DELETE //Chamado para deletar algum elemento, neste método, será deletado apartir o id passado
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {

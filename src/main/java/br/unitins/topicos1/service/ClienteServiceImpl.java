@@ -9,6 +9,7 @@ import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.ClienteRepository;
+import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public ClienteResponseDTO create(@Valid ClienteDTO dto){
+        validarCpf(dto.cpf());
+        
         Cliente cliente = new Cliente();
         Pessoa pessoa = new Pessoa();
 
@@ -67,12 +70,16 @@ public class ClienteServiceImpl implements ClienteService {
             
     }
 
+    public void validarCpf(String cpf) {
+        Cliente cliente = clienteRepository.validarCpf(cpf);
+        if (cliente != null)
+            throw  new ValidationException("cpf", "O cpf '"+ cpf +"' já existe.");
+    }
+
     @Override
     @Transactional
     public void delete(Long id) {
-
         clienteRepository.deleteById(id);
-    
     }
 
     @Override
@@ -90,7 +97,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public List<ClienteResponseDTO> findByCpf(String cpf) {
-        return clienteRepository.findByCpf(cpf).stream()
+        return clienteRepository
+        .findByCpf(cpf)
+        .stream()
         .map(e -> ClienteResponseDTO.valueOf(e)).toList();
     }
 }

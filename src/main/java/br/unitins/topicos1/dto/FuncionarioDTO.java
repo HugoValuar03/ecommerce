@@ -1,8 +1,14 @@
 package br.unitins.topicos1.dto;
 
-public record FuncionarioDTO(
+import java.time.LocalDate;
 
-    PessoaDTO pessoa,
+public record FuncionarioDTO(
+    String nome,
+    String email,
+    String cpf,
+    Integer idSexo,
+    LocalDate aniversario,
+    TelefoneDTO telefone,
     String cargo
 
 ){}

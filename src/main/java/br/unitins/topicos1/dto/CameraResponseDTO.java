@@ -5,7 +5,7 @@ import br.unitins.topicos1.model.Marca;
 
 public record CameraResponseDTO(
 
-    Long idCamera,
+    Long id,
     Marca marca,
     String conectividade,
     String resolucao,

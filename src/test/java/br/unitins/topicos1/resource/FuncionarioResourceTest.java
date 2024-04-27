@@ -2,80 +2,80 @@ package br.unitins.topicos1.resource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.everyItem;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import br.unitins.topicos1.dto.LentesDTO;
-import br.unitins.topicos1.model.Marca;
+import br.unitins.topicos1.dto.FuncionarioDTO;
+import br.unitins.topicos1.dto.TelefoneDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.MediaType;
 
 @QuarkusTest
-public class LenteResourceTeste {
+public class FuncionarioResourceTest {
     
     @Test
     public void createTest(){
-        Marca marca = new Marca(1L, "Canon");
+        TelefoneDTO telefone = new TelefoneDTO("63", "987777777");
 
-        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 300.00, "10x5x8", "vidro", "Canon EF 50mm f/1.8 II", marca);
+        FuncionarioDTO dto = new FuncionarioDTO("Leandrin",  "leandrin@gmail.com", "98765432134", 1, LocalDate.parse("1992-03-10"), telefone, "Vendedor");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
-            .post("/lentes")
+            .post("/funcionarios")
         .then()
             .statusCode(201)
-            .body("compatibilidade", is("Canon EOS"));
+            .body("pessoa.nome", is("Leandrin"));
     }
 
     @Test
     public void updateTest(){
-        Marca marca = new Marca(1L, "Canon");
+        TelefoneDTO telefone = new TelefoneDTO("63", "987777777");
 
-        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 250.00, "10x5x8" ,"vidro" , "Canon EF 50mm f/1.8 II", marca);
+        FuncionarioDTO dto = new FuncionarioDTO("Leandro",  "leandrin@gmail.com", "98765432134", 1, LocalDate.parse("1992-03-10"), telefone, "Vendedor");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
             .pathParam("id", 1)
-            .put("/lentes/{id}")
+            .put("/funcionarios/{id}")
         .then()
-            .statusCode(204); 
+            .statusCode(204);
     }
 
-
     @Test
-    public void findAllTest(){
+     public void findAllTest(){
         given()
             .when()
-                .get("/lentes")
+                .get("/funcionarios")
             .then()
                 .statusCode(200)
-                .body("material", hasItem("vidro"));
+                .body("funcionario.nome", everyItem(is("Rafael")));
     }
 
     @Test
     public void findByIdTest(){
         given()
             .when()
-            .get("/lentes/2")
+            .get("/funcionarios/1")
             .then()
             .statusCode(200)
-            .body("idProduto", hasItem(is(2)));
+            .body("idFuncionario", is(1));
     }
 
     @Test
-    public void findByLenteTest(){
+    public void findByCargoTest(){
         given()
             .when()
-            .get("/lentes/search/montagem/EF")
+            .get("/funcionarios/search/cargo/Vendedor")
             .then()
             .statusCode(200)
-            .body("montagem", everyItem(is("EF")));  
+            .body("cargo", everyItem(is("Vendedor")));  
     }
 
     @Test
@@ -83,8 +83,9 @@ public class LenteResourceTeste {
          given()
          .when()
          .pathParam("id", 1)
-             .delete("/lentes/{id}")
+             .delete("/funcionarios/{id}")
          .then()
              .statusCode(204);
      }
+
 }

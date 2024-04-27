@@ -9,6 +9,7 @@ import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.PessoaRepository;
+import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,8 @@ public class PessoaServiceImpl implements PessoaService{
     @Override
     @Transactional
     public PessoaResponseDTO create(@Valid PessoaDTO dto) {
+        validarCpf(dto.cpf());
+
         Pessoa pessoa = new Pessoa();
 
         pessoa.setNome(dto.nome());
@@ -34,6 +37,12 @@ public class PessoaServiceImpl implements PessoaService{
 
         pessoaRepository.persist(pessoa);
         return PessoaResponseDTO.valueOf(pessoa);
+    }
+
+    public void validarCpf(String cpf) {
+        Pessoa pessoa = pessoaRepository.validarCpf(cpf);
+        if (pessoa != null)
+            throw  new ValidationException("cpf", "O cpf '"+ cpf +"' já existe.");
     }
 
     @Override

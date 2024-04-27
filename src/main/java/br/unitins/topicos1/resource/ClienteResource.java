@@ -24,23 +24,27 @@ public class ClienteResource {
     @Inject
     public ClienteService clienteService;
 
+    //Teste Feito
     @GET
     public Response findAll() {
         return Response.ok(clienteService.findAll()).build();
     }
 
+    //Falhou
     @GET
     @Path("/search/cpf/{cpf}") 
     public Response findByCpf(@PathParam("cpf") String cpf){
         return Response.ok(clienteService.findByCpf(cpf)).build();
     }
 
+    //Teste Feito
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id")Long id){
         return Response.ok(clienteService.findById(id)).build(); 
     }
 
+    //Teste Feito
     @PUT
     @Path("/{id}")
     public Response update(@PathParam("id") Long id, ClienteDTO dto) {
@@ -48,6 +52,7 @@ public class ClienteResource {
         return Response.status(Status.NO_CONTENT).build();
     }
 
+    //Teste Feito
     @POST
     public Response create(@Valid ClienteDTO dto){
         return Response.status(Status.CREATED)

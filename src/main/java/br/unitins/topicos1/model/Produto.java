@@ -2,19 +2,12 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Produto {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Produto extends DefaultEntity{
     
     @Column
     private String nomeModelo;
@@ -51,7 +44,7 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-    
+
     public String getNomeModelo() {
         return nomeModelo;
     }
@@ -82,13 +75,5 @@ public class Produto {
 
     public void setDimensoes(String dimensoes) {
         this.dimensoes = dimensoes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

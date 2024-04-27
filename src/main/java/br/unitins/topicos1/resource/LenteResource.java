@@ -3,7 +3,6 @@ package br.unitins.topicos1.resource;
 import br.unitins.topicos1.dto.LentesDTO;
 import br.unitins.topicos1.service.LenteService;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -47,20 +46,19 @@ public class LenteResource {
     
     // Teste feito
     @POST  
-    @Transactional
     public Response create(@Valid LentesDTO dto){
         return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
     }
 
     // Teste feito
     @PUT
-    @Transactional
     @Path("/{id}")
     public Response update(@PathParam("id") Long id, LentesDTO dto) {
         lentesService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
    }
 
+   //Teste Feito
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {

@@ -8,6 +8,7 @@ import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Fornecedor;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.FornecedorRepository;
+import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,7 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     @Transactional
     public FornecedorResponseDTO create(@Valid FornecedorDTO dto) {
+        validarNome(dto.nome());
         Fornecedor fornecedor = new Fornecedor();
 
         fornecedor.setNome(dto.nome());
@@ -40,6 +42,8 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     @Transactional
     public void update(Long id, FornecedorDTO dto) {
+        validarNome(dto.nome());
+        
         Fornecedor fornecedorBanco =  fornecedorRepository.findById(id);
 
         fornecedorBanco.setNome(dto.nome());
@@ -51,6 +55,12 @@ public class FornecedorServiceImpl implements FornecedorService {
         telefone.setCodigoArea(dto.telefone().codigoArea());
         telefone.setNumero(dto.telefone().numero());
         
+    }
+
+    public void validarNome(String nome) {
+        Fornecedor fornecedor = fornecedorRepository.validarNome(nome);
+        if (fornecedor != null)
+            throw  new ValidationException("nome", "O nome '"+ nome +"' já existe.");
     }
 
     @Override
@@ -83,7 +93,7 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     public List<FornecedorResponseDTO> findByCnpj(String cnpj) {
         return fornecedorRepository
-        .findByNome(cnpj)
+        .findByCnpj(cnpj)
         .stream()
         .map(e -> FornecedorResponseDTO.valueOf(e)).toList();
     }

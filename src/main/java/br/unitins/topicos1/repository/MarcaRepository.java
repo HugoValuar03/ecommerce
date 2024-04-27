@@ -12,5 +12,9 @@ public class MarcaRepository implements PanacheRepository<Marca>{
     public List<Marca> findByNome(String nome){
         return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
+    
+    public Marca validarNome(String nome){
+        return find("UPPER(nome) LIKE ?1", nome.toUpperCase()).firstResult();
+    }
 
 }

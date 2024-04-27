@@ -4,7 +4,7 @@ import br.unitins.topicos1.model.Lente;
 import br.unitins.topicos1.model.Marca;
 
 public record LentesResponseDTO(
-    Long idProduto,
+    Long id,
     String compatibilidade,
     Integer distandicaFocal,
     Integer diametroFiltro,
@@ -14,7 +14,6 @@ public record LentesResponseDTO(
     String dimensoes,
     String nomeModelo,
     Marca marca
-
 ) {
     public static LentesResponseDTO valueOf(Lente lentes){
         return new LentesResponseDTO(

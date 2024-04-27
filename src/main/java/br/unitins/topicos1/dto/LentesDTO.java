@@ -15,4 +15,3 @@ public record LentesDTO(
     Marca marca
     
 ) {}
-

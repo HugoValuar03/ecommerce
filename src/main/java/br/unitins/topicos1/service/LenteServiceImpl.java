@@ -6,6 +6,7 @@ import br.unitins.topicos1.dto.LentesDTO;
 import br.unitins.topicos1.dto.LentesResponseDTO;
 import br.unitins.topicos1.model.Lente;
 import br.unitins.topicos1.repository.LenteRepository;
+import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,7 @@ public class LenteServiceImpl implements LenteService {
     @Override
     @Transactional
     public LentesResponseDTO create(@Valid LentesDTO dto) {
+        validarModelo(dto.nomeModelo());
         Lente lentes = new Lente();
         
         lentes.setCompatibilidade(dto.compatibilidade());
@@ -51,7 +53,14 @@ public class LenteServiceImpl implements LenteService {
 
     }
 
+    public void validarModelo(String modelo) {
+        Lente lente = lentesRepository.validarModelo(modelo);
+        if (lente != null)
+            throw  new ValidationException("nomeModelo", "O modelo '"+ modelo +"' já existe.");
+    }
+
     @Override
+    @Transactional
     public void delete(Long id) {
         lentesRepository.deleteById(id);
     }

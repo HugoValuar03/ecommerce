@@ -12,4 +12,8 @@ public class LenteRepository implements PanacheRepository<Lente>{
     public List<Lente> findByMontagem(String montagem){
         return find("UPPER(montagem) LIKE ?1", "%" + montagem.toUpperCase() + "%").list();
     }
+
+    public Lente validarModelo(String modelo){
+        return find("UPPER(modelo) LIKE ?1", modelo.toUpperCase()).firstResult();
+    }
 }

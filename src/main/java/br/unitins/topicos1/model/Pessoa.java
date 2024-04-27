@@ -29,7 +29,7 @@ public class Pessoa extends DefaultEntity{
     @Column(length = 10)
     private LocalDate aniversario;
 
-    @Column(length = 14)
+    @Column
     private String cpf;
 
     public String getNome() {
