@@ -1,15 +1,15 @@
 @startuml ecommerce
 class Pessoa{
-  - nome : String
-  - email : String
-  - cpf : String
-  - aniversario : LocalDate
-  - sexo : Sexo
-  - listaTelefone : List<Telefone>
+  - nome: String
+  - email: String
+  - cpf: String
+  - aniversario: LocalDate
+  - sexo: Sexo
+  - listaTelefone: List<Telefone>
 }
 
 class Funcionario{
-  - cargo : String 
+  - cargo: String 
 }
 
 class Cliente{
@@ -18,72 +18,102 @@ class Cliente{
 
 
 Enum Sexo{
-  FEMININO : Integer
-  MASCULINO : Integer
+  + FEMININO: int
+  + MASCULINO: int
 }
 
 
 class Fornecedor{
-  - idFornecedor : Long
-  - nome : String
-  - endereco : String 
-  - email : String
-  - cnpj : String
-  - listaTelefone : List<Telefone>
-  - listaProduto : List<Produto>
+  - idFornecedor: Long
+  - nome: String
+  - endereco: String 
+  - email: String
+  - cnpj: String
+  - listaTelefone: List<Telefone>
+  - listaProduto: List<Produto>
 }
 
-
 class Produto{
-  - idProduto : Long
-  - nomeProduto : String
-  - marca : Marca
-  - preco : Double
-  - material : String
-  - dimensoes : String
-  - nomeModelo : String
+  - idProduto: Long
+  - nomeProduto: String
+  - marca: Marca
+  - preco: Double
+  - material: String
+  - dimensoes: String
+  - nomeModelo: String
 }
 
 class Camera{
-  - idCameras : Long
-  - conectividade : String
-  - resolucao : String
-  - telaArticulavel : Boolean
-  - telaSensivelToque : Boolean
-  - tela : String
-  - iso : String
-  - flashPopUp : Boolean
-  - garantia : Integer
+  - idCameras: Long
+  - conectividade: String
+  - resolucao: String
+  - telaArticulavel: Boolean
+  - telaSensivelToque: Boolean
+  - tela: String
+  - iso: String
+  - flashPopUp: Boolean
+  - garantia: Integer
 }
 
 class Marca{
-  - idMarca : Long
-  - nome : String
+  - idMarca: Long
+  - nome: String
 }
 
 class Lente{
-  - idLente : String
-  - compatibilidade : String
-  - distanciaFocal : Integer
-  - diametroFiltro : Integer
-  - montagem : String
+  - idLente: String
+  - compatibilidade: String
+  - distanciaFocal: Integer
+  - diametroFiltro: Integer
+  - montagem: String
 }
 
 class DefaultEntity{
-  - id : Long
-  - dataCadastro : LocalDateTime
-  - dataAlteracao : LocalDateTime
+  - id: Long
+  - dataCadastro: LocalDateTime
+  - dataAlteracao: LocalDateTime
 }
 
 class Telefone{
-  - codigoArea : String
-  - numero : String
+  - codigoArea: String
+  - numero: String
 }
 
-Pessoa "1" *--> "*" Telefone
+enum TipoPagamento{
+  + CREDITO: int
+  + DEBITO: int
+  + PIX: INT
+}
+
+class FormaPagamento{
+  - parcela: int
+  - dataPagamento: LocalDateTime
+}
+
+enum StatusPedido {
+    - CONCLUIDO: int
+    - CANCELADO: int
+    - ENVIADO: int
+    - PAGAMENTO_PENDENTE: int
+    - PAGO: int
+}
+
+class Cidade{
+  - nome: String
+}
+
+class Estado{
+  - nome: String
+  - sigla: String
+}
+
+Cliente --> Cidade
+Cidade --> Estado 
+
+Pessoa "1" *-left-> "*" Telefone
 Pessoa "1" <-- "1" Funcionario
 Pessoa "1" <-- "1" Cliente
-Pessoa "*" *--> "1" Sexo
+Pessoa "1" -- "1" Sexo
 DefaultEntity <|-- Telefone
 
 Pessoa -up-|> DefaultEntity 

@@ -29,9 +29,7 @@ INSERT INTO marca (nome) VALUES ('Nikon');
 INSERT INTO marca (nome) VALUES ('Sony');
 
 -- Inserindo Câmera
-INSERT INTO camera (nomeModelo, preco, material, dimensoes, conectividade, resolucao, telaArticulavel, telaSensivelToque, tipoTela, iso, flashPopUp, garantia, id_marca) VALUES('EOS R100',4500.00, 'metal emborrachado', '116.33x85.6 x 68.83mm','Wi-Fi', '24 megapixels', true, true, 'LCD', 'ISO 100-12800', true, 1, 1);
-
-INSERT INTO camera (nomeModelo, preco, material, dimensoes, conectividade, resolucao, telaArticulavel, telaSensivelToque, tipoTela, iso, flashPopUp, garantia, id_marca) VALUES('EOS R150',6500.00, 'metal emborrachado', '116.33x85.6 x 68.83mm','Wi-Fi', '30 megapixels', true, true, 'AMOLED', 'ISO 100-12800', true, 1, 1);
+INSERT INTO camera (nomeModelo, preco, material, dimensoes, conectividade, resolucao, telaArticulavel, telaSensivelToque, tipoTela, iso, flashPopUp, garantia, id_marca) VALUES('EOS 250',4500.00, 'metal emborrachado', '116.33x85.6 x 68.83mm','Wi-Fi', '24 megapixels', true, true, 'LCD', 'ISO 100-12800', true, 1, 1), ('EOS R150',6500.00, 'metal emborrachado', '116.33x85.6 x 68.83mm','Wi-Fi', '30 megapixels', true, true, 'AMOLED', 'ISO 100-12800', true, 1, 1);
 
 -- Inserindo Lente
 INSERT INTO lente (diametroFiltro, distanciaFocal, preco, compatibilidade, dimensoes, material, montagem, nomeModelo, id_marca) VALUES (55, 50, 300.00, 'Canon EOS', '10x5x8', 'vidro', 'EF', 'Canon EF 50mm f/1.8 II', 1);
