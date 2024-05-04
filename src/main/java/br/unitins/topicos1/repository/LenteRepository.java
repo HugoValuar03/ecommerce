@@ -14,6 +14,6 @@ public class LenteRepository implements PanacheRepository<Lente>{
     }
 
     public Lente validarModelo(String modelo){
-        return find("UPPER(modelo) LIKE ?1", modelo.toUpperCase()).firstResult();
+        return find("UPPER(nomeModelo) LIKE ?1", modelo.toUpperCase()).firstResult();
     }
 }

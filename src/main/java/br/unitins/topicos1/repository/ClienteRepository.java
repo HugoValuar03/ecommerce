@@ -14,6 +14,6 @@ public class ClienteRepository implements PanacheRepository<Cliente>{
     }
 
     public Cliente validarCpf(String cpf){
-        return find("UPPER(cpf) LIKE ?1", cpf.toUpperCase()).firstResult();
+        return find("cpf LIKE ?1","%" + cpf.toUpperCase() + "%").firstResult();
     }
 }

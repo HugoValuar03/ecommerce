@@ -24,8 +24,8 @@ public class LenteServiceImpl implements LenteService {
         validarModelo(dto.nomeModelo());
         Lente lentes = new Lente();
         
-        lentes.setCompatibilidade(dto.compatibilidade());
-        lentes.setDistanciaFocal(dto.distandicaFocal());
+        lentes.setCompatibilidade(dto.compatibilidade());;
+        lentes.setDistanciaFocal(dto.distanciaFocal());
         lentes.setDiametroFiltro(dto.diametroFiltro());
         lentes.setMontagem(dto.montagem());
         lentes.setPreco(dto.preco());
@@ -43,7 +43,7 @@ public class LenteServiceImpl implements LenteService {
         Lente lentesBanco =  lentesRepository.findById(id);
 
         lentesBanco.setCompatibilidade(dto.compatibilidade());
-        lentesBanco.setDistanciaFocal(dto.distandicaFocal());
+        lentesBanco.setDistanciaFocal(dto.distanciaFocal());
         lentesBanco.setDiametroFiltro(dto.diametroFiltro());
         lentesBanco.setMontagem(dto.montagem());
         lentesBanco.setPreco(dto.preco());

@@ -47,6 +47,12 @@ public class ClienteServiceImpl implements ClienteService {
         return ClienteResponseDTO.valueOf(cliente);
 
     }
+    
+    public void validarCpf(String cpf) {
+        Cliente cliente = clienteRepository.validarCpf(cpf);
+        if (cliente != null)
+            throw  new ValidationException("cpf", "O cpf '"+ cpf +"' já existe.");
+    }
 
     @Override
     @Transactional
@@ -70,11 +76,7 @@ public class ClienteServiceImpl implements ClienteService {
             
     }
 
-    public void validarCpf(String cpf) {
-        Cliente cliente = clienteRepository.validarCpf(cpf);
-        if (cliente != null)
-            throw  new ValidationException("cpf", "O cpf '"+ cpf +"' já existe.");
-    }
+    
 
     @Override
     @Transactional

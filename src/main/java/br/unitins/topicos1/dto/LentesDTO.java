@@ -5,7 +5,7 @@ import br.unitins.topicos1.model.Marca;
 public record LentesDTO(
     
     String compatibilidade,
-    Integer distandicaFocal,
+    Integer distanciaFocal,
     Integer diametroFiltro,
     String montagem,
     Double preco,

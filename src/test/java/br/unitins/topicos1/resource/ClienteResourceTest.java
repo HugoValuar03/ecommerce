@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.everyItem;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.time.LocalDate;
@@ -29,7 +30,7 @@ public class ClienteResourceTest {
             .post("/clientes")
         .then()
             .statusCode(201)
-            .body("pessoa.nome", is("João"));
+            .body("pessoa.nome", hasItem(is("João")));
     }
 
     @Test
