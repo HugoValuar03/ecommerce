@@ -21,8 +21,8 @@ public class Produto extends DefaultEntity{
     @Column
     private String dimensoes;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_Marca")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "idMarca")
     private Marca marca;
 
     @ManyToOne

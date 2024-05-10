@@ -6,14 +6,15 @@ import br.unitins.topicos1.model.Marca;
 public record LentesResponseDTO(
     Long id,
     String compatibilidade,
-    Integer distandicaFocal,
+    Integer distanciaFocal,
     Integer diametroFiltro,
     String montagem,
+    String nomeModelo,
     Double preco,
     String material,
     String dimensoes,
-    String nomeModelo,
     Marca marca
+    
 ) {
     public static LentesResponseDTO valueOf(Lente lentes){
         return new LentesResponseDTO(
@@ -23,10 +24,10 @@ public record LentesResponseDTO(
             lentes.getDistanciaFocal(),
             lentes.getDiametroFiltro(),
             lentes.getMontagem(),
+            lentes.getNomeModelo(),
             lentes.getPreco(),
             lentes.getMaterial(),
             lentes.getDimensoes(),
-            lentes.getNomeModelo(),
             lentes.getMarca()
         );
     }

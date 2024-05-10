@@ -26,7 +26,7 @@ public class MarcaResourceTest {
 
     @Test
     public void createTest(){
-        MarcaDTO dto = new MarcaDTO("Canon");
+        MarcaDTO dto = new MarcaDTO("Panasonic");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -35,7 +35,7 @@ public class MarcaResourceTest {
             .post("/marcas")
         .then()
             .statusCode(201)
-            .body("nome", is("Canon"));
+            .body("marca", equalTo("Panasonic"));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class MarcaResourceTest {
             .get("/marcas")
             .then()
             .statusCode(200)
-            .body("nome", hasItem("Canon"));
+            .body("marca", hasItem("Canon"));
     }
 
     @Test
@@ -62,10 +62,10 @@ public class MarcaResourceTest {
     public void findByNomeTest(){
         given()
             .when()
-            .get("/marcas/search/nome/Canon")
+            .get("/marcas/search/marca/Canon")
             .then()
             .statusCode(200)
-            .body("nome", everyItem(is("Canon")));  
+            .body("marca", everyItem(is("Canon")));  
     }
 
     @Test
@@ -88,7 +88,7 @@ public class MarcaResourceTest {
     public void deleteTest() {
         given()
         .when()
-            .pathParam("id", 3)
+            .pathParam("id", 4)
             .delete("/marcas/{id}")
         .then()
             .statusCode(204);

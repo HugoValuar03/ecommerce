@@ -8,10 +8,10 @@ public record LentesDTO(
     Integer distanciaFocal,
     Integer diametroFiltro,
     String montagem,
-    Double preco,
-    String dimensoes,
-    String material,
     String nomeModelo,
+    Double preco,
+    String material,
+    String dimensoes,
     Marca marca
-    
+
 ) {}

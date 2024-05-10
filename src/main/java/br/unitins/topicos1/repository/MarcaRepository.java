@@ -9,12 +9,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class MarcaRepository implements PanacheRepository<Marca>{
 
-    public List<Marca> findByNome(String nome){
-        return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
+    public List<Marca> findByNome(String marca){
+        return find("UPPER(marca) LIKE ?1", "%" + marca.toUpperCase() + "%").list();
     }
     
-    public Marca validarNome(String nome){
-        return find("UPPER(nome) LIKE ?1", nome.toUpperCase()).firstResult();
+    public Marca validarMarca(String marca){
+        return find("UPPER(marca) LIKE ?1", marca.toUpperCase()).firstResult();
     }
 
 }

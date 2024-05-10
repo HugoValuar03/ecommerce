@@ -34,13 +34,13 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         pessoa.setCpf(dto.email());
         pessoa.setAniversario(dto.aniversario());
         pessoa.setSexo(Sexo.valueOf(dto.idSexo()));
-
+        
+        
         Telefone telefone = new Telefone();
         telefone.setCodigoArea(dto.telefone().codigoArea());
         telefone.setNumero(dto.telefone().numero());
         
         pessoa.setTelefone(telefone);
-        
         funcionario.setPessoa(pessoa);
         
         funcionario.setCargo(dto.cargo());
@@ -52,7 +52,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public void validarNome(String nome) {
         Funcionario funcionario = funcionarioRepository.validarNome(nome);
         if (funcionario != null)
-            throw  new ValidationException("nome", "O nome '"+ nome +"' já existe.");
+            throw  new ValidationException("pessoa.nome", "O nome "+ nome +" já existe.");
     }
 
     @Override

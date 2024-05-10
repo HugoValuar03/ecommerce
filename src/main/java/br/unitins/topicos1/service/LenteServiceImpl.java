@@ -24,7 +24,7 @@ public class LenteServiceImpl implements LenteService {
         validarModelo(dto.nomeModelo());
         Lente lentes = new Lente();
         
-        lentes.setCompatibilidade(dto.compatibilidade());;
+        lentes.setCompatibilidade(dto.compatibilidade());
         lentes.setDistanciaFocal(dto.distanciaFocal());
         lentes.setDiametroFiltro(dto.diametroFiltro());
         lentes.setMontagem(dto.montagem());

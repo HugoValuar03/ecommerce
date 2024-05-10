@@ -78,7 +78,7 @@ public class FuncionarioResource {
 
     //Teste Feito
     @PUT //Chamado quando para atualizar algum dado
-    @Path("/{id}") //"localhost:8080/admin/pessoas/{id que o usuario passar}"
+    @Path("/{id}") //"localhost:8080/admin/funcionarios/{id que o usuario passar}"
     public Response update(@PathParam("id") Long id, FuncionarioDTO dto) {
         funcionarioService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();

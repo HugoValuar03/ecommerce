@@ -1,5 +1,6 @@
 package br.unitins.topicos1.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,11 +12,13 @@ public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMarca;
-    private String nome;
+
+    @Column
+    private String marca;
     
-    public Marca(Long idMarca, String nome) {
+    public Marca(Long idMarca, String marca) {
         this.idMarca = idMarca;
-        this.nome = nome;
+        this.marca = marca;
     }
 
     public Marca(){
@@ -30,12 +33,12 @@ public class Marca {
         this.idMarca = idMarca;
     }
 
-    public String getNome() {
-        return nome;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
 }

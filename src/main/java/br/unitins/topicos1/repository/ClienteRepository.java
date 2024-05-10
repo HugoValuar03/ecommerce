@@ -10,10 +10,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class ClienteRepository implements PanacheRepository<Cliente>{
     
     public List<Cliente> findByCpf(String cpf){
-        return find("UPPER(cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").list();
+        return find("UPPER(pessoa.cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").list();
     }
 
     public Cliente validarCpf(String cpf){
-        return find("cpf LIKE ?1","%" + cpf.toUpperCase() + "%").firstResult();
+        return find("pessoa.cpf LIKE ?1","%" + cpf.toUpperCase() + "%").firstResult();
     }
 }

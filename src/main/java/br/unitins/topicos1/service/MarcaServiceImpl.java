@@ -21,20 +21,20 @@ public class MarcaServiceImpl implements MarcaService{
     @Override
     @Transactional
     public MarcaResponseDTO create(@Valid MarcaDTO dto) {
-        validarNome(dto.nome());
+        validarMarca(dto.marca());
 
         Marca marca = new Marca();
 
-        marca.setNome(dto.nome());
+        marca.setMarca(dto.marca());
 
         marcaRepository.persist(marca);
         return MarcaResponseDTO.valueOf(marca);    
     }
 
-    public void validarNome(String nome) {
-        Marca marca = marcaRepository.validarNome(nome);
+    public void validarMarca(String nomeMarca) {
+        Marca marca = marcaRepository.validarMarca(nomeMarca);
         if (marca != null)
-            throw  new ValidationException("nome", "O nome '"+ nome +"' já existe.");
+            throw  new ValidationException("marca", "A marca '"+ marca +"' já existe.");
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MarcaServiceImpl implements MarcaService{
     public void update(Long id, MarcaDTO dto) {
         Marca marcaBanco = marcaRepository.findById(id);
 
-        marcaBanco.setNome(dto.nome());
+        marcaBanco.setMarca(dto.marca());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
-    public List<MarcaResponseDTO> findByNome(String nome) {
+    public List<MarcaResponseDTO> findByMarca(String nome) {
         return marcaRepository
         .findByNome(nome)
         .stream()

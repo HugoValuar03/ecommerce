@@ -30,9 +30,9 @@ public class MarcaResource {
     }
 
     @GET
-    @Path("/search/nome/{nome}") 
-    public Response findByNome(@PathParam("nome") String nome){
-        return Response.ok(marcaService.findByNome(nome)).build();
+    @Path("/search/marca/{marca}") 
+    public Response findByMarca(@PathParam("marca") String marca){
+        return Response.ok(marcaService.findByMarca(marca)).build();
     }
 
     @GET

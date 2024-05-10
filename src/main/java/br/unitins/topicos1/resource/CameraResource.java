@@ -29,13 +29,6 @@ public class CameraResource {
         return Response.ok(camerasService.findAll()).build();
     }
 
-    //Falta Terminar
-    @GET
-    @Path("/search/nome/{nome}") 
-    public Response findByNomeProduto(@PathParam("nome") String nomeProduto){
-        return Response.ok(camerasService.findByNomeProduto(nomeProduto)).build();
-    }
-
     //Teste Feito
     @GET
     @Path("/search/marca/{marca}") 
