@@ -1,14 +1,13 @@
 package br.unitins.topicos1.resource;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.everyItem;
 
 import org.junit.jupiter.api.Test;
 
 import br.unitins.topicos1.dto.CameraDTO;
-import br.unitins.topicos1.model.Marca;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.MediaType;
 
@@ -17,9 +16,8 @@ public class CameraResourceTest {
    
      @Test
      public void createTest(){
-         Marca marca = new Marca(1L, "Canon");
 
-         CameraDTO dto = new CameraDTO(marca, "Wi-fi", "24mp", true, true, "LCD", "ISO 100-12800", true, 2, 4500.00, "metal emborrachado", "116.33 x 85.6 x 68.83mm", "EOS R150");
+         CameraDTO dto = new CameraDTO("Canon EAS", "24mp", true, true, "LCD", "300-24000", true, 5, "Canon T6i", 5000.00, "Plastico", "10x20x30cm", 1L);
 
          given()
              .contentType(MediaType.APPLICATION_JSON)
@@ -28,20 +26,19 @@ public class CameraResourceTest {
              .post("/cameras")
          .then()
              .statusCode(201)
-             .body("tela", is("LCD"));
+             .body("resolucao", is("24mp"));
      }
 
      @Test
      public void updateTest(){
-        Marca marca = new Marca(1L, "Canon");
 
-        CameraDTO dto = new CameraDTO(marca,"Wif-fi", "25mp", true, true, "IPS-LCD", "ISO 100-12800", true, 2, 4550.00, "metal emborrachado", "116.33 x 85.6 x 68.83mm", "EOS R150");
+        CameraDTO dto = new CameraDTO("Canon EOS", "24mp", true, true, "LCD", "ISO 300-4500", false, 4, "Canon EF EOS", 4500.00, "metal", "10x15x13cm", 1L);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
-            .pathParam("id", 1)
+            .pathParam("id", 2)
             .put("/cameras/{id}")
         .then()
             .statusCode(204); 
@@ -55,7 +52,7 @@ public class CameraResourceTest {
                 .get("/cameras")
             .then()
                 .statusCode(200)
-                .body("resolucao", hasItem("25mp"));
+                .body("resolucao", hasItem(is("24mp")));
      }
 
     @Test
@@ -75,14 +72,14 @@ public class CameraResourceTest {
             .get("/cameras/search/marca/Canon")
         .then()
             .statusCode(200)
-            .body("nome", everyItem(is("Canon")));  
+            .body("marca.marca", everyItem(is("Canon")));
      }
 
     @Test
     public void deleteTest(){
         given()
         .when()
-        .pathParam("id", 1)
+        .pathParam("id", 3)
         .delete("/cameras/{id}")
         .then()
         .statusCode(204);

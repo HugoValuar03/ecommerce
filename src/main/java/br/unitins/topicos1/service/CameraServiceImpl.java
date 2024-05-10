@@ -6,6 +6,7 @@ import br.unitins.topicos1.dto.CameraDTO;
 import br.unitins.topicos1.dto.CameraResponseDTO;
 import br.unitins.topicos1.model.Camera;
 import br.unitins.topicos1.repository.CameraRepository;
+import br.unitins.topicos1.repository.MarcaRepository;
 import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -18,12 +19,16 @@ public class CameraServiceImpl implements CameraService{
     @Inject
     public CameraRepository cameraRepository;
 
+    @Inject
+    public MarcaRepository marcaRepository;
+
     @Override
     @Transactional
     public CameraResponseDTO create(@Valid CameraDTO dto) {
        validarModelo(dto.nomeModelo());
 
         Camera camera = new Camera();
+        camera.setMarca(marcaRepository.findById(dto.marca()));
 
         camera.setConectividade(dto.conectividade());
         camera.setResolucao(dto.resolucao());
@@ -33,12 +38,11 @@ public class CameraServiceImpl implements CameraService{
         camera.setIso(dto.iso());
         camera.setFlashPopUp(dto.flashPopUp());
         camera.setGarantia(dto.garantia());
-        camera.setMarca(dto.marca());
         camera.setPreco(dto.preco());
         camera.setMaterial(dto.material());
         camera.setDimensoes(dto.dimensoes());
         camera.setNomeModelo(dto.nomeModelo());  
-
+        
         cameraRepository.persist(camera);
         return CameraResponseDTO.valueof(camera);
     }
@@ -54,6 +58,7 @@ public class CameraServiceImpl implements CameraService{
     public void update(Long id, CameraDTO dto) {
         Camera cameraBanco =  cameraRepository.findById(id);
 
+        cameraBanco.setMarca(marcaRepository.findById(dto.marca()));
         cameraBanco.setConectividade(dto.conectividade());
         cameraBanco.setResolucao(dto.resolucao());
         cameraBanco.setTelaArticulavel(dto.telaArticulavel());

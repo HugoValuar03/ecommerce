@@ -1,27 +1,13 @@
 package br.unitins.topicos1.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Lente extends Produto{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column
     private Integer distanciaFocal;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_marca")
-    private Marca marca;
 
     @Column
     private String compatibilidade;
@@ -31,38 +17,16 @@ public class Lente extends Produto{
 
     @Column
     private String montagem;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
-    private Fornecedor fornecedor;
 
-    public Lente(Integer distanciaFocal, String compatibilidade, Integer diametroFiltro, String montagem,
-            Fornecedor fornecedor) {
+    public Lente(Integer distanciaFocal, String compatibilidade, Integer diametroFiltro, String montagem) {
         this.distanciaFocal = distanciaFocal;
         this.compatibilidade = compatibilidade;
         this.diametroFiltro = diametroFiltro;
         this.montagem = montagem;
-        this.fornecedor = fornecedor;
     }
 
     public Lente() {
         
-    }
-    
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
     }
 
     public Integer getDistanciaFocal() {
@@ -95,16 +59,6 @@ public class Lente extends Produto{
 
     public void setMontagem(String montagem) {
         this.montagem = montagem;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    
+    } 
     
 }

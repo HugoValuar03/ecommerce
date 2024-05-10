@@ -51,7 +51,7 @@ public class ClienteServiceImpl implements ClienteService {
     public void validarCpf(String cpf) {
         Cliente cliente = clienteRepository.validarCpf(cpf);
         if (cliente != null)
-            throw  new ValidationException("cpf", "O cpf '"+ cpf +"' já existe.");
+            throw  new ValidationException("pessoa.cpf", "O cpf '"+ cpf +"' já existe.");
     }
 
     @Override

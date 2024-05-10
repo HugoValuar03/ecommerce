@@ -15,7 +15,7 @@ public class FuncionarioRepository implements PanacheRepository<Funcionario>{
     }
 
     public Funcionario validarNome(String nome){
-        return find("UPPER(nome) LIKE ?1", nome.toUpperCase()).firstResult();
+        return find("UPPER(pessoa.nome) LIKE ?1", nome.toUpperCase()).firstResult();
     }
     
 

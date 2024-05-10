@@ -1,8 +1,8 @@
 package br.unitins.topicos1.resource;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.everyItem;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class ClienteResourceTest {
     public void createTest(){
         TelefoneDTO telefone = new TelefoneDTO("62", "987773277");
 
-        ClienteDTO dto = new ClienteDTO("João", "joao@gmail.com",  "01824865798", 1, LocalDate.parse("2003-03-10"), telefone);
+        ClienteDTO dto = new ClienteDTO("João", "joao@gmail.com",  "018.248.657-98", 1, LocalDate.parse("2003-03-10"), telefone);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -30,7 +30,7 @@ public class ClienteResourceTest {
             .post("/clientes")
         .then()
             .statusCode(201)
-            .body("pessoa.nome", hasItem(is("João")));
+            .body("pessoa.nome", equalTo("João"));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ClienteResourceTest {
             .get("/clientes/search/cpf/123.456.729-12")
             .then()
             .statusCode(200)
-            .body("clientes.cpf", everyItem(is("123.456.729-12"))); 
+            .body("cpf.cpf", everyItem(is("123.456.729-12"))); 
     }
 
     @Test

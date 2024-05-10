@@ -1,20 +1,10 @@
 package br.unitins.topicos1.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Camera extends Produto{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(length = 30, nullable = false)
     private String conectividade;
@@ -39,24 +29,11 @@ public class Camera extends Produto{
 
     @Column(length = 2)
     private Integer garantia;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_marca")
-    private Marca marca;
-
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
     
     public String getConectividade() {
         return conectividade;
     }
-
-
+    
     public void setConectividade(String conectividade) {
         this.conectividade = conectividade;
     }
@@ -116,13 +93,4 @@ public class Camera extends Produto{
     public void setGarantia(Integer garantia) {
         this.garantia = garantia;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
- 
 } 

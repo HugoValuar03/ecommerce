@@ -14,10 +14,11 @@ public class CameraRepository implements PanacheRepository<Camera> {
     }
 
     public Camera validarModelo(String modelo){
-        return find("UPPER(modelo) LIKE ?1", modelo.toUpperCase()).firstResult();
+        return find("UPPER(nomeModelo) LIKE ?1", modelo.toUpperCase()).firstResult();
     }
 
-    public List<Camera> findByMarca(String nome){
-        return find("UPPER(nome) LIKE ?1", nome.toUpperCase() ).list();
+    public List<Camera> findByMarca(String marca){
+        return find("UPPER(marca.marca) LIKE ?1", "%" + marca.toUpperCase() + "%" ).list();
     }
+    
 }

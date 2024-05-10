@@ -19,7 +19,7 @@ public class LenteResourceTest {
     public void createTest(){
         Marca marca = new Marca(1L, "Canon");
 
-        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 300.00, "10x5x8", "vidro", "Canon EF 50mm f_1.8 II", marca);
+        LentesDTO dto = new LentesDTO("Canon DSLR", 50, 55, "EF", "Lente f3,0", 4500.00, "Metal", "10x15x12mm", marca);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -28,20 +28,20 @@ public class LenteResourceTest {
             .post("/lentes")
         .then()
             .statusCode(201)
-            .body("distanciaFocal", is(50));
+            .body("compatibilidade", is("Canon DSLR"));
     }
 
     @Test
     public void updateTest(){
         Marca marca = new Marca(1L, "Canon");
 
-        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", 250.00, "10x5x8" ,"vidro" , "Canon EF 50mm f/1.8 II", marca);
+        LentesDTO dto = new LentesDTO("Canon EOS", 50, 55, "EF", "Lente f3.0", 4500.00, "Metal", "10x15x12mm", marca);
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
-            .pathParam("id", 1)
+            .pathParam("id", 2)
             .put("/lentes/{id}")
         .then()
             .statusCode(204); 
