@@ -16,4 +16,8 @@ public class ClienteRepository implements PanacheRepository<Cliente>{
     public Cliente validarCpf(String cpf){
         return find("pessoa.cpf LIKE ?1","%" + cpf.toUpperCase() + "%").firstResult();
     }
+
+    public Cliente findByUsernameAndSenha(String username, String senha) {
+        return find("pessoa.usuario.username = ?1 AND pessoa.usuario.senha = ?2", username, senha).firstResult();
+    }
 }

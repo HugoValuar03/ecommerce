@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON) //Usada para fornecer instâncias de objetos que podem ser injetadas em outros componentes da aplicação
 @Consumes(MediaType.APPLICATION_JSON) //Usada para indicar que um método de um recurso web ou um endpoint de serviço web pode consumir uma determinada representação de dados recebida  em uma solicitação HTTP.
-@Path("/funcionarios") //Define o caminho da pesquisa, ex: "localhost:8080/admin/pessoas"
+@Path("/funcionarios") //Define o caminho da pesquisa, ex: "localhost:8080/admin/usuarios"
 public class FuncionarioResource {
 
     @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo conteiner CDI.
@@ -38,12 +38,12 @@ public class FuncionarioResource {
         return Response.ok(funcionarioService.findById(id)).build(); 
     }
 
-        // public List<PessoaResponseDTO> findAll() { //Declara uma lista de objetos do tipo `Pessoa`
-        //     Object pessoaRepository;
-        //     return pessoaRepository
+        // public List<UsuarioResponseDTO> findAll() { //Declara uma lista de objetos do tipo `Usuario`
+        //     Object usuarioRepository;
+        //     return usuarioRepository
         //     .listAll()
         //     .stream()
-        //     .map(e -> PessoaResponseDTO.valueOf(e)).toList(); //Lista todo os elementos da tabela Pessoa
+        //     .map(e -> UsuarioResponseDTO.valueOf(e)).toList(); //Lista todo os elementos da tabela Usuario
         //}
         
     //Teste Feito
@@ -54,25 +54,25 @@ public class FuncionarioResource {
     }
 
     //Teste Feito
-    @POST //Chamado para criar um novo objeto de Pessoa
+    @POST //Chamado para criar um novo objeto de Usuario
     public Response create(@Valid FuncionarioDTO dto){
         
         return Response.status(Status.CREATED)
             .entity(funcionarioService.create(dto)).build();
-        // Pessoa pessoa = new Pessoa();
-        // pessoa.setNome(dto.nome());
-        // pessoa.setCargo(dto.cargo());
-        // pessoa.setAniversario(dto.aniversario());
-        // pessoa.setCep(dto.cep());
-        // pessoa.setCidade(dto.cidade());
-        // pessoa.setComplemento(dto.complemento());
-        // pessoa.setCpf(dto.cpf());
-        // pessoa.setEmail(dto.email());
-        // pessoa.setEndereco(dto.endereco());
-        // pessoa.setTelefone(dto.telefone());
-        // pessoa.setEstado(dto.estado());
+        // Usuario usuario = new Usuario();
+        // usuario.setNome(dto.nome());
+        // usuario.setCargo(dto.cargo());
+        // usuario.setAniversario(dto.aniversario());
+        // usuario.setCep(dto.cep());
+        // usuario.setCidade(dto.cidade());
+        // usuario.setComplemento(dto.complemento());
+        // usuario.setCpf(dto.cpf());
+        // usuario.setEmail(dto.email());
+        // usuario.setEndereco(dto.endereco());
+        // usuario.setTelefone(dto.telefone());
+        // usuario.setEstado(dto.estado());
 
-        // pessoaRepository.persist(pessoa);
+        // usuarioRepository.persist(usuario);
 
     }
 
@@ -83,7 +83,7 @@ public class FuncionarioResource {
         funcionarioService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
 
-        // Pessoa estadoBanco =  pessoaRepository.findById(id);
+        // Usuario estadoBanco =  usuarioRepository.findById(id);
 
         // estadoBanco.setNome(dto.nome());
         // estadoBanco.setCargo(dto.cargo());
@@ -104,6 +104,6 @@ public class FuncionarioResource {
     public Response delete(@PathParam("id") Long id) {
         funcionarioService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
-        // pessoaRepository.deleteById(id);
+        // usuarioRepository.deleteById(id);
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.dto.FuncionarioResponseDTO;
+import br.unitins.topicos1.dto.UsuarioResponseDTO;
 import br.unitins.topicos1.model.Funcionario;
 import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
@@ -104,4 +105,15 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public FuncionarioResponseDTO findById(Long id){
         return FuncionarioResponseDTO.valueOf(funcionarioRepository.findById(id)); 
     }
+
+    @Override
+    public UsuarioResponseDTO login(String username, String senha) {
+        
+        Funcionario funcionario = funcionarioRepository.findByUsernameAndSenha(username, senha);
+        return UsuarioResponseDTO.valueOf(funcionario.getPessoa());
+        
+    }
+    
+
+    
 }

@@ -9,6 +9,5 @@ public record PessoaDTO(
     String cpf,
     Integer idSexo,
     LocalDate aniversario,
-    TelefoneDTO telefone
-    
+    TelefoneDTO telefone    
 ){}
