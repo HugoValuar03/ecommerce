@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.CameraDTO;
 import br.unitins.topicos1.service.CameraService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -25,12 +26,14 @@ public class CameraResource {
 
     //Teste feito
     @GET
+    @RolesAllowed({"Cliente","Funcionario"})
     public Response findAll() {
         return Response.ok(camerasService.findAll()).build();
     }
 
     //Teste Feito
     @GET
+    @RolesAllowed({"Cliente"})
     @Path("/search/marca/{marca}") 
     public Response findByMarca(@PathParam("marca") String marca){
         return Response.ok(camerasService.findByMarca(marca)).build();

@@ -15,6 +15,10 @@ public class Pessoa extends DefaultEntity{
     @Column(length = 200, nullable = false)
     private String nome;
 
+    @OneToOne
+    @JoinColumn(name = "id_usuario", unique = true)
+    private Usuario usuario;
+
     @Email
     @Column(length = 250, nullable = false)
     private String email;
@@ -31,6 +35,17 @@ public class Pessoa extends DefaultEntity{
 
     @Column
     private String cpf;
+
+    @Column
+    private String senha;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public String getNome() {
         return nome;
@@ -78,6 +93,14 @@ public class Pessoa extends DefaultEntity{
 
     public void setTelefone(Telefone telefone) {
         this.telefone = telefone;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     

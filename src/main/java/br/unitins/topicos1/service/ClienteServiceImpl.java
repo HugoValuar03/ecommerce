@@ -4,11 +4,13 @@ import java.util.List;
 
 import br.unitins.topicos1.dto.ClienteDTO;
 import br.unitins.topicos1.dto.ClienteResponseDTO;
+import br.unitins.topicos1.dto.UsuarioResponseDTO;
 import br.unitins.topicos1.model.Cliente;
 import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
 import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.ClienteRepository;
+import br.unitins.topicos1.repository.FuncionarioRepository;
 import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -20,6 +22,12 @@ public class ClienteServiceImpl implements ClienteService {
     
     @Inject
     public ClienteRepository clienteRepository;
+
+    @Inject
+    public FuncionarioRepository funcionarioRepository;
+
+    @Inject
+    public HashService hashService;
         
     @Override
     @Transactional
@@ -28,7 +36,7 @@ public class ClienteServiceImpl implements ClienteService {
         
         Cliente cliente = new Cliente();
         Pessoa pessoa = new Pessoa();
-
+        
         pessoa.setNome(dto.nome());
         pessoa.setSexo(Sexo.valueOf(dto.idSexo()));
         pessoa.setAniversario(dto.aniversario());
@@ -103,5 +111,11 @@ public class ClienteServiceImpl implements ClienteService {
         .findByCpf(cpf)
         .stream()
         .map(e -> ClienteResponseDTO.valueOf(e)).toList();
+    }
+
+    @Override
+    public UsuarioResponseDTO login(String username, String senha) {
+        Cliente cliente = clienteRepository.findByUsernameAndSenha(username, senha);
+        return UsuarioResponseDTO.valueOf(cliente.getPessoa());
     }
 }
