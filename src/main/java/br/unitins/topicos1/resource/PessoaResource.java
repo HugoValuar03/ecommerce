@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.PessoaDTO;
 import br.unitins.topicos1.service.PessoaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -24,44 +25,44 @@ public class PessoaResource {
     @Inject
     private PessoaService pessoaService;
 
-    //Teste Feito
     @GET
+    @RolesAllowed({"Funcionario"})
     public Response findAll() {
         return Response.ok(pessoaService.findAll()).build();
     }
 
-    //Teste Feito
     @GET
     @Path("/search/nome/{nome}") 
+    @RolesAllowed({"Funcionario"})
     public Response findByNome(@PathParam("nome") String nome){
         return Response.ok(pessoaService.findBynome(nome)).build();
     }
 
-    //Teste Feito
     @GET
-    @Path("/{id}")
+    @Path("/{id}")  
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
         return Response.ok(pessoaService.findById(id)).build(); 
     }
 
-    //Teste Feito
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, PessoaDTO dto) {
         pessoaService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    //Teste Feito
     @POST
+    @RolesAllowed({"Funcionario"})
     public Response create(@Valid PessoaDTO dto){
         return Response.status(Status.CREATED)
         .entity(pessoaService.create(dto)).build();
     }
 
-    //Teste Feito
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         pessoaService.delete(id);
         return Response.status(Status.NO_CONTENT).build();

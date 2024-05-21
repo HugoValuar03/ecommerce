@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.FornecedorDTO;
 import br.unitins.topicos1.service.FornecedorService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -24,51 +25,51 @@ public class FornecedorResource {
     @Inject
     public FornecedorService fornecedorService;
 
-    // Teste Feito
     @GET
+    @RolesAllowed({"Funcionario"})
     public Response findAll() {
         return Response.ok(fornecedorService.findAll()).build();
     }
 
-    // Teste Feito
     @GET
     @Path("/search/nome/{nome}") 
+    @RolesAllowed({"Funcionario"})
     public Response findByNome(@PathParam("nome") String nome){
         return Response.ok(fornecedorService.findByNome(nome)).build();
     }
 
-    // Teste Feito
     @GET
     @Path("/search/cnpj/{cnpj}") 
+    @RolesAllowed({"Funcionario"})
     public Response findByCnpj(@PathParam("cnpj") String cnpj){
         return Response.ok(fornecedorService.findByCnpj(cnpj)).build();
     }
 
-    // Teste Feito
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
         return Response.ok(fornecedorService.findById(id)).build(); 
     }
 
-    // Teste Feito
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, FornecedorDTO dto) {
         fornecedorService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    // Teste Feito
     @POST  
+    @RolesAllowed({"Funcionario"})
     public Response create(@Valid FornecedorDTO dto){
         return Response.status(Status.CREATED)
         .entity(fornecedorService.create(dto)).build();
     }
 
-    // Teste Feito
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         fornecedorService.delete(id);
         return Response.status(Status.NO_CONTENT).build();

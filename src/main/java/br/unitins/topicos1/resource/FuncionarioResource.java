@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.service.FuncionarioService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -24,16 +25,14 @@ public class FuncionarioResource {
     @Inject //Usado para indicar que o objeto deve ser injetado automaticamente pelo conteiner CDI.
     public FuncionarioService funcionarioService;
 
-
-    //Teste Feito
     @GET //Usado para retornar uma solicitação feita pelo usuário.
     public Response findAll(){
         return Response.ok(funcionarioService.findAll()).build();
     }
 
-    //Teste Feito
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
         return Response.ok(funcionarioService.findById(id)).build(); 
     }
@@ -45,16 +44,16 @@ public class FuncionarioResource {
         //     .stream()
         //     .map(e -> UsuarioResponseDTO.valueOf(e)).toList(); //Lista todo os elementos da tabela Usuario
         //}
-        
-    //Teste Feito
+
     @GET
-    @Path("/search/cargo/{cargo}") 
+    @Path("/search/cargo/{cargo}")
+    @RolesAllowed({"Funcionario"}) 
     public Response findByCargo(@PathParam("cargo") String cargo){
         return Response.ok(funcionarioService.findByCargo(cargo)).build();
     }
 
-    //Teste Feito
     @POST //Chamado para criar um novo objeto de Usuario
+    @RolesAllowed({"Funcionario"})
     public Response create(@Valid FuncionarioDTO dto){
         
         return Response.status(Status.CREATED)
@@ -76,9 +75,9 @@ public class FuncionarioResource {
 
     }
 
-    //Teste Feito
     @PUT //Chamado quando para atualizar algum dado
     @Path("/{id}") //"localhost:8080/admin/funcionarios/{id que o usuario passar}"
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, FuncionarioDTO dto) {
         funcionarioService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
@@ -98,9 +97,9 @@ public class FuncionarioResource {
         
     }
 
-    //Teste Feito
     @DELETE //Chamado para deletar algum elemento, neste método, será deletado apartir o id passado
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         funcionarioService.delete(id);
         return Response.status(Status.NO_CONTENT).build();

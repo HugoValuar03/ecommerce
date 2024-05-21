@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.LentesDTO;
 import br.unitins.topicos1.service.LenteService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -24,43 +25,43 @@ public class LenteResource {
     @Inject
     public LenteService lentesService;
 
-    // Teste feito
     @GET
+    @RolesAllowed({"Funcionario"})
     public Response findAll() {
         return Response.ok(lentesService.findAll()).build();
     }
 
-    // Teste feito
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id") Long id){
         return Response.ok(lentesService.findAll()).build();
     }
 
-    // Teste feito
     @GET
     @Path("/search/montagem/{montagem}") 
+    @RolesAllowed({"Funcionario"})
     public Response findByMontagem(@PathParam("montagem") String montagem){
         return Response.ok(lentesService.findByMontagem(montagem)).build();
     }
-    
-    // Teste feito
+
     @POST  
+    @RolesAllowed({"Funcionario"})
     public Response create(@Valid LentesDTO dto){
         return Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
     }
 
-    // Teste feito
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, LentesDTO dto) {
         lentesService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
    }
 
-   //Teste Feito
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         lentesService.delete(id);
         return Response.status(Status.NO_CONTENT).build();

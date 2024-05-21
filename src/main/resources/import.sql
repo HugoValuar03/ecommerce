@@ -12,6 +12,9 @@ INSERT INTO pessoa (nome, email, cpf, sexo, aniversario, id_telefone) VALUES ('A
 INSERT INTO pessoa(nome, email, cpf, sexo, aniversario, id_telefone) VALUES ('Rafael',  'rafael@gmail.com', '98765432134', 1, '1992-03-10', 4);
 INSERT INTO pessoa(nome, email, cpf, sexo, aniversario, id_telefone) VALUES ('Pedro',  'pedro@gmail.com', '98765442134', 1, '1992-03-10', 5);
 
+-- Permissão Usuario
+insert into usuario(username, senha) values('Rafael', '123');
+
 -- Inserindo Cliente
 
 INSERT INTO cliente(id_pessoa) VALUES (1);

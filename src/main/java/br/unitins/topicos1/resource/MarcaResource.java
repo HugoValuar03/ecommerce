@@ -2,6 +2,7 @@ package br.unitins.topicos1.resource;
 
 import br.unitins.topicos1.dto.MarcaDTO;
 import br.unitins.topicos1.service.MarcaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -31,24 +32,28 @@ public class MarcaResource {
 
     @GET
     @Path("/search/marca/{marca}") 
+    @RolesAllowed({"Funcionario"})
     public Response findByMarca(@PathParam("marca") String marca){
         return Response.ok(marcaService.findByMarca(marca)).build();
     }
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
         return Response.ok(marcaService.findById(id)).build(); 
     } 
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, MarcaDTO dto) {
         marcaService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
 
     @POST
+    @RolesAllowed({"Funcionario"})
     public Response create(@Valid MarcaDTO dto){
         return Response.status(Status.CREATED)
         .entity(marcaService.create(dto)).build();
@@ -56,6 +61,7 @@ public class MarcaResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         marcaService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
