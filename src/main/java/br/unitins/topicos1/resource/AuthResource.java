@@ -38,19 +38,16 @@ public class AuthResource {
 
         UsuarioResponseDTO usuario = null;
 
-        // perfil 1 = cliente
-        if (dto.perfil() == 1) {
+        if (dto.perfil() == 1) { // perfil 1 = cliente
             usuario = clienteService.login(dto.username(), hash);
-        } else {
-            return Response.status(Status.NOT_FOUND).build();
-        }
-        if (dto.perfil() == 2) {
+        } else if(dto.perfil() == 2) { // Perfil 2 = Funcionario
             usuario = funcionarioService.login(dto.username(), hash);
-        } else {
+        } else{
             return Response.status(Status.NOT_FOUND).build();
         }
+
         return Response.ok(usuario)
-        .header("Authorization", jwtService.generateJwt(usuario))
+        .header("Authorization", jwtService.generateJwt(usuario,dto.perfil()))
         .build();
     }
 }

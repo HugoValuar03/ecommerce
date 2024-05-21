@@ -24,14 +24,12 @@ public class CameraResource {
     @Inject
     public CameraService camerasService;
 
-    //Teste feito
     @GET
     @RolesAllowed({"Cliente","Funcionario"})
     public Response findAll() {
         return Response.ok(camerasService.findAll()).build();
     }
 
-    //Teste Feito
     @GET
     @RolesAllowed({"Cliente"})
     @Path("/search/marca/{marca}") 
@@ -39,33 +37,31 @@ public class CameraResource {
         return Response.ok(camerasService.findByMarca(marca)).build();
     }
 
-
-    //Teste Feito
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, CameraDTO dto) {
         camerasService.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    //Falta Terminar
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         camerasService.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    //Falta Terminar
     @POST  
+    @RolesAllowed({"Funcionario"})
     public Response create(CameraDTO dto){
         return Response.status(Status.CREATED).entity(camerasService.create(dto)).build();
     }
 
-
-    //Teste Feito
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
         return Response.ok(camerasService.findById(id)).build(); 
     }
