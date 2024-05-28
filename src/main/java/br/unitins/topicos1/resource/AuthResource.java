@@ -1,7 +1,7 @@
 package br.unitins.topicos1.resource;
 
-import br.unitins.topicos1.dto.AuthUsuarioDTO;
-import br.unitins.topicos1.dto.UsuarioResponseDTO;
+import br.unitins.topicos1.dto.AuthPessoaDTO;
+import br.unitins.topicos1.dto.PessoaResponseDTO;
 import br.unitins.topicos1.service.ClienteService;
 import br.unitins.topicos1.service.FuncionarioService;
 import br.unitins.topicos1.service.HashService;
@@ -33,21 +33,21 @@ public class AuthResource {
     public JwtService jwtService;
 
     @POST
-    public Response login(AuthUsuarioDTO dto) {
+    public Response login(AuthPessoaDTO dto) {
         String hash = hashService.getHashSenha(dto.senha());
 
-        UsuarioResponseDTO usuario = null;
+        PessoaResponseDTO pessoa = null;
 
         if (dto.perfil() == 1) { // perfil 1 = cliente
-            usuario = clienteService.login(dto.username(), hash);
+            pessoa = funcionarioService.login(dto.username(), hash);
         } else if(dto.perfil() == 2) { // Perfil 2 = Funcionario
-            usuario = funcionarioService.login(dto.username(), hash);
+            pessoa = clienteService.login(dto.username(), hash);
         } else{
             return Response.status(Status.NOT_FOUND).build();
         }
 
-        return Response.ok(usuario)
-        .header("Authorization", jwtService.generateJwt(usuario,dto.perfil()))
+        return Response.ok(pessoa)
+        .header("Authorization", jwtService.generateJwt(pessoa,dto.perfil()))
         .build();
     }
 }

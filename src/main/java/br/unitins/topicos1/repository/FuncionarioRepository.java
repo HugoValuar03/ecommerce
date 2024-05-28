@@ -14,12 +14,9 @@ public class FuncionarioRepository implements PanacheRepository<Funcionario>{
         // Independente do que for digitado, procurará um cargo que tenha esta letra no meio da palavra
     }
 
-    public Funcionario validarNome(String nome){
-        return find("UPPER(pessoa.nome) LIKE ?1", nome.toUpperCase()).firstResult();
-    }
-    
      public Funcionario findByUsernameAndSenha(String username, String senha) {
-        return find("pessoa.usuario.username = ?1 AND pessoa.usuario.senha = ?2", username, senha).firstResult();
+        return find("pessoa.username = ?1 AND pessoa.senha = ?2", 
+        username, senha).firstResult();
     }
 
 }

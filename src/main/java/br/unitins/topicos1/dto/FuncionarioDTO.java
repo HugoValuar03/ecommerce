@@ -10,7 +10,9 @@ public record FuncionarioDTO(
     Integer idSexo,
     LocalDate aniversario,
     TelefoneDTO telefone,
-    String cargo
+    String cargo,
+    String username,
+    String senha
 
 ){}
     

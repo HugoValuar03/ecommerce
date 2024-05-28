@@ -13,7 +13,8 @@ public record CameraResponseDTO(
     String iso,
     Boolean flashPopUp,
     Integer garantia,
-    MarcaResponseDTO marca
+    MarcaResponseDTO marca,
+    String nomeImagem
 
 ) {
 
@@ -28,7 +29,8 @@ public record CameraResponseDTO(
             camera.getIso(),
             camera.getFlashPopUp(),
             camera.getGarantia(),
-            MarcaResponseDTO.valueOf(camera.getMarca())
+            MarcaResponseDTO.valueOf(camera.getMarca()),
+            camera.getNomeImagem()
         );
     }
 }

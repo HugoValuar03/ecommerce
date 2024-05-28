@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.dto.FuncionarioResponseDTO;
-import br.unitins.topicos1.dto.UsuarioResponseDTO;
+import br.unitins.topicos1.dto.PessoaResponseDTO;
 import jakarta.validation.Valid;
 
 public interface FuncionarioService {
@@ -14,6 +14,6 @@ public interface FuncionarioService {
     public FuncionarioResponseDTO findById(Long id);
     public List<FuncionarioResponseDTO> findAll();
     public List<FuncionarioResponseDTO> findByCargo(String cargo);
-    public UsuarioResponseDTO login(String username, String senha);
+    public PessoaResponseDTO login(String username, String senha);
 
 }

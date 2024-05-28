@@ -4,12 +4,13 @@ import java.util.List;
 
 import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.dto.FuncionarioResponseDTO;
-import br.unitins.topicos1.dto.UsuarioResponseDTO;
+import br.unitins.topicos1.dto.PessoaResponseDTO;
+import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Funcionario;
 import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
-import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.FuncionarioRepository;
+import br.unitins.topicos1.repository.PessoaRepository;
 import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -22,10 +23,13 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Inject
     public  FuncionarioRepository funcionarioRepository;
 
+    @Inject
+    public PessoaRepository pessoaRepository;
+
     @Override
     @Transactional 
     public FuncionarioResponseDTO create (FuncionarioDTO dto){
-        validarNome(dto.nome());
+        validarCpf(dto.cpf());
         
         Funcionario funcionario = new Funcionario();
         Pessoa pessoa = new Pessoa();
@@ -35,23 +39,19 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         pessoa.setCpf(dto.email());
         pessoa.setAniversario(dto.aniversario());
         pessoa.setSexo(Sexo.valueOf(dto.idSexo()));
+        pessoa.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
         
+        pessoaRepository.persist(pessoa);
         
-        Telefone telefone = new Telefone();
-        telefone.setCodigoArea(dto.telefone().codigoArea());
-        telefone.setNumero(dto.telefone().numero());
-        
-        pessoa.setTelefone(telefone);
         funcionario.setPessoa(pessoa);
-        
         funcionario.setCargo(dto.cargo());
 
         funcionarioRepository.persist(funcionario);
         return FuncionarioResponseDTO.valueOf(funcionario);
     }
 
-    public void validarNome(String nome) {
-        Funcionario funcionario = funcionarioRepository.validarNome(nome);
+    public void validarCpf(String nome) {
+        Pessoa funcionario = pessoaRepository.validarCpf(nome);
         if (funcionario != null)
             throw  new ValidationException("pessoa.nome", "O nome "+ nome +" já existe.");
     }
@@ -68,9 +68,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         pessoaBanco.setEmail(dto.email());
         pessoaBanco.setSexo(Sexo.valueOf(dto.idSexo()));
         
-        Telefone telefone = funcionarioBanco.getPessoa().getTelefone();
-        telefone.setCodigoArea(dto.telefone().codigoArea());
-        telefone.setNumero(dto.telefone().numero());
+        pessoaBanco.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
 
         funcionarioBanco.setCargo(dto.cargo());
 
@@ -107,13 +105,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public UsuarioResponseDTO login(String username, String senha) {
+    public PessoaResponseDTO login(String username, String senha) {
         
         Funcionario funcionario = funcionarioRepository.findByUsernameAndSenha(username, senha);
-        return UsuarioResponseDTO.valueOf(funcionario.getPessoa());
+        return PessoaResponseDTO.valueOf(funcionario.getPessoa());
         
     }
-    
-
-    
 }

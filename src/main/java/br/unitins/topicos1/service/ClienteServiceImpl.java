@@ -4,13 +4,14 @@ import java.util.List;
 
 import br.unitins.topicos1.dto.ClienteDTO;
 import br.unitins.topicos1.dto.ClienteResponseDTO;
-import br.unitins.topicos1.dto.UsuarioResponseDTO;
+import br.unitins.topicos1.dto.PessoaResponseDTO;
+import br.unitins.topicos1.dto.TelefoneDTO;
 import br.unitins.topicos1.model.Cliente;
 import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
-import br.unitins.topicos1.model.Telefone;
 import br.unitins.topicos1.repository.ClienteRepository;
 import br.unitins.topicos1.repository.FuncionarioRepository;
+import br.unitins.topicos1.repository.PessoaRepository;
 import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -28,6 +29,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Inject
     public HashService hashService;
+
+    @Inject
+    public PessoaRepository pessoaRepository;
         
     @Override
     @Transactional
@@ -42,14 +46,11 @@ public class ClienteServiceImpl implements ClienteService {
         pessoa.setAniversario(dto.aniversario());
         pessoa.setCpf(dto.cpf());
         pessoa.setEmail(dto.email());
+        pessoa.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
+
+        pessoaRepository.persist(pessoa);
 
         cliente.setPessoa(pessoa);
-
-        Telefone telefone = new Telefone();
-        telefone.setCodigoArea(dto.telefone().codigoArea());
-        telefone.setNumero(dto.telefone().numero());
-
-        pessoa.setTelefone(telefone);
 
         clienteRepository.persist(cliente);
         return ClienteResponseDTO.valueOf(cliente);
@@ -57,7 +58,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
     
     public void validarCpf(String cpf) {
-        Cliente cliente = clienteRepository.validarCpf(cpf);
+        Pessoa cliente = pessoaRepository.validarCpf(cpf);
         if (cliente != null)
             throw  new ValidationException("pessoa.cpf", "O cpf '"+ cpf +"' já existe.");
     }
@@ -75,10 +76,7 @@ public class ClienteServiceImpl implements ClienteService {
         pessoaBanco.setCpf(dto.cpf());
         pessoaBanco.setAniversario(dto.aniversario());
         pessoaBanco.setSexo(Sexo.valueOf(dto.idSexo()));
-        
-        Telefone telefone = clienteBanco.getPessoa().getTelefone();
-        telefone.setCodigoArea(dto.telefone().codigoArea());
-        telefone.setNumero(dto.telefone().numero());
+        pessoaBanco.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
         
         clienteBanco.setPessoa(pessoaBanco);
             
@@ -114,8 +112,8 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public UsuarioResponseDTO login(String username, String senha) {
+    public PessoaResponseDTO login(String username, String senha) {
         Cliente cliente = clienteRepository.findByUsernameAndSenha(username, senha);
-        return UsuarioResponseDTO.valueOf(cliente.getPessoa());
+        return PessoaResponseDTO.valueOf(cliente.getPessoa());
     }
 }

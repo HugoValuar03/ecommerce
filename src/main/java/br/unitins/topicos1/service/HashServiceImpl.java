@@ -30,6 +30,15 @@ public class HashServiceImpl implements HashService {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
-    }   
+    }
 
+    public static void main(String[] args) {
+        HashService hash = new HashServiceImpl();
+        System.out.println(hash.getHashSenha("123"));
+        System.out.println(hash.getHashSenha("234"));
+        System.out.println(hash.getHashSenha("345"));
+        System.out.println(hash.getHashSenha("456"));
+        System.out.println(hash.getHashSenha("567"));
+    }
+    
 }

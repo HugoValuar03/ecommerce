@@ -26,6 +26,7 @@ public class MarcaResource {
     private MarcaService marcaService;
 
     @GET
+    @RolesAllowed({"Funcionario"})
     public Response findAll() {
         return Response.ok(marcaService.findAll()).build();
     }

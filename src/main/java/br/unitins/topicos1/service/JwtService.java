@@ -1,7 +1,7 @@
 package br.unitins.topicos1.service;
 
-import br.unitins.topicos1.dto.UsuarioResponseDTO;
+import br.unitins.topicos1.dto.PessoaResponseDTO;
 
 public interface JwtService {
-    String generateJwt(UsuarioResponseDTO dto, int perfil);
+    String generateJwt(PessoaResponseDTO dto, int perfil);
 }

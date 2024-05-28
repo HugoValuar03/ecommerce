@@ -8,5 +8,7 @@ public record ClienteDTO(
     String cpf,
     Integer idSexo,
     LocalDate aniversario,
-    TelefoneDTO telefone
+    TelefoneDTO telefone,
+    String username,
+    String senha
 ) {} 
