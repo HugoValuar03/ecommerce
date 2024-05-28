@@ -11,7 +11,7 @@ public record ItemPedidoResponseDTO(
     public static ItemPedidoResponseDTO valueOf(ItemPedido item) {
         return new ItemPedidoResponseDTO(
             item.getId(), 
-            item.getConsulta().getNome(), 
+            item.getVenda().getNome(), 
             item.getDesconto(),
             item.getQuantidade());
     }

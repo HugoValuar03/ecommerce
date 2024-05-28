@@ -12,8 +12,8 @@ public class ItemPedido extends DefaultEntity {
     private Integer quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "id_consulta")
-    private Consulta consulta;
+    @JoinColumn(name = "id_venda")
+    private Venda venda;
 
     public Double getPreco() {
         return preco;
@@ -39,12 +39,14 @@ public class ItemPedido extends DefaultEntity {
         this.quantidade = quantidade;
     }
 
-    public Consulta getConsulta() {
-        return consulta;
+    public Venda getVenda() {
+        return venda;
     }
 
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
+
+    
 
 }

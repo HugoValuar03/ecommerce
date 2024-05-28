@@ -4,5 +4,5 @@ import java.util.List;
 
 public record PedidoDTO (
     Long idPaciente,
-    List<ItemPedidoDTO> itens) 
-{ }
+    List<ItemPedidoDTO> itens
+) { }

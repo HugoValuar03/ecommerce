@@ -21,31 +21,20 @@ public class PedidoServiceImpl implements PedidoService {
     @Inject
     public PedidoRepository pedidoRepository;
 
-    // @Inject
-    // public ConsultaRepository consultaRepository;
-
-    // @Inject
-    // public PacienteRepository pacienteRepository;
-
     @Override
     @Transactional
     public PedidoResponseDTO create(@Valid PedidoDTO dto) {
 
         Pedido pedido = new Pedido();
         pedido.setData(LocalDateTime.now());
-       // pedido.setPaciente(pacienteRepository.findById(dto.idPaciente()));
-        // total calculado
+
         List<ItemPedido> itens = new ArrayList<ItemPedido>();
 
         for (ItemPedidoDTO itemDTO : dto.itens()) {
             ItemPedido item = new ItemPedido();
-            //item.setConsulta(consultaRepository.findById(itemDTO.idConsulta()));
             item.setDesconto(itemDTO.desconto());
             item.setPreco(itemDTO.preco());
-            // adicionando na lista
             itens.add(item);
-
-            // trabalhar o estoque de cada produto
         }
 
         pedido.setItens(itens);
@@ -71,7 +60,7 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public List<PedidoResponseDTO> findByPaciente(Long idCliente) {
+    public List<PedidoResponseDTO> findByCliente(Long idCliente) {
         return pedidoRepository.findByCliente(idCliente).stream()
         .map(e -> PedidoResponseDTO.valueOf(e)).toList();
     }

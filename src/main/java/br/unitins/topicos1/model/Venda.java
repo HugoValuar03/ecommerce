@@ -1,13 +1,10 @@
 package br.unitins.topicos1.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 @Entity
-public class Venda {
+public class Venda extends DefaultEntity{
 
-    @Id
-    private String id;
     private String nome;
     private Double preco;
 

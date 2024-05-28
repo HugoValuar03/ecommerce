@@ -11,6 +11,6 @@ public interface PedidoService {
     public PedidoResponseDTO create(@Valid PedidoDTO dto);
     public PedidoResponseDTO findById(Long id);
     public List<PedidoResponseDTO> findAll();
-    public List<PedidoResponseDTO> findByPaciente(Long idCliente);
+    public List<PedidoResponseDTO> findByCliente(Long idCliente);
 
 }

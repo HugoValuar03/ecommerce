@@ -22,6 +22,11 @@ INSERT INTO pessoa (nome, email, cpf, sexo, aniversario, id_telefone, username, 
 -- Permissão Usuario
 insert into funcionario(cargo, id_pessoa) values('Vendedor', 4);
 
+-- Inserindo Vendas
+insert into venda(nome, preco) values ('Canon T6i', 3300);
+insert into venda(nome, preco) values ('Canon R100', 3200);
+insert into venda(nome, preco) values ('Canon SL3', 5000);
+
 -- Inserindo Cliente    
 INSERT INTO cliente(id_pessoa) VALUES (1), 
                                       (2), 
