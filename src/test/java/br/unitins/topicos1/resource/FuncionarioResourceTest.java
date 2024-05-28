@@ -25,11 +25,13 @@ public class FuncionarioResourceTest {
         FuncionarioDTO dto = new FuncionarioDTO("Fernando",  "fernando@gmail.com", "98765432134", 1, LocalDate.parse("1992-03-10"), telefone, "Vendedor","Fernando", "123");
 
         given()
+            .log().all()
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
             .post("/funcionarios")
         .then()
+            .log().all()
             .statusCode(201)
             .body("pessoa.cpf", equalTo("98765432134"));
     }

@@ -84,7 +84,8 @@ public class CameraResource {
     }
 
     @GET
-    @Path("/imagem/download/{nomeImagem}")
+    @Path("quarkus/imagem/camera/{nomeImagem}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @RolesAllowed({"Funcionario"})
     public Response download(@PathParam("nomeImagem") String nomeImagem){
         fileService.download(nomeImagem);

@@ -12,7 +12,7 @@ public class ImageForm {
     private String nomeImagem;
 
     @FormParam("imagem")
-    @PartType("application/octet-stream")
+    @PartType(MediaType.APPLICATION_OCTET_STREAM)
     private byte[] imagem;
 
     public String getNomeImagem() {
