@@ -42,7 +42,7 @@ public class PessoaServiceImpl implements PessoaService{
     public void validarCpf(String cpf) {
         Pessoa pessoa = pessoaRepository.validarCpf(cpf);
         if (pessoa != null)
-            throw  new ValidationException("cpf", "O cpf '"+ cpf +"' já existe.");
+            throw  new ValidationException("cpf", "O cpf "+ cpf +" já existe.");
     }
 
     @Override

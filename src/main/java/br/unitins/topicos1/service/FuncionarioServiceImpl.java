@@ -50,10 +50,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         return FuncionarioResponseDTO.valueOf(funcionario);
     }
 
-    public void validarCpf(String nome) {
-        Pessoa funcionario = pessoaRepository.validarCpf(nome);
+    public void validarCpf(String cpf) {
+        Pessoa funcionario = pessoaRepository.validarCpf(cpf);
         if (funcionario != null)
-            throw  new ValidationException("pessoa.nome", "O nome "+ nome +" já existe.");
+            throw  new ValidationException("pessoa.cpf", "O cpf "+ cpf +" já existe.");
     }
 
     @Override

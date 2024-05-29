@@ -22,7 +22,7 @@ public class FuncionarioResourceTest {
 
         TelefoneDTO telefone = new TelefoneDTO("63", "987777777");
 
-        FuncionarioDTO dto = new FuncionarioDTO("Cleiton",  "cleiton@gmail.com", "98765432134", 1, LocalDate.parse("1992-03-10"), telefone, "Vendedor","Fernando", "123");
+        FuncionarioDTO dto = new FuncionarioDTO ("Cleiton", "cleiton@gmail.com",  "987.654.321-34", 1, LocalDate.parse("1992-03-10"), telefone, "Vendedor", "Cleiton", "123");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -32,6 +32,8 @@ public class FuncionarioResourceTest {
         .then()
             .statusCode(201)
             .body("pessoa.nome", equalTo("Cleiton"));
+
+           
     }
 
     @Test
