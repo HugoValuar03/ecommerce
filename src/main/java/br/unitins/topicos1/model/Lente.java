@@ -18,6 +18,16 @@ public class Lente extends Produto{
     @Column
     private String montagem;
 
+    private String nomeImagem;
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
+
     public Lente(Integer distanciaFocal, String compatibilidade, Integer diametroFiltro, String montagem) {
         this.distanciaFocal = distanciaFocal;
         this.compatibilidade = compatibilidade;

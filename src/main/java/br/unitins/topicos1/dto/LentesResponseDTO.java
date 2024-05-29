@@ -13,7 +13,8 @@ public record LentesResponseDTO(
     Double preco,
     String material,
     String dimensoes,
-    Marca marca
+    Marca marca,
+    String nomeImagem
     
 ) {
     public static LentesResponseDTO valueOf(Lente lentes){
@@ -28,7 +29,8 @@ public record LentesResponseDTO(
             lentes.getPreco(),
             lentes.getMaterial(),
             lentes.getDimensoes(),
-            lentes.getMarca()
+            lentes.getMarca(),
+            lentes.getNomeImagem()
         );
     }
 }  

@@ -30,6 +30,8 @@ public class Camera extends Produto{
     @Column(length = 2)
     private Integer garantia;
 
+    private String nomeImagem;
+    
     public String getNomeImagem() {
         return nomeImagem;
     }
@@ -38,7 +40,6 @@ public class Camera extends Produto{
         this.nomeImagem = nomeImagem;
     }
 
-    private String nomeImagem;
     
     public String getConectividade() {
         return conectividade;
