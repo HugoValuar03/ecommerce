@@ -4,6 +4,10 @@ import java.util.List;
 
 import br.unitins.topicos1.dto.PessoaDTO;
 import br.unitins.topicos1.dto.PessoaResponseDTO;
+import br.unitins.topicos1.dto.PessoaUpdateEmailDTO;
+import br.unitins.topicos1.dto.PessoaUpdateNomeDTO;
+import br.unitins.topicos1.dto.PessoaUpdateSenhaDTO;
+import br.unitins.topicos1.dto.PessoaUpdateUsernameDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.Valid;
 
@@ -16,5 +20,9 @@ public interface PessoaService {
     public PessoaResponseDTO findById(Long id);
     public List<PessoaResponseDTO> findBynome(String nome);
     public List<PessoaResponseDTO> findAll();
+    public PessoaResponseDTO updateEmail(Long id, PessoaUpdateEmailDTO email);
+    public PessoaResponseDTO updateNome(Long id, PessoaUpdateNomeDTO nome);
+    public PessoaResponseDTO updateUsername(Long id, PessoaUpdateUsernameDTO username);
+    public PessoaResponseDTO updateSenha(Long id, PessoaUpdateSenhaDTO senha);
     
 }

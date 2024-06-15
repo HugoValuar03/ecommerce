@@ -7,10 +7,10 @@ public record ClienteResponseDTO(
     Long id,
     PessoaResponseDTO pessoa
 ){
-    public static ClienteResponseDTO valueOf(Cliente cliente){
-        return new ClienteResponseDTO(
+    public ClienteResponseDTO(Cliente cliente){
+        this(
             cliente.getId(),
-            PessoaResponseDTO.valueOf(cliente.getPessoa())
+            new PessoaResponseDTO(cliente.getPessoa())
         );      
     }
 }

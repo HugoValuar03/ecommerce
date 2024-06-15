@@ -53,7 +53,7 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.setPessoa(pessoa);
 
         clienteRepository.persist(cliente);
-        return ClienteResponseDTO.valueOf(cliente);
+        return new ClienteResponseDTO(cliente);
 
     }
     
@@ -81,9 +81,7 @@ public class ClienteServiceImpl implements ClienteService {
         clienteBanco.setPessoa(pessoaBanco);
             
     }
-
     
-
     @Override
     @Transactional
     public void delete(Long id) {
@@ -92,7 +90,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteResponseDTO findById(Long id) {
-        return ClienteResponseDTO.valueOf(clienteRepository.findById(id));
+        return new ClienteResponseDTO(clienteRepository.findById(id));
     }
 
     @Override
@@ -100,7 +98,7 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository
         .listAll()
         .stream()
-        .map(e -> ClienteResponseDTO.valueOf(e)).toList();
+        .map(e -> new ClienteResponseDTO(e)).toList();
     }
 
     @Override
@@ -108,12 +106,13 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository
         .findByCpf(cpf)
         .stream()
-        .map(e -> ClienteResponseDTO.valueOf(e)).toList();
+        .map(e -> new ClienteResponseDTO(e)).toList();
     }
 
     @Override
     public PessoaResponseDTO login(String username, String senha) {
         Cliente cliente = clienteRepository.findByUsernameAndSenha(username, senha);
-        return PessoaResponseDTO.valueOf(cliente.getPessoa());
+        return new PessoaResponseDTO(cliente.getPessoa());
     }
+    
 }

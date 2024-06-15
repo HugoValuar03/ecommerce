@@ -12,6 +12,10 @@ public class PessoaRepository implements PanacheRepository<Pessoa>{
     public List<Pessoa> findByNome(String nome){
         return find("UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
+    
+    public List<Pessoa> findByUsername(String username){
+        return find("UPPER(username) LIKE ?1", "%" + username.toUpperCase() + "%").list();
+    }
 
     public List<Pessoa> findByCpf(String cpf){
         return find("UPPER(cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").list();

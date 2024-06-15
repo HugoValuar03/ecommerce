@@ -38,9 +38,9 @@ public class AuthResource {
 
         PessoaResponseDTO pessoa = null;
 
-        if (dto.perfil() == 1) { // perfil 1 = cliente
+        if (dto.perfil() == 1) { // perfil 1 = Funcionário
             pessoa = funcionarioService.login(dto.username(), hash);
-        } else if(dto.perfil() == 2) { // Perfil 2 = Funcionario
+        } else if(dto.perfil() == 2) { // Perfil 2 = Cliente
             pessoa = clienteService.login(dto.username(), hash);
         } else{
             return Response.status(Status.NOT_FOUND).build();

@@ -2,6 +2,8 @@ package br.unitins.topicos1.service;
 
 import java.util.List;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.topicos1.dto.CameraDTO;
 import br.unitins.topicos1.dto.CameraResponseDTO;
 import br.unitins.topicos1.model.Camera;
@@ -16,6 +18,8 @@ import jakarta.validation.Valid;
 @ApplicationScoped
 public class CameraServiceImpl implements CameraService{
 
+    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
+
     @Inject
     public CameraRepository cameraRepository;
 
@@ -25,11 +29,11 @@ public class CameraServiceImpl implements CameraService{
     @Override
     @Transactional
     public CameraResponseDTO create(@Valid CameraDTO dto) {
-       validarModelo(dto.nomeModelo());
+
+        validarModelo(dto.nomeModelo());
 
         Camera camera = new Camera();
-        camera.setMarca(marcaRepository.findById(dto.marca()));
-
+        
         camera.setConectividade(dto.conectividade());
         camera.setResolucao(dto.resolucao());
         camera.setTelaArticulavel(dto.telaArticulavel());
@@ -57,8 +61,7 @@ public class CameraServiceImpl implements CameraService{
     @Transactional
     public void update(Long id, CameraDTO dto) {
         Camera cameraBanco =  cameraRepository.findById(id);
-
-        cameraBanco.setMarca(marcaRepository.findById(dto.marca()));
+        
         cameraBanco.setConectividade(dto.conectividade());
         cameraBanco.setResolucao(dto.resolucao());
         cameraBanco.setTelaArticulavel(dto.telaArticulavel());
@@ -90,7 +93,7 @@ public class CameraServiceImpl implements CameraService{
         return cameraRepository
         .listAll()
         .stream()
-        .map(e -> CameraResponseDTO.valueof(e)).toList();
+        .map(e -> CameraResponseDTO.valueof(e)).toList ();
     }
 
     @Override

@@ -10,11 +10,11 @@ public record FuncionarioResponseDTO(
 
 ) {
 
-    public static FuncionarioResponseDTO valueOf(Funcionario funcionario){
-        return new FuncionarioResponseDTO(
+    public FuncionarioResponseDTO(Funcionario funcionario){
+        this(
             funcionario.getId(),
             funcionario.getCargo(),
-            PessoaResponseDTO.valueOf(funcionario.getPessoa())
+            new PessoaResponseDTO(funcionario.getPessoa())
         );     
     }
  

@@ -14,8 +14,8 @@ public record PessoaResponseDTO(
     LocalDate aniversario,
     TelefoneResponseDTO telefone
 ) {
-    public static PessoaResponseDTO valueOf(Pessoa pessoa){
-        return new PessoaResponseDTO(
+    public PessoaResponseDTO(Pessoa pessoa){
+        this(
             pessoa.getId(),
             pessoa.getNome(),
             pessoa.getEmail(), 

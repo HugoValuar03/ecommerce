@@ -47,7 +47,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         funcionario.setCargo(dto.cargo());
 
         funcionarioRepository.persist(funcionario);
-        return FuncionarioResponseDTO.valueOf(funcionario);
+        return new FuncionarioResponseDTO(funcionario);
     }
 
     public void validarCpf(String cpf) {
@@ -69,7 +69,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         pessoaBanco.setSexo(Sexo.valueOf(dto.idSexo()));
         
         pessoaBanco.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
-
+    
         funcionarioBanco.setCargo(dto.cargo());
 
         funcionarioBanco.setPessoa(pessoaBanco);
@@ -83,32 +83,32 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<FuncionarioResponseDTO> findAll() { //Declara uma lista de objetos do tipo funcionario
+    public List<FuncionarioResponseDTO> findAll() { 
         return funcionarioRepository
         .listAll()
         .stream()
-        .map(e -> FuncionarioResponseDTO.valueOf(e))
-        .toList(); //Lista todo os elementos da tabela funcionario
+        .map(e -> new FuncionarioResponseDTO(e))
+        .toList(); 
     }
 
     @Override
     public List<FuncionarioResponseDTO> findByCargo(@PathParam("cargo") String cargo){
         return funcionarioRepository.findByCargo(cargo)
         .stream()
-        .map(e -> FuncionarioResponseDTO.valueOf(e))
+        .map(e -> new FuncionarioResponseDTO(e))
         .toList();
     }
 
     @Override
     public FuncionarioResponseDTO findById(Long id){
-        return FuncionarioResponseDTO.valueOf(funcionarioRepository.findById(id)); 
+        return new FuncionarioResponseDTO(funcionarioRepository.findById(id)); 
     }
 
     @Override
     public PessoaResponseDTO login(String username, String senha) {
         
         Funcionario funcionario = funcionarioRepository.findByUsernameAndSenha(username, senha);
-        return PessoaResponseDTO.valueOf(funcionario.getPessoa());
+        return new PessoaResponseDTO(funcionario.getPessoa());
         
     }
 }

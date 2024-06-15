@@ -11,13 +11,13 @@ public record PedidoResponseDTO(
     List<ItemPedidoResponseDTO> itens
 ) {
     public static PedidoResponseDTO valueOf(Pedido pedido) {
-        List<ItemPedidoResponseDTO> lista = pedido.getItens()
+        List<ItemPedidoResponseDTO> lista = pedido.getListaItens()
                                             .stream()
                                             .map(ItemPedidoResponseDTO::valueOf)
                                             .toList();
         return new PedidoResponseDTO(
             pedido.getId(), 
-            ClienteResponseDTO.valueOf(pedido.getCliente()),
+            new ClienteResponseDTO(pedido.getCliente()),
             pedido.getTotal(),
             lista);
     }

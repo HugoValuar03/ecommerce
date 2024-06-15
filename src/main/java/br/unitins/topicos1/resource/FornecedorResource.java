@@ -1,7 +1,10 @@
 package br.unitins.topicos1.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.topicos1.dto.FornecedorDTO;
 import br.unitins.topicos1.service.FornecedorService;
+import br.unitins.topicos1.service.PessoaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -22,57 +25,115 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/fornecedores")
 public class FornecedorResource {
     
+    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
+
     @Inject
     public FornecedorService fornecedorService;
 
     @GET
     @RolesAllowed({"Funcionario"})
     public Response findAll() {
-        return Response.ok(fornecedorService.findAll()).build();
+        LOG.info("Iniciando busca de todos os fornecedores");
+        try {
+            Response response = Response.ok(fornecedorService.findAll()).build();
+            LOG.info("Busca concluída com sucesso!");
+            return response;
+        } catch (Exception e) {
+            LOG.error("Erro ao encontrar fornecedores", e);
+            return null;
+        }
     }
 
     @GET
     @Path("/search/nome/{nome}") 
     @RolesAllowed({"Funcionario"})
     public Response findByNome(@PathParam("nome") String nome){
-        return Response.ok(fornecedorService.findByNome(nome)).build();
+        LOG.infof("Procurando fornecedor com o nome: %s", nome);
+        try {
+            Response response = Response.ok(fornecedorService.findByNome(nome)).build(); 
+            LOG.info("Fornecedor encontrado com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.errorf("Erro ao localizar o fornecedor: " , nome, e);
+            return null;
+        }
     }
 
     @GET
     @Path("/search/cnpj/{cnpj}") 
     @RolesAllowed({"Funcionario"})
     public Response findByCnpj(@PathParam("cnpj") String cnpj){
-        return Response.ok(fornecedorService.findByCnpj(cnpj)).build();
+        LOG.infof("Iniciando busca pelo CNPJ : %s", cnpj);
+        try {
+            Response response = Response.ok(fornecedorService.findByCnpj(cnpj)).build();
+            LOG.info("CNPJ encontrado com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.error("Erro ao localizar o CNPJ", e);
+            return null;
+        }
     }
 
     @GET
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
-        return Response.ok(fornecedorService.findById(id)).build(); 
+        LOG.infof("Buscando fornecedor de id: %d", id);
+        try {
+            Response response = Response.ok(fornecedorService.findById(id)).build();
+            LOG.infof("Fornecedor de id %d", id," encontrado com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.errorf("Erro ao localizar o fornecedor de id: %d", id, e);
+            return null;
+        }
     }
 
     @PUT
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, FornecedorDTO dto) {
-        fornecedorService.update(id, dto);
-        return Response.status(Status.NO_CONTENT).build();
+        LOG.infof("Realiando update do fornecedor %d", id);
+        try {
+            fornecedorService.update(id, dto);
+            Response response = Response.status(Status.NO_CONTENT).build();
+            LOG.info("Fornecedor atualizado com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.error("Fornecedor não encontrado", e);
+            return null;
+        }
     }
 
     @POST  
     @RolesAllowed({"Funcionario"})
     public Response create(@Valid FornecedorDTO dto){
-        return Response.status(Status.CREATED)
-        .entity(fornecedorService.create(dto)).build();
+        LOG.info("Inserindo novo fonecedor");
+        
+        try {
+            Response response = Response.status(Status.CREATED)
+            .entity(fornecedorService.create(dto)).build();
+            return response;
+        } catch (Exception e) {
+            LOG.error("Erro ao criar novo fornecedor", e);
+            return null;
+        }
     }
 
     @DELETE
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
-        fornecedorService.delete(id);
-        return Response.status(Status.NO_CONTENT).build();
+        LOG.warnf("Deletando fornecedor de id: %d", id);
+        try {
+            fornecedorService.delete(id);
+            Response response = Response.status(Status.NO_CONTENT).build();
+            LOG.info("Fornecedor deletado com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.error("Erro ao deletar fornecedor", e);
+            return null;
+        }
     }
 
 }

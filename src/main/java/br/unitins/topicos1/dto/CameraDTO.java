@@ -14,6 +14,6 @@ public record CameraDTO(
     Double preco,
     String material,
     String dimensoes,
-    Long marca
-
+    MarcaDTO marca
+    
 ) {}

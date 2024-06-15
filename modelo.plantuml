@@ -2,18 +2,21 @@
 class Pessoa{
   - nome: String
   - email: String
-  - cpf: String
-  - aniversario: LocalDate
   - sexo: Sexo
-  - listaTelefone: List<Telefone>
+  - telefone : Telefone
+  - aniversario: LocalDate
+  - cpf: String
+  - username : String
+  - senha : String
 }
 
 class Funcionario{
   - cargo: String 
+  - pessoa : Pessoa
 }
 
 class Cliente{
-
+  - pessoa : Pessoa
 }
 
 
@@ -26,33 +29,32 @@ Enum Sexo{
 class Fornecedor{
   - idFornecedor: Long
   - nome: String
-  - endereco: String 
   - email: String
+  - endereco: String 
+  - telefone : Telefone
   - cnpj: String
-  - listaTelefone: List<Telefone>
-  - listaProduto: List<Produto>
 }
 
 class Produto{
-  - idProduto: Long
   - nomeProduto: String
-  - marca: Marca
   - preco: Double
   - material: String
   - dimensoes: String
-  - nomeModelo: String
+  - marca: Marca
+  - fornecedor : Fornecedor
 }
 
 class Camera{
-  - idCameras: Long
+  - id: Long
   - conectividade: String
   - resolucao: String
   - telaArticulavel: Boolean
   - telaSensivelToque: Boolean
-  - tela: String
+  - tipoTela: String
   - iso: String
   - flashPopUp: Boolean
   - garantia: Integer
+  - nomeImagem : String
 }
 
 class Marca{
@@ -61,11 +63,12 @@ class Marca{
 }
 
 class Lente{
-  - idLente: String
-  - compatibilidade: String
+  - id: String
   - distanciaFocal: Integer
+  - compatibilidade: String
   - diametroFiltro: Integer
   - montagem: String
+  - nomeImagem : String
 }
 
 class DefaultEntity{
@@ -79,23 +82,27 @@ class Telefone{
   - numero: String
 }
 
-enum TipoPagamento{
-  + CREDITO: int
-  + DEBITO: int
-  + PIX: INT
+enum BandeiraCartao{
+  + MASTERCARD : int
+  + VISA : int
+  + ELO : int
+  - BandeiraCartao(int id, String bandeira)
 }
 
-class FormaPagamento{
-  - parcela: int
-  - dataPagamento: LocalDateTime
+enum FormaPagamento{
+  + PIX : int
+  + DEBITO : int
+  + CREDITO : int
+  + BOLETO : int
+  - FormaPagamento(int id, String pagamento)
 }
 
 enum StatusPedido {
-    - CONCLUIDO: int
-    - CANCELADO: int
-    - ENVIADO: int
-    - PAGAMENTO_PENDENTE: int
-    - PAGO: int
+    + CONCLUIDO: int
+    + CANCELADO: int
+    + ENVIADO: int
+    + PAGAMENTO_PENDENTE: int
+    + PAGO: int
 }
 
 class Cidade{
@@ -107,14 +114,55 @@ class Estado{
   - sigla: String
 }
 
-Cliente --> Cidade
+class Cartao{
+  - nome : String
+  - numero : String
+  - pessoa : Pessoa
+  - dataValidade : LocalDate
+  - cvc : int
+}
+
+class ItemPedido{
+  - preco : Double
+  - desconto : Double
+  - quantidade : Integer
+  - venda : Venda
+}
+
+class Pedido{
+  - data : LocalDateTime
+  - total : Double
+  - cliente : Cliente
+  - listaItens : List<ItemPedido>
+  - FormaPagamento : FormaPagamento
+  - dataPrevista : LocalDate
+  - dataChegada : LocalDate
+  - pago : Boolean
+}
+
+class Venda{
+  - nome : String
+  - preco : Double
+}
+
+Cliente -right-> Cidade
 Cidade --> Estado 
 
+Produto "1" --> "*" Pedido
+ItemPedido --|> DefaultEntity
+Funcionario --|> DefaultEntity
+Cliente --|> DefaultEntity
+Cartao -left-|> DefaultEntity
+Telefone --|> DefaultEntity
+
+Pedido "1" --> "*" ItemPedido
+Pedido "*" -right-> "1" Cliente 
+ItemPedido "*" -right-> "1" Venda
+Cartao "*" --> "1" Pessoa
 Pessoa "1" *-left-> "*" Telefone
-Pessoa "1" <-- "1" Funcionario
+Pessoa "1" <-left- "1" Funcionario
 Pessoa "1" <-- "1" Cliente
-Pessoa "1" -- "1" Sexo
-DefaultEntity <|-- Telefone
+Pessoa "1" -right- "1" Sexo
 
 Pessoa -up-|> DefaultEntity 
 

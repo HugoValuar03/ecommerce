@@ -1,10 +1,13 @@
 package br.unitins.topicos1.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -19,9 +22,62 @@ public class Pedido extends DefaultEntity {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_pedido")
-    private List<ItemPedido> itens;
+    private List<ItemPedido> listaItens;
+
+    @Enumerated(EnumType.ORDINAL)
+    private FormaPagamento formaPagamento;
+
+    private LocalDate dataPrevista;
+
+    private LocalDate dataChegada;
+
+    @JoinColumn(name = "pagamento_realizado")
+    private Boolean pago; 
+
+    @Enumerated(EnumType.ORDINAL)
+    private StatusPedido statusPedido;
+
+    public List<ItemPedido> getListaItens() {
+        return listaItens;
+    }
+
+    public void setListaItens(List<ItemPedido> listaItens) {
+        this.listaItens = listaItens;
+    }
+
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    public LocalDate getDataPrevista() {
+        return dataPrevista;
+    }
+
+    public void setDataPrevista(LocalDate dataPrevista) {
+        this.dataPrevista = dataPrevista;
+    }
+
+    public LocalDate getDataChegada() {
+        return dataChegada;
+    }
+
+    public void setDataChegada(LocalDate dataChegada) {
+        this.dataChegada = dataChegada;
+    }
+
+    public Boolean getPago() {
+        return pago;
+    }
+
+    public void setPago(Boolean pago) {
+        this.pago = pago;
+    }
 
     public LocalDateTime getData() {
         return data;
@@ -39,14 +95,6 @@ public class Pedido extends DefaultEntity {
         this.total = total;
     }
 
-    public List<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemPedido> itens) {
-        this.itens = itens;
-    }
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -54,4 +102,13 @@ public class Pedido extends DefaultEntity {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
+    }
+
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
+    }
+
 }
