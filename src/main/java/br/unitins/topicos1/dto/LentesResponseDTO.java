@@ -4,6 +4,7 @@ import br.unitins.topicos1.model.Lente;
 import br.unitins.topicos1.model.Marca;
 
 public record LentesResponseDTO(
+    
     Long id,
     String compatibilidade,
     Integer distanciaFocal,

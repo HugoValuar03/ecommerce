@@ -1,10 +1,10 @@
 package br.unitins.topicos1.dto;
 
 import br.unitins.topicos1.model.Camera;
+import br.unitins.topicos1.model.Marca;
 
 public record CameraResponseDTO(
 
-    Long id,
     String conectividade,
     String resolucao,
     Boolean telaArticulavel,
@@ -13,14 +13,18 @@ public record CameraResponseDTO(
     String iso,
     Boolean flashPopUp,
     Integer garantia,
-    MarcaResponseDTO marca,
-    String nomeImagem
+    String nomeImagem,
+    String nomeModelo,
+    Double preco,
+    String material,
+    String dimensoes,
+    Marca marca
 
 ) {
 
     public static CameraResponseDTO valueof(Camera camera){
+        
         return new CameraResponseDTO(
-            camera.getId(),
             camera.getConectividade(),
             camera.getResolucao(),
             camera.getTelaArticulavel(),
@@ -29,8 +33,13 @@ public record CameraResponseDTO(
             camera.getIso(),
             camera.getFlashPopUp(),
             camera.getGarantia(),
-            MarcaResponseDTO.valueOf(camera.getMarca()),
-            camera.getNomeImagem()
+            camera.getNomeImagem(),
+            camera.getNomeModelo(),
+            camera.getPreco(),
+            camera.getMaterial(),
+            camera.getDimensoes(),
+            camera.getMarca()
+
         );
     }
 }

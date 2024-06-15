@@ -6,30 +6,16 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ItemPedido extends DefaultEntity {
+    
+    @ManyToOne
+    @JoinColumn(name = "idProduto")
+    private Produto produto;
 
-    private Double preco;
-    private Double desconto;
     private Integer quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "id_venda")
-    private Venda venda;
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
-
-    public Double getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(Double desconto) {
-        this.desconto = desconto;
-    }
+    @JoinColumn(name = "id_pedido")
+    private Pedido pedido;
 
     public Integer getQuantidade() {
         return quantidade;
@@ -39,14 +25,19 @@ public class ItemPedido extends DefaultEntity {
         this.quantidade = quantidade;
     }
 
-    public Venda getVenda() {
-        return venda;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setVenda(Venda venda) {
-        this.venda = venda;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    
+    public Pedido getPedido() {
+        return pedido;
+    }
 
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 }

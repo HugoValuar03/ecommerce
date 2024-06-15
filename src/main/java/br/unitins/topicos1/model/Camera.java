@@ -40,7 +40,6 @@ public class Camera extends Produto{
         this.nomeImagem = nomeImagem;
     }
 
-    
     public String getConectividade() {
         return conectividade;
     }

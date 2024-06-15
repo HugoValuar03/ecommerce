@@ -1,10 +1,9 @@
 package br.unitins.topicos1.dto;
 
 public record ItemPedidoDTO(
-    Double preco,
-    Double desconto,
+    ProdutoDTO produto,
     Integer quantidade,
-    Long idConsulta
+    Long idPedido
 ) {
     
 }

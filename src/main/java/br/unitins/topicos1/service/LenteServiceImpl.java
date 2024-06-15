@@ -32,6 +32,7 @@ public class LenteServiceImpl implements LenteService {
         lentes.setMaterial(dto.material());
         lentes.setDimensoes(dto.dimensoes());
         lentes.setNomeModelo(dto.nomeModelo());    
+        lentes.setMarca(dto.marca());
 
         lentesRepository.persist(lentes);
         return LentesResponseDTO.valueOf(lentes);    

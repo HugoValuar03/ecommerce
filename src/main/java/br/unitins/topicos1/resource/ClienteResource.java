@@ -1,7 +1,10 @@
 package br.unitins.topicos1.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.topicos1.dto.ClienteDTO;
 import br.unitins.topicos1.service.ClienteService;
+import br.unitins.topicos1.service.PessoaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -21,51 +24,102 @@ import jakarta.ws.rs.core.Response.Status;
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/clientes")
 public class ClienteResource {
+
+    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
     
     @Inject
     public ClienteService clienteService;
 
+    //Inserir update de senha, nome, email e username
+
     @GET
     @RolesAllowed({"Funcionario"})
     public Response findAll() {
-        return Response.ok(clienteService.findAll()).build();
+        LOG.info("Iniciando busca de todos os clientes");
+        try {
+            Response response = Response.ok(clienteService.findAll()).build();
+            LOG.info("Busca concluída com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.info("Erro ao realizar requisição findAll()", e);
+            return null;
+        }
     }
 
     @GET
     @Path("/search/cpf/{cpf}") 
     @RolesAllowed({"Funcionario"})
     public Response findByCpf(@PathParam("cpf") String cpf){
-        return Response.ok(clienteService.findByCpf(cpf)).build();
+        LOG.infof("Iniciando busca pelo CPF: ", cpf);
+        try {
+            Response response = Response.ok(clienteService.findByCpf(cpf)).build();
+            LOG.infof("CPF '%s", cpf, "' encontrado");
+            return response;
+        } catch (Exception e) {
+            LOG.error("CPF não encontrado ou não existente", e);
+            return null;
+        }
     }
 
     @GET
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
-        return Response.ok(clienteService.findById(id)).build(); 
+        LOG.infof("Realizando pesquisa de cliente pelo id: ", id);
+        try {
+            Response response = Response.ok(clienteService.findById(id)).build();
+            LOG.infof("Cliente %d", id, " encontrado");
+            return  response;
+        } catch (Exception e) {
+            LOG.error("Cliente não encontrado ou inexistente", e);
+            return null;
+        }
     }
 
     @PUT
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, ClienteDTO dto) {
-        clienteService.update(id, dto);
-        return Response.status(Status.NO_CONTENT).build();
+        LOG.infof("Iniciando atualização dos dados do cliente: %d", id);
+        try {
+            clienteService.update(id, dto);
+            Response response = Response.status(Status.NO_CONTENT).build();
+            LOG.info("Atualização de dados concluída");
+            return response;
+        } catch (Exception e) {
+            LOG.error("Erro ao atualizar ou cliente inexistente", e);
+            return null;
+        }
     }
 
     @POST
     @RolesAllowed({"Funcionario"})
     public Response create(@Valid ClienteDTO dto){
-        return Response.status(Status.CREATED)
-        .entity(clienteService.create(dto)).build();
+        LOG.info("Iniciando cadastro de novo cliente");
+        try {
+            Response response = Response.status(Status.CREATED)
+            .entity(clienteService.create(dto)).build();
+            LOG.info("Cliente cadastrado com sucesso");
+            return response; 
+        } catch (Exception e) {
+            LOG.error("Erro ao cadastrar cliente", e);
+            return null;
+        }
     }
 
     @DELETE
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
-        clienteService.delete(id);
-        return Response.status(Status.NO_CONTENT).build();
+        LOG.warnf("Deletando cliente com id: %d", id);
+        try {
+            clienteService.delete(id);
+            Response response = Response.status(Status.NO_CONTENT).build();
+            LOG.info("Cliente deletado com sucesso");
+            return response;
+        } catch (Exception e) {
+            LOG.error("Erro ao deletar cliente", e);
+            return null;
+        }
     }
-
 }
