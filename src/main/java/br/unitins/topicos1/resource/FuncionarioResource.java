@@ -5,6 +5,7 @@ import org.jboss.logging.Logger;
 import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.service.FuncionarioService;
 import br.unitins.topicos1.service.PessoaServiceImpl;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -30,6 +31,7 @@ public class FuncionarioResource {
     public FuncionarioService funcionarioService;
 
     @GET
+    @RolesAllowed({"Funcionario"})
     public Response findAll(){
         LOG.info("Iniciando busca de todos os funcionários");
         try {
@@ -44,6 +46,7 @@ public class FuncionarioResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response findById(@PathParam("id")Long id){
         LOG.infof("Iniciando busca pelo ID: %d", id);
         try {
@@ -57,6 +60,7 @@ public class FuncionarioResource {
     }
 
     @GET
+    @RolesAllowed({"Funcionario"})
     @Path("/search/cargo/{cargo}")
     public Response findByCargo(@PathParam("cargo") String cargo){
         LOG.infof("Iniciando busca pelo cargo: %s", cargo);
@@ -71,6 +75,7 @@ public class FuncionarioResource {
     }
 
     @POST
+    @RolesAllowed({"Funcionario"})
     public Response create(@Valid FuncionarioDTO dto){
         LOG.info("Iniciando cadastro de novo funcionário");
         try {
@@ -87,6 +92,7 @@ public class FuncionarioResource {
 
     @PUT 
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response update(@PathParam("id") Long id, FuncionarioDTO dto) {
         LOG.infof("Iniciando atualização do funcionário com id: %d", id);
         try {
@@ -102,6 +108,7 @@ public class FuncionarioResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Funcionario"})
     public Response delete(@PathParam("id") Long id) {
         LOG.warnf("Iniciando exclusão do funcionário com id: %d", id);
         try {

@@ -40,20 +40,24 @@ INSERT INTO fornecedor(nome, email, endereco, id_fornecedor,cnpj) VALUES
                         ('Kabum', 'kabum@gmail.com', 'rua dos mouses', 2,'32.447.256/0001-38');
 
 -- Inserindo Marca
-INSERT INTO marca (marca, idMarca) VALUES 
-                    ('Canon', 1), 
-                    ('Nikon', 2), 
-                    ('Sony', 3), 
-                    ('Fujifilm', 4);
+INSERT INTO marca (marca) VALUES 
+                    ('Canon'), 
+                    ('Nikon'), 
+                    ('Sony'), 
+                    ('Fujifilm');
+
+-- Inserindo Produtos
+INSERT INTO Produto (preco, idMarca, idFornecedor, dimensoes, material, nomeModelo) VALUES (4500.00, 1,1, '10x8x3', 'plastico', 'Canon T6i');
 
 
 -- Inserindo Câmera
-INSERT INTO camera (conectividade, resolucao, telaArticulavel, telaSensivelToque, tipoTela, iso, flashPopUp, garantia, nomeModelo, preco, material, dimensoes, idMarca, marca) VALUES ("5G", "24mp", true, true, "IPS", "1200", true, 2, "Canon T6", 4500.00, "plastico", "10x12x3", 1, "Canon");
+INSERT INTO camera (id, conectividade, resolucao, telaArticulavel, telaSensivelToque, tipoTela, iso, flashPopUp, garantia) VALUES (1, 'Wi-fi', '48mp', true, true, 'IPS', '12000', true, 2);
+
 
 -- Inserindo Lente
-INSERT INTO lente (diametroFiltro, distanciaFocal, preco, compatibilidade, dimensoes, material, montagem, nomeModelo, idMarca) VALUES 
-        (55, 50, 305.00, 'Canon EOS', '10x5x8', 'vidro', 'EF', 'Canon EF 50mm f_1.8 II', 1), 
-        (52, 55, 350.00, 'Canon EOS 2', '10x5x8', 'vidro', 'EF', 'Canon EF 45mm f_2.3 II', 1);
+INSERT INTO lente (diametroFiltro, distanciaFocal, preco, compatibilidade, dimensoes, material, montagem, nomeModelo, idMarca, idFornecedor) VALUES 
+        (55, 50, 305.00, 'Canon EOS', '10x5x8', 'vidro', 'EF', 'Canon EF 50mm f_1.8 II', 1,1), 
+        (52, 55, 350.00, 'Canon EOS 2', '10x5x8', 'vidro', 'EF', 'Canon EF 45mm f_2.3 II', 1,2);
 
 -- Inserir Pedidos
 INSERT INTO pedido (dataChegada, dataPrevista, formaPagamento, pago, statusPedido, total) VALUES 

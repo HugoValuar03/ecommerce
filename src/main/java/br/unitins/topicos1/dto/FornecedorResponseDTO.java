@@ -13,7 +13,7 @@ public record FornecedorResponseDTO(
     public static FornecedorResponseDTO valueOf(Fornecedor fornecedor){
 
         return new FornecedorResponseDTO(
-            fornecedor.getIdFornecedor(),
+            fornecedor.getId(),
             fornecedor.getNome(),
             fornecedor.getEndereco(),
             fornecedor.getEmail(),

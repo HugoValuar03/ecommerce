@@ -19,7 +19,7 @@ public record ProdutoResponseDTO(
             produto.getPreco(),
             produto.getMaterial(),
             produto.getDimensoes(),
-            new MarcaResponseDTO(produto.getMarca().getIdMarca(), produto.getMarca().getMarca()),
+            new MarcaResponseDTO(produto.getMarca().getId(), produto.getMarca().getMarca()),
             produto.getFornecedor()
         );
     }

@@ -32,7 +32,7 @@ public class CameraResource {
     public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
 
     @Inject
-    public CameraService camerasService;
+    public CameraService cameraService;
 
     @Inject
     public CameraFileServiceImpl fileService;
@@ -42,7 +42,7 @@ public class CameraResource {
     public Response findAll() {
         LOG.info("Iniciando busca de todas as câmeras");
         try {
-            Response response = Response.ok(camerasService.findAll()).build();
+            Response response = Response.ok(cameraService.findAll()).build();
             LOG.info("Busca de todas as câmeras concluída");
             return response;
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class CameraResource {
     public Response findByMarca(@PathParam("marca") String marca){
         LOG.infof("Iniciando busca pela marca: %s", marca);
         try {
-            Response response = Response.ok(camerasService.findByMarca(marca)).build();
+            Response response = Response.ok(cameraService.findByMarca(marca)).build();
             LOG.infof("Marca: %s",  marca, " encontrada");
             return response;
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class CameraResource {
     public Response update(@PathParam("id") Long id, CameraDTO dto) {
         LOG.infof("Iniciando update da câmera com id: %d", id);
         try {
-            camerasService.update(id, dto);
+            cameraService.update(id, dto);
             Response response = Response.status(Status.NO_CONTENT).build();
             LOG.info("Requisição concluída");
             return response;
@@ -89,7 +89,7 @@ public class CameraResource {
     public Response delete(@PathParam("id") Long id) {
         try {
             LOG.warnf("Deletando câmera com ID: %d", id);
-            camerasService.delete(id);
+            cameraService.delete(id);
             Response response = Response.status(Status.NO_CONTENT).build();
             LOG.infof("Câmera com id %d", id, " deletada com sucesso");
             return response;
@@ -104,7 +104,7 @@ public class CameraResource {
     public Response create(CameraDTO dto){
         LOG.info("Iniciando criação de câmera");
         try {
-            Response response = Response.status(Status.CREATED).entity(camerasService.create(dto)).build();
+            Response response = Response.status(Status.CREATED).entity(cameraService.create(dto)).build();
             LOG.info("Criação realizada com sucesso");
             return response;
         } catch (Exception e) {
@@ -116,10 +116,10 @@ public class CameraResource {
     @GET
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
-    public Response buscarPeloId(@PathParam("id")Long id){
+    public Response findById(@PathParam("id")Long id){
         LOG.infof("Realizando busca pelo ID: %d", id);
         try {
-            Response response = Response.ok(camerasService.findById(id)).build(); 
+            Response response = Response.ok(cameraService.findById(id)).build(); 
             LOG.infof("Câmera com ID %d", id, " encontrado");
             return response;
         } catch (Exception e) {

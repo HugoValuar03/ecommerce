@@ -31,7 +31,7 @@ public class Camera extends Produto{
     private Integer garantia;
 
     private String nomeImagem;
-    
+
     public String getNomeImagem() {
         return nomeImagem;
     }
