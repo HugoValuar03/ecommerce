@@ -5,6 +5,7 @@ import br.unitins.topicos1.model.Marca;
 
 public record CameraResponseDTO(
 
+    Long id,
     String conectividade,
     String resolucao,
     Boolean telaArticulavel,
@@ -22,9 +23,10 @@ public record CameraResponseDTO(
 
 ) {
 
-    public static CameraResponseDTO valueof(Camera camera){
+    public CameraResponseDTO(Camera camera){
         
-        return new CameraResponseDTO(
+        this(
+            camera.getId(),
             camera.getConectividade(),
             camera.getResolucao(),
             camera.getTelaArticulavel(),

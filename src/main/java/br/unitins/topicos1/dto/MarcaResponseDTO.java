@@ -8,7 +8,7 @@ public record MarcaResponseDTO(
 ) {
     public static MarcaResponseDTO valueOf(Marca marca){
         return new MarcaResponseDTO(
-            marca.getIdMarca(), 
+            marca.getId(), 
             marca.getMarca()
         );
     }

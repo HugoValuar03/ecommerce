@@ -3,19 +3,12 @@ package br.unitins.topicos1.model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 
 @Entity
-public class Fornecedor {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFornecedor;
+public class Fornecedor extends DefaultEntity{
 
 	@Column(length = 200, nullable = false)
     private String nome;
@@ -33,14 +26,6 @@ public class Fornecedor {
 
 	@Column(length = 18, nullable = false)
 	private String cnpj;
-
-	public Long getIdFornecedor() {
-		return idFornecedor;
-	}
-
-	public void setIdFornecedor(Long idFornecedor) {
-		this.idFornecedor = idFornecedor;
-	}
 
 	public String getNome() {
 		return nome;
