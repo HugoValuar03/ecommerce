@@ -7,7 +7,6 @@ import br.unitins.topicos1.dto.CameraDTO;
 import br.unitins.topicos1.form.ImageForm;
 import br.unitins.topicos1.service.CameraFileServiceImpl;
 import br.unitins.topicos1.service.CameraService;
-import br.unitins.topicos1.service.PessoaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -26,10 +25,10 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/cameras")
+@Path("/camera")
 public class CameraResource {
 
-    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
+    public static final Logger LOG = Logger.getLogger(CameraResource.class);
 
     @Inject
     public CameraService cameraService;

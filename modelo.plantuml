@@ -71,12 +71,6 @@ class Lente{
   - nomeImagem : String
 }
 
-class DefaultEntity{
-  - id: Long
-  - dataCadastro: LocalDateTime
-  - dataAlteracao: LocalDateTime
-}
-
 class Telefone{
   - codigoArea: String
   - numero: String
@@ -148,12 +142,7 @@ class Venda{
 Cliente -right-> Cidade
 Cidade --> Estado 
 
-Produto "1" --> "*" Pedido
-ItemPedido --|> DefaultEntity
-Funcionario --|> DefaultEntity
-Cliente --|> DefaultEntity
-Cartao -left-|> DefaultEntity
-Telefone --|> DefaultEntity
+Produto "1" <-- "*" Pedido
 
 Pedido "1" --> "*" ItemPedido
 Pedido "*" -right-> "1" Cliente 
@@ -163,8 +152,6 @@ Pessoa "1" *-left-> "*" Telefone
 Pessoa "1" <-left- "1" Funcionario
 Pessoa "1" <-- "1" Cliente
 Pessoa "1" -right- "1" Sexo
-
-Pessoa -up-|> DefaultEntity 
 
 Marca "1" <-left-* "*" Produto
 

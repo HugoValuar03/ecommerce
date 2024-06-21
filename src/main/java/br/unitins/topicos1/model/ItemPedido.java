@@ -13,10 +13,6 @@ public class ItemPedido extends DefaultEntity {
 
     private Integer quantidade;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pedido")
-    private Pedido pedido;
-
     public Integer getQuantidade() {
         return quantidade;
     }
@@ -31,13 +27,5 @@ public class ItemPedido extends DefaultEntity {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
     }
 }

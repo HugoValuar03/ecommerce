@@ -3,11 +3,10 @@ package br.unitins.topicos1.resource;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
-import br.unitins.topicos1.dto.LentesDTO;
+import br.unitins.topicos1.dto.LenteDTO;
 import br.unitins.topicos1.form.ImageForm;
 import br.unitins.topicos1.service.LenteFIleServiceImpl;
 import br.unitins.topicos1.service.LenteService;
-import br.unitins.topicos1.service.PessoaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -27,13 +26,13 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/lentes")
+@Path("/lente")
 public class LenteResource {
     
-    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
+    public static final Logger LOG = Logger.getLogger(LenteResource.class);
     
     @Inject
-    public LenteService lentesService;
+    public LenteService lenteService;
 
     @Inject
     public LenteFIleServiceImpl fileService;
@@ -43,7 +42,7 @@ public class LenteResource {
     public Response findAll() {
         LOG.info("Iniciando busca por todas as lentes");
         try {
-            Response response = Response.ok(lentesService.findAll()).build();
+            Response response = Response.ok(lenteService.findAll()).build();
             LOG.info("Busca por todas as lentes realizada com sucesso");
             return response;
         } catch (Exception e) {
@@ -58,11 +57,11 @@ public class LenteResource {
     public Response findById(@PathParam("id") Long id){
         LOG.info("Iniciando busca por lente pelo id: %d" + id);
         try {
-            Response response = Response.ok(lentesService.findById(id)).build();
+            Response response = Response.ok(lenteService.findById(id)).build();
             LOG.info("Busca por lente pelo id realizada com sucesso");
             return response;
         } catch (Exception e) {
-            LOG.error("Lente de id: %d" + id + " não existe ou não foi encontrado", e);
+            LOG.errorf("Lente de id: %d" + id + " não existe ou não foi encontrado", e);
             return null;
         }
         
@@ -75,7 +74,7 @@ public class LenteResource {
         LOG.info("Iniciando busca pelo tipo de montagem: %s" + montagem);
 
         try {
-            Response response = Response.ok(lentesService.findByMontagem(montagem)).build();
+            Response response = Response.ok(lenteService.findByMontagem(montagem)).build();
             LOG.infof("Montagem %s", montagem ," encontrada com sucesso");
             return response;
         } catch (Exception e) {
@@ -86,10 +85,10 @@ public class LenteResource {
 
     @POST  
     @RolesAllowed({"Funcionario"})
-    public Response create(@Valid LentesDTO dto){
+    public Response create(@Valid LenteDTO dto){
         LOG.info("Iniciando cadastro de nova lente");
         try {
-            Response response = Response.status(Status.CREATED).entity(lentesService.create(dto)).build();
+            Response response = Response.status(Status.CREATED).entity(lenteService.create(dto)).build();
             LOG.info("Lente cadastrada com sucesso");
             return response;
         } catch (Exception e) {
@@ -101,10 +100,10 @@ public class LenteResource {
     @PUT
     @Path("/{id}")
     @RolesAllowed({"Funcionario"})
-    public Response update(@PathParam("id") Long id, LentesDTO dto) {
+    public Response update(@PathParam("id") Long id, LenteDTO dto) {
         LOG.info("Realizando update da lente com id: " + id);
         try {
-            lentesService.update(id, dto);
+            lenteService.update(id, dto);
             Response response = Response.status(Status.NO_CONTENT).build();
             LOG.info("Update realizado com sucesso");
             return response;
@@ -120,7 +119,7 @@ public class LenteResource {
     public Response delete(@PathParam("id") Long id) {
         LOG.warn("Deletando lente de id: " + id);
         try {
-            lentesService.delete(id);
+            lenteService.delete(id);
             Response response = Response.status(Status.NO_CONTENT).build();
             LOG.info("Lente deletada com sucesso");
             return response;

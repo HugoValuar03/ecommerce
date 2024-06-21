@@ -3,14 +3,20 @@ package br.unitins.topicos1.resource;
 import org.jboss.logging.Logger;
 
 import br.unitins.topicos1.dto.ClienteDTO;
+import br.unitins.topicos1.dto.ClienteResponseDTO;
+import br.unitins.topicos1.dto.UpdateEmailDTO;
+import br.unitins.topicos1.dto.UpdateNomeDTO;
+import br.unitins.topicos1.dto.UpdateSenhaDTO;
+import br.unitins.topicos1.dto.UpdateUsernameDTO;
 import br.unitins.topicos1.service.ClienteService;
-import br.unitins.topicos1.service.PessoaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -22,10 +28,10 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/clientes")
+@Path("/cliente")
 public class ClienteResource {
 
-    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
+    public static final Logger LOG = Logger.getLogger(ClienteResource.class);
     
     @Inject
     public ClienteService clienteService;
@@ -121,5 +127,46 @@ public class ClienteResource {
             LOG.error("Erro ao deletar cliente", e);
             return null;
         }
+    }
+
+    @PATCH
+    @RolesAllowed({"Funcionario"})
+    @Path("/senha/{id}")
+    @Transactional
+    public ClienteResponseDTO updateSenha(@PathParam("id") Long id, UpdateSenhaDTO senha){
+        return clienteService.updateSenha(id, senha);
+    }
+
+    @PATCH
+    @RolesAllowed({"Funcionario"})
+    @Path("/email/{id}")
+    @Transactional
+    public ClienteResponseDTO updateEmail(@PathParam("id") Long id, UpdateEmailDTO email){
+        LOG.info("Realizando upload do email");
+        try {
+            if (email == null) {
+                LOG.error("É necessário digitar um email");
+            }
+            return clienteService.updateEmail(id, email);
+        } catch (Exception e) {
+            LOG.error("Erro ao alterar email");
+            return null;
+        }
+    }
+
+    @PATCH
+    @RolesAllowed({"Funcionario"})
+    @Path("/username/{id}")
+    @Transactional
+    public ClienteResponseDTO updateUsername(@PathParam("id") Long id, UpdateUsernameDTO username){
+        return clienteService.updateUsername(id, username);
+    }
+
+    @PATCH
+    @RolesAllowed({"Funcionario"})
+    @Path("/nome/{id}")
+    @Transactional
+    public ClienteResponseDTO updateNome(@PathParam("id") Long id, UpdateNomeDTO nome){
+        return clienteService.updateNome(id, nome);
     }
 }

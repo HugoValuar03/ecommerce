@@ -12,7 +12,8 @@ public record PessoaResponseDTO(
     String cpf,
     Sexo sexo,
     LocalDate aniversario,
-    TelefoneResponseDTO telefone
+    TelefoneResponseDTO telefone,
+    String username
 ) {
     public PessoaResponseDTO(Pessoa pessoa){
         this(
@@ -22,7 +23,8 @@ public record PessoaResponseDTO(
             pessoa.getCpf(),
             pessoa.getSexo(),
             pessoa.getAniversario(), 
-            TelefoneResponseDTO.valueOf(pessoa.getTelefone())
+            TelefoneResponseDTO.valueOf(pessoa.getTelefone()),
+            pessoa.getUsername()
         );
     }
 }

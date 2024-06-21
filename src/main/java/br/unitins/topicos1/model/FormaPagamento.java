@@ -30,4 +30,12 @@ public enum FormaPagamento {
         this.pagamento = pagamento;
     }
 
+    public static FormaPagamento valueOf(Integer id) throws IllegalArgumentException{
+        for (FormaPagamento pagamento : FormaPagamento.values()) {
+            if(pagamento.id == id)
+                return pagamento;
+        }
+        throw new IllegalArgumentException("id sexo inválido");
+    }
+
 }

@@ -6,6 +6,10 @@ import br.unitins.topicos1.dto.ClienteDTO;
 import br.unitins.topicos1.dto.ClienteResponseDTO;
 import br.unitins.topicos1.dto.PessoaResponseDTO;
 import br.unitins.topicos1.dto.TelefoneDTO;
+import br.unitins.topicos1.dto.UpdateEmailDTO;
+import br.unitins.topicos1.dto.UpdateNomeDTO;
+import br.unitins.topicos1.dto.UpdateSenhaDTO;
+import br.unitins.topicos1.dto.UpdateUsernameDTO;
 import br.unitins.topicos1.model.Cliente;
 import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
@@ -28,7 +32,7 @@ public class ClienteServiceImpl implements ClienteService {
     public FuncionarioRepository funcionarioRepository;
 
     @Inject
-    public HashService hashService;
+    public HashService hash;
 
     @Inject
     public PessoaRepository pessoaRepository;
@@ -68,17 +72,14 @@ public class ClienteServiceImpl implements ClienteService {
     public void update(Long id, ClienteDTO dto) {
 
         Cliente clienteBanco = clienteRepository.findById(id);
-        Pessoa pessoaBanco = clienteBanco.getPessoa();
 
-        pessoaBanco.setNome(dto.nome());
-        pessoaBanco.setAniversario(dto.aniversario());
-        pessoaBanco.setEmail(dto.email());
-        pessoaBanco.setCpf(dto.cpf());
-        pessoaBanco.setAniversario(dto.aniversario());
-        pessoaBanco.setSexo(Sexo.valueOf(dto.idSexo()));
-        pessoaBanco.setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
-        
-        clienteBanco.setPessoa(pessoaBanco);
+        clienteBanco.getPessoa().setNome(dto.nome());
+        clienteBanco.getPessoa().setAniversario(dto.aniversario());
+        clienteBanco.getPessoa().setEmail(dto.email());
+        clienteBanco.getPessoa().setCpf(dto.cpf());
+        clienteBanco.getPessoa().setAniversario(dto.aniversario());
+        clienteBanco.getPessoa().setSexo(Sexo.valueOf(dto.idSexo()));
+        clienteBanco.getPessoa().setTelefone(TelefoneDTO.convertToTelefone(dto.telefone()));
             
     }
     
@@ -114,5 +115,47 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente cliente = clienteRepository.findByUsernameAndSenha(username, senha);
         return new PessoaResponseDTO(cliente.getPessoa());
     }
+
+    @Override
+    public ClienteResponseDTO updateEmail(Long id, UpdateEmailDTO email) {
+
+        Cliente cliente = clienteRepository.findById(id);
+        cliente.getPessoa().setEmail(email.email());
+        return new ClienteResponseDTO(cliente);
+
+    }
+
+    @Override
+    public ClienteResponseDTO updateNome(Long id, UpdateNomeDTO nome) {
+
+        Cliente cliente = clienteRepository.findById(id);
+        cliente.getPessoa().setNome(nome.nome());
+        clienteRepository.persist(cliente);
+        return new ClienteResponseDTO(cliente);
+        
+    }
+
+    @Override
+    public ClienteResponseDTO updateUsername(Long id, UpdateUsernameDTO username) {
+
+        Cliente cliente = clienteRepository.findById(id);
+        cliente.getPessoa().setUsername(username.username());
+        clienteRepository.persist(cliente);
+        return new ClienteResponseDTO(cliente);
+
+    }
+
+    @Override
+    public ClienteResponseDTO updateSenha(Long id, UpdateSenhaDTO senha) {
+        Cliente cliente = clienteRepository.findById(id);
+        
+        cliente.getPessoa().setSenha(hash.getHashSenha(senha.novaSenha()));
+
+        hash.getHashSenha(senha.novaSenha());
+
+        return new ClienteResponseDTO(cliente);
+    }
+
+    
     
 }

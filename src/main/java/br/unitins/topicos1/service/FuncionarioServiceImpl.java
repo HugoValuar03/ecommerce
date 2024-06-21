@@ -6,6 +6,10 @@ import br.unitins.topicos1.dto.FuncionarioDTO;
 import br.unitins.topicos1.dto.FuncionarioResponseDTO;
 import br.unitins.topicos1.dto.PessoaResponseDTO;
 import br.unitins.topicos1.dto.TelefoneDTO;
+import br.unitins.topicos1.dto.UpdateEmailDTO;
+import br.unitins.topicos1.dto.UpdateNomeDTO;
+import br.unitins.topicos1.dto.UpdateSenhaDTO;
+import br.unitins.topicos1.dto.UpdateUsernameDTO;
 import br.unitins.topicos1.model.Funcionario;
 import br.unitins.topicos1.model.Pessoa;
 import br.unitins.topicos1.model.Sexo;
@@ -25,6 +29,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Inject
     public PessoaRepository pessoaRepository;
+
+    @Inject
+    public HashService hash;
 
     @Override
     @Transactional 
@@ -110,5 +117,36 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionario = funcionarioRepository.findByUsernameAndSenha(username, senha);
         return new PessoaResponseDTO(funcionario.getPessoa());
         
+    }
+
+    @Override
+    public FuncionarioResponseDTO updateEmail(Long id, UpdateEmailDTO email) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        funcionario.getPessoa().setEmail(email.email());
+        return new FuncionarioResponseDTO(funcionario);
+    }
+
+    @Override
+    public FuncionarioResponseDTO updateNome(Long id, UpdateNomeDTO nome) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        funcionario.getPessoa().setNome(nome.nome());
+        funcionarioRepository.persist(funcionario);
+        return new FuncionarioResponseDTO(funcionario);
+    }
+
+    @Override
+    public FuncionarioResponseDTO updateUsername(Long id, UpdateUsernameDTO username) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        funcionario.getPessoa().setUsername(username.username());
+        funcionarioRepository.persist(funcionario);
+        return new FuncionarioResponseDTO(funcionario);
+    }
+
+    @Override
+    public FuncionarioResponseDTO updateSenha(Long id, UpdateSenhaDTO senha) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        funcionario.getPessoa().setSenha(hash.getHashSenha(senha.novaSenha()));
+        hash.getHashSenha(senha.novaSenha());
+        return new FuncionarioResponseDTO(funcionario);
     }
 }

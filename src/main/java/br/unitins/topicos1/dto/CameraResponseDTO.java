@@ -1,7 +1,8 @@
 package br.unitins.topicos1.dto;
 
+import java.time.LocalDateTime;
+
 import br.unitins.topicos1.model.Camera;
-import br.unitins.topicos1.model.Marca;
 
 public record CameraResponseDTO(
 
@@ -19,7 +20,8 @@ public record CameraResponseDTO(
     Double preco,
     String material,
     String dimensoes,
-    Marca marca
+    LocalDateTime dataCadastro,
+    MarcaResponseDTO marca
 
 ) {
 
@@ -40,7 +42,8 @@ public record CameraResponseDTO(
             camera.getPreco(),
             camera.getMaterial(),
             camera.getDimensoes(),
-            camera.getMarca()
+            camera.getDataCadastro(),
+            new MarcaResponseDTO(camera.getMarca().getId(), camera.getMarca().getMarca())
 
         );
     }

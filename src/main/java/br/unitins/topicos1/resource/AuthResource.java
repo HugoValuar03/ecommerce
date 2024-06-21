@@ -7,6 +7,7 @@ import br.unitins.topicos1.service.FuncionarioService;
 import br.unitins.topicos1.service.HashService;
 import br.unitins.topicos1.service.JwtService;
 import jakarta.inject.Inject;
+import jakarta.validation.ValidationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -46,8 +47,14 @@ public class AuthResource {
             return Response.status(Status.NOT_FOUND).build();
         }
 
-        return Response.ok(pessoa)
-        .header("Authorization", jwtService.generateJwt(pessoa,dto.perfil()))
-        .build();
+        if (pessoa != null) {
+            return Response.ok(pessoa)
+            .header("Authorization", jwtService.generateJwt(pessoa,dto.perfil()))
+            .build();
+        } else {
+            throw new ValidationException("Erro ao realizar login");
+        }
+
+       
     }
 }

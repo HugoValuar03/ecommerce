@@ -2,8 +2,6 @@ package br.unitins.topicos1.service;
 
 import java.util.List;
 
-import org.jboss.logging.Logger;
-
 import br.unitins.topicos1.dto.MarcaDTO;
 import br.unitins.topicos1.dto.MarcaResponseDTO;
 import br.unitins.topicos1.model.Marca;
@@ -16,8 +14,6 @@ import jakarta.validation.Valid;
 
 @ApplicationScoped
 public class MarcaServiceImpl implements MarcaService{
-
-    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
 
     @Inject
     private MarcaRepository marcaRepository;

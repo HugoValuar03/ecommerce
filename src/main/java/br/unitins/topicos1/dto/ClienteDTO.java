@@ -9,6 +9,5 @@ public record ClienteDTO(
     Integer idSexo,
     LocalDate aniversario,
     TelefoneDTO telefone,
-    String username,
-    String senha
+    String username
 ) {} 

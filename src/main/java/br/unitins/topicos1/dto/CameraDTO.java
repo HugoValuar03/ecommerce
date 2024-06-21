@@ -1,5 +1,7 @@
 package br.unitins.topicos1.dto;
 
+import java.time.LocalDateTime;
+
 public record CameraDTO(
 
     String conectividade,
@@ -10,10 +12,7 @@ public record CameraDTO(
     String iso,
     Boolean flashPopUp,
     Integer garantia,
-    String nomeModelo,
-    Double preco,
-    String material,
-    String dimensoes,
-    MarcaDTO marca
+    ProdutoDTO produto,
+    LocalDateTime dataCadastro
     
 ) {}

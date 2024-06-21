@@ -4,7 +4,6 @@ import org.jboss.logging.Logger;
 
 import br.unitins.topicos1.dto.FornecedorDTO;
 import br.unitins.topicos1.service.FornecedorService;
-import br.unitins.topicos1.service.PessoaServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -22,10 +21,10 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/fornecedores")
+@Path("/fornecedor")
 public class FornecedorResource {
     
-    public static final Logger LOG = Logger.getLogger(PessoaServiceImpl.class);
+    public static final Logger LOG = Logger.getLogger(FornecedorResource.class);
 
     @Inject
     public FornecedorService fornecedorService;

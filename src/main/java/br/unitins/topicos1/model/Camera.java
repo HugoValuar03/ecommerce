@@ -2,6 +2,7 @@ package br.unitins.topicos1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Camera extends Produto{
@@ -31,6 +32,9 @@ public class Camera extends Produto{
     private Integer garantia;
 
     private String nomeImagem;
+
+    @OneToOne
+    private Produto produto;
 
     public String getNomeImagem() {
         return nomeImagem;
@@ -102,5 +106,13 @@ public class Camera extends Produto{
 
     public void setGarantia(Integer garantia) {
         this.garantia = garantia;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 } 

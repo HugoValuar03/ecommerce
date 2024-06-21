@@ -1,8 +1,6 @@
 package br.unitins.topicos1.dto;
 
-import br.unitins.topicos1.model.Marca;
-
-public record LentesDTO(
+public record LenteDTO(
     
     String compatibilidade,
     Integer distanciaFocal,
@@ -12,6 +10,6 @@ public record LentesDTO(
     Double preco,
     String material,
     String dimensoes,
-    Marca marca
+    MarcaDTO marca
 
 ) {}

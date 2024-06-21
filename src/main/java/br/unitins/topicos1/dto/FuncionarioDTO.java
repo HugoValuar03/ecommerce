@@ -11,8 +11,7 @@ public record FuncionarioDTO(
     LocalDate aniversario,
     TelefoneDTO telefone,
     String cargo,
-    String username,
-    String senha
+    String username
 
 ){}
     

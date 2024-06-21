@@ -2,10 +2,12 @@ package br.unitins.topicos1.service;
 
 import java.util.List;
 
-import br.unitins.topicos1.dto.LentesDTO;
-import br.unitins.topicos1.dto.LentesResponseDTO;
+import br.unitins.topicos1.dto.LenteDTO;
+import br.unitins.topicos1.dto.LenteResponseDTO;
 import br.unitins.topicos1.model.Lente;
+import br.unitins.topicos1.model.Marca;
 import br.unitins.topicos1.repository.LenteRepository;
+import br.unitins.topicos1.repository.MarcaRepository;
 import br.unitins.topicos1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -16,46 +18,58 @@ import jakarta.validation.Valid;
 public class LenteServiceImpl implements LenteService {
 
     @Inject
-    private LenteRepository lentesRepository;
+    private LenteRepository lenteRepository;
+
+    @Inject 
+    private MarcaRepository marcaRepository;
 
     @Override
     @Transactional
-    public LentesResponseDTO create(@Valid LentesDTO dto) {
+    public LenteResponseDTO create(@Valid LenteDTO dto) {
         validarModelo(dto.nomeModelo());
-        Lente lentes = new Lente();
+        Lente lente = new Lente();
+        Marca marca = new Marca();
         
-        lentes.setCompatibilidade(dto.compatibilidade());
-        lentes.setDistanciaFocal(dto.distanciaFocal());
-        lentes.setDiametroFiltro(dto.diametroFiltro());
-        lentes.setMontagem(dto.montagem());
-        lentes.setPreco(dto.preco());
-        lentes.setMaterial(dto.material());
-        lentes.setDimensoes(dto.dimensoes());
-        lentes.setNomeModelo(dto.nomeModelo());    
-        lentes.setMarca(dto.marca());
+        marca.setMarca(dto.marca().marca());
 
-        lentesRepository.persist(lentes);
-        return LentesResponseDTO.valueOf(lentes);    
+        marcaRepository.persist(marca);
+
+        lente.setMarca(marca);
+        lente.setCompatibilidade(dto.compatibilidade());
+        lente.setDistanciaFocal(dto.distanciaFocal());
+        lente.setDiametroFiltro(dto.diametroFiltro());
+        lente.setMontagem(dto.montagem());
+        lente.setPreco(dto.preco());
+        lente.setMaterial(dto.material());
+        lente.setDimensoes(dto.dimensoes());
+        lente.setNomeModelo(dto.nomeModelo());    
+
+        lenteRepository.persist(lente);
+        return new LenteResponseDTO(lente);    
     }
 
     @Override
     @Transactional
-    public void update(Long id, LentesDTO dto) {
-        Lente lentesBanco =  lentesRepository.findById(id);
+    public void update(Long id, LenteDTO dto) {
+        Lente lenteBanco =  lenteRepository.findById(id);
+        Marca marcaBanco =  marcaRepository.findById(id);
 
-        lentesBanco.setCompatibilidade(dto.compatibilidade());
-        lentesBanco.setDistanciaFocal(dto.distanciaFocal());
-        lentesBanco.setDiametroFiltro(dto.diametroFiltro());
-        lentesBanco.setMontagem(dto.montagem());
-        lentesBanco.setPreco(dto.preco());
-        lentesBanco.setMaterial(dto.material());
-        lentesBanco.setDimensoes(dto.dimensoes());
-        lentesBanco.setNomeModelo(dto.nomeModelo());
+        marcaBanco.setMarca(dto.marca().marca());
+
+        lenteBanco.setMarca(marcaBanco);
+        lenteBanco.setCompatibilidade(dto.compatibilidade());
+        lenteBanco.setDistanciaFocal(dto.distanciaFocal());
+        lenteBanco.setDiametroFiltro(dto.diametroFiltro());
+        lenteBanco.setMontagem(dto.montagem());
+        lenteBanco.setPreco(dto.preco());
+        lenteBanco.setMaterial(dto.material());
+        lenteBanco.setDimensoes(dto.dimensoes());
+        lenteBanco.setNomeModelo(dto.nomeModelo());
 
     }
 
     public void validarModelo(String modelo) {
-        Lente lente = lentesRepository.validarModelo(modelo);
+        Lente lente = lenteRepository.validarModelo(modelo);
         if (lente != null)
             throw  new ValidationException("nomeModelo", "O modelo '"+ modelo +"' já existe.");
     }
@@ -63,28 +77,28 @@ public class LenteServiceImpl implements LenteService {
     @Override
     @Transactional
     public void delete(Long id) {
-        lentesRepository.deleteById(id);
+        lenteRepository.deleteById(id);
     }
 
     @Override
-    public LentesResponseDTO findById(Long id) {
-        return LentesResponseDTO.valueOf(lentesRepository.findById(id));
+    public LenteResponseDTO findById(Long id) {
+        return new LenteResponseDTO(lenteRepository.findById(id));
     }
 
     @Override
-    public List<LentesResponseDTO> findAll() {
-        return lentesRepository
+    public List<LenteResponseDTO> findAll() {
+        return lenteRepository
         .listAll()
         .stream()
-        .map(e -> LentesResponseDTO.valueOf(e)).toList();
+        .map(e -> new LenteResponseDTO(e)).toList();
     }
 
     @Override
-    public List<LentesResponseDTO> findByMontagem(String montagem) {
-        return lentesRepository
+    public List<LenteResponseDTO> findByMontagem(String montagem) {
+        return lenteRepository
         .findByMontagem(montagem)
         .stream()
-        .map(e -> LentesResponseDTO.valueOf(e)).toList();
+        .map(e -> new LenteResponseDTO(e)).toList();
     }
    
 }
