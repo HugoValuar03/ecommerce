@@ -16,7 +16,7 @@ public class Pessoa extends DefaultEntity{
     private String nome;
 
     @Email
-    @Column(length = 250, nullable = false)
+    @Column(length = 250)
     private String email;
 
     @Column(length = 8, nullable = false)

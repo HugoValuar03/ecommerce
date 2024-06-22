@@ -15,8 +15,8 @@ public record PessoaResponseDTO(
     TelefoneResponseDTO telefone,
     String username
 ) {
-    public PessoaResponseDTO(Pessoa pessoa){
-        this(
+    public static PessoaResponseDTO valueOf(Pessoa pessoa){
+        return new PessoaResponseDTO(
             pessoa.getId(),
             pessoa.getNome(),
             pessoa.getEmail(), 

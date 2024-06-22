@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -25,9 +23,6 @@ public class Cartao extends DefaultEntity{
     
     @Column
     private int cvc;
-
-    @Enumerated(EnumType.ORDINAL)
-    private BandeiraCartao bandeiraCartao;
 
     public String getNome() {
         return nome;
@@ -60,15 +55,7 @@ public class Cartao extends DefaultEntity{
     public void setCvc(int cvc) {
         this.cvc = cvc;
     }
-
-    public BandeiraCartao getBandeiraCartao() {
-        return bandeiraCartao;
-    }
-
-    public void setBandeiraCartao(BandeiraCartao bandeiraCartao) {
-        this.bandeiraCartao = bandeiraCartao;
-    }
-
+    
     public Pessoa getPessoa() {
         return pessoa;
     }

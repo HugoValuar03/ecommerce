@@ -25,9 +25,9 @@ insert into funcionario(cargo, id_pessoa) values
                                         ('Gerente', 5);
 
 -- Inserindo Vendas
-insert into venda(nome, preco) values ('Canon T6i', 3300);
-insert into venda(nome, preco) values ('Canon R100', 3200);
-insert into venda(nome, preco) values ('Canon SL3', 5000);
+--insert into venda(nome, preco) values ('Canon T6i', 3300);
+--insert into venda(nome, preco) values ('Canon R100', 3200);
+--insert into venda(nome, preco) values ('Canon SL3', 5000);
 
 -- Inserindo Cliente    
 INSERT INTO cliente(id_pessoa) VALUES (1), 
@@ -75,4 +75,10 @@ INSERT INTO lente (id, diametroFiltro, distanciaFocal, compatibilidade, montagem
 -- Inserir Pedidos
 
 INSERT INTO pedido (id_cliente, dataPedido, total, pago, formaPagamento, dataPrevista, dataChegada, statusPedido) VALUES 
-(1, '2024-07-20', 19000.00, true, 2, '2024-08-28', '2024-08-29', 2);
+(1, '2024-07-20', 19000.00, true, 2, '2024-08-28', '2024-08-29', 2),
+(2, '2024-03-20', 25000.00, true, 1, '2024-08-24', '2024-08-21', 3);
+
+-- Inserindo item
+INSERT INTO itemPedido (quantidade, idproduto, id_pedido) VALUES 
+                                                            (2,1,1),
+                                                            (2,2,2);

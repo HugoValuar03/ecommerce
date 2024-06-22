@@ -57,7 +57,7 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.setPessoa(pessoa);
 
         clienteRepository.persist(cliente);
-        return new ClienteResponseDTO(cliente);
+        return ClienteResponseDTO.valueOf(cliente);
 
     }
     
@@ -91,7 +91,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteResponseDTO findById(Long id) {
-        return new ClienteResponseDTO(clienteRepository.findById(id));
+        return ClienteResponseDTO.valueOf(clienteRepository.findById(id));
     }
 
     @Override
@@ -99,7 +99,7 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository
         .listAll()
         .stream()
-        .map(e -> new ClienteResponseDTO(e)).toList();
+        .map(e -> ClienteResponseDTO.valueOf(e)).toList();
     }
 
     @Override
@@ -107,13 +107,13 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository
         .findByCpf(cpf)
         .stream()
-        .map(e -> new ClienteResponseDTO(e)).toList();
+        .map(e -> ClienteResponseDTO.valueOf(e)).toList();
     }
 
     @Override
     public PessoaResponseDTO login(String username, String senha) {
         Cliente cliente = clienteRepository.findByUsernameAndSenha(username, senha);
-        return new PessoaResponseDTO(cliente.getPessoa());
+        return PessoaResponseDTO.valueOf(cliente.getPessoa());
     }
 
     @Override
@@ -121,7 +121,7 @@ public class ClienteServiceImpl implements ClienteService {
 
         Cliente cliente = clienteRepository.findById(id);
         cliente.getPessoa().setEmail(email.email());
-        return new ClienteResponseDTO(cliente);
+        return ClienteResponseDTO.valueOf(cliente);
 
     }
 
@@ -131,7 +131,7 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente cliente = clienteRepository.findById(id);
         cliente.getPessoa().setNome(nome.nome());
         clienteRepository.persist(cliente);
-        return new ClienteResponseDTO(cliente);
+        return ClienteResponseDTO.valueOf(cliente);
         
     }
 
@@ -141,7 +141,7 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente cliente = clienteRepository.findById(id);
         cliente.getPessoa().setUsername(username.username());
         clienteRepository.persist(cliente);
-        return new ClienteResponseDTO(cliente);
+        return ClienteResponseDTO.valueOf(cliente);
 
     }
 
@@ -153,7 +153,7 @@ public class ClienteServiceImpl implements ClienteService {
 
         hash.getHashSenha(senha.novaSenha());
 
-        return new ClienteResponseDTO(cliente);
+        return ClienteResponseDTO.valueOf(cliente);
     }
 
     

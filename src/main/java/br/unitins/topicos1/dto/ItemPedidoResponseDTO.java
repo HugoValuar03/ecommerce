@@ -9,7 +9,6 @@ public record ItemPedidoResponseDTO(
     Double preco,
     String material,
     String dimensoes,
-    MarcaResponseDTO marca,
     Fornecedor fornecedor,
     Integer quantidade
 ) {
@@ -20,7 +19,6 @@ public record ItemPedidoResponseDTO(
             item.getProduto().getPreco(),
             item.getProduto().getMaterial(),
             item.getProduto().getDimensoes(),
-            new MarcaResponseDTO(item.getProduto().getMarca().getId(), item.getProduto().getMarca().getMarca()),
             item.getProduto().getFornecedor(),
             item.getQuantidade()
         );

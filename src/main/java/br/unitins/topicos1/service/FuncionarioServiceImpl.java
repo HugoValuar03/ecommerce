@@ -54,7 +54,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         funcionario.setCargo(dto.cargo());
 
         funcionarioRepository.persist(funcionario);
-        return new FuncionarioResponseDTO(funcionario);
+        return FuncionarioResponseDTO.valueOf(funcionario);
     }
 
     public void validarCpf(String cpf) {
@@ -94,7 +94,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         return funcionarioRepository
         .listAll()
         .stream()
-        .map(e -> new FuncionarioResponseDTO(e))
+        .map(e -> FuncionarioResponseDTO.valueOf(e))
         .toList(); 
     }
 
@@ -102,20 +102,20 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public List<FuncionarioResponseDTO> findByCargo(@PathParam("cargo") String cargo){
         return funcionarioRepository.findByCargo(cargo)
         .stream()
-        .map(e -> new FuncionarioResponseDTO(e))
+        .map(e -> FuncionarioResponseDTO.valueOf(e))
         .toList();
     }
 
     @Override
     public FuncionarioResponseDTO findById(Long id){
-        return new FuncionarioResponseDTO(funcionarioRepository.findById(id)); 
+        return FuncionarioResponseDTO.valueOf(funcionarioRepository.findById(id)); 
     }
 
     @Override
     public PessoaResponseDTO login(String username, String senha) {
         
         Funcionario funcionario = funcionarioRepository.findByUsernameAndSenha(username, senha);
-        return new PessoaResponseDTO(funcionario.getPessoa());
+        return PessoaResponseDTO.valueOf(funcionario.getPessoa());
         
     }
 
@@ -123,7 +123,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public FuncionarioResponseDTO updateEmail(Long id, UpdateEmailDTO email) {
         Funcionario funcionario = funcionarioRepository.findById(id);
         funcionario.getPessoa().setEmail(email.email());
-        return new FuncionarioResponseDTO(funcionario);
+        return FuncionarioResponseDTO.valueOf(funcionario);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionario = funcionarioRepository.findById(id);
         funcionario.getPessoa().setNome(nome.nome());
         funcionarioRepository.persist(funcionario);
-        return new FuncionarioResponseDTO(funcionario);
+        return FuncionarioResponseDTO.valueOf(funcionario);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionario = funcionarioRepository.findById(id);
         funcionario.getPessoa().setUsername(username.username());
         funcionarioRepository.persist(funcionario);
-        return new FuncionarioResponseDTO(funcionario);
+        return FuncionarioResponseDTO.valueOf(funcionario);
     }
 
     @Override
@@ -147,6 +147,6 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionario = funcionarioRepository.findById(id);
         funcionario.getPessoa().setSenha(hash.getHashSenha(senha.novaSenha()));
         hash.getHashSenha(senha.novaSenha());
-        return new FuncionarioResponseDTO(funcionario);
+        return FuncionarioResponseDTO.valueOf(funcionario);
     }
 }

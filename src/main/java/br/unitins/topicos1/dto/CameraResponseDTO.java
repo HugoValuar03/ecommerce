@@ -25,9 +25,9 @@ public record CameraResponseDTO(
 
 ) {
 
-    public CameraResponseDTO(Camera camera){
+    public static CameraResponseDTO valueOf(Camera camera){
         
-        this(
+        return new CameraResponseDTO(
             camera.getId(),
             camera.getConectividade(),
             camera.getResolucao(),
@@ -43,7 +43,7 @@ public record CameraResponseDTO(
             camera.getMaterial(),
             camera.getDimensoes(),
             camera.getDataCadastro(),
-            new MarcaResponseDTO(camera.getMarca().getId(), camera.getMarca().getMarca())
+            MarcaResponseDTO.valueOf(camera.getMarca())
 
         );
     }

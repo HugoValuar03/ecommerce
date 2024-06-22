@@ -23,7 +23,7 @@ public record PedidoResponseDTO(
                                             .toList();
         return new PedidoResponseDTO(
             pedido.getId(), 
-            new ClienteResponseDTO(pedido.getCliente()),
+            ClienteResponseDTO.valueOf(pedido.getCliente()),
             pedido.getDataPedido(),
             lista,
             pedido.getTotal(),

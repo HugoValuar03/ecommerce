@@ -18,22 +18,22 @@ import br.unitins.topicos1.model.StatusPedido;
 import br.unitins.topicos1.repository.ClienteRepository;
 import br.unitins.topicos1.repository.PedidoRepository;
 import br.unitins.topicos1.repository.ProdutoRepository;
+import br.unitins.topicos1.validation.ValidationException;
 import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class PedidoServiceImpl implements PedidoService{
 
     @Inject
-    PedidoRepository pedidoRepository;
+    public PedidoRepository pedidoRepository;
 
     @Inject
-    private ClienteRepository clienteRepository;
+    public ClienteRepository clienteRepository;
 
     @Inject
     SecurityIdentity security;
@@ -42,7 +42,7 @@ public class PedidoServiceImpl implements PedidoService{
     JsonWebToken jwt;
 
     @Inject
-    private ProdutoRepository produtoRepository;
+    public ProdutoRepository produtoRepository;
 
     @Override
     @Transactional
@@ -50,11 +50,13 @@ public class PedidoServiceImpl implements PedidoService{
         String username = security.getPrincipal().getName();
 
         Cliente clienteAutenticado = clienteRepository.findById(dto.idCliente());
-        if (clienteAutenticado == null) 
-            throw new ValidationException("Erro ao buscar cliente");
+        if (clienteAutenticado == null) {
+            throw new ValidationException("Erro", "Erro ao buscar cliente");
+        }
 
-        if (!clienteAutenticado(username, dto.idCliente())) 
-            throw new ValidationException("Você não tem autorização de realizar o pedido");
+        if(!clienteEstaAutenticado(username, dto.idCliente())){
+            throw new ValidationException("Verificando...", "Você não tem autorização para realizar o pedido.");
+        }
 
         Pedido pedido = new Pedido();
         pedido.setDataPedido(LocalDateTime.now());
@@ -88,9 +90,9 @@ public class PedidoServiceImpl implements PedidoService{
         return precoProduto * item.getQuantidade();    
     }
 
-    public boolean clienteAutenticado(String username, Long id){
+    public boolean clienteEstaAutenticado(String username, Long idCliente){
         Cliente clienteAutenticado = clienteRepository.findByUsername(username);
-        return clienteAutenticado != null && clienteAutenticado.getId().equals(id);
+        return clienteAutenticado != null && clienteAutenticado.getId().equals(idCliente);
     }
 
     @Override
@@ -110,25 +112,9 @@ public class PedidoServiceImpl implements PedidoService{
     public List<PedidoResponseDTO> findByCliente(Long idCliente) {
         return pedidoRepository.findByCliente(idCliente).stream().map(e -> PedidoResponseDTO.valueOf(e)).toList();
     }
-    
-    @Override
-    public void mudarStatusPedido(Long idPedido) {
-        Pedido pedido = pedidoRepository.findById(idPedido);
-
-        if(pedido == null){
-            throw new ValidationException("O pedido não foi encontrado.");
-        }
-        if (pedido.getStatusPedido() == StatusPedido.PAGAMENTO_PENDENTE){
-                pedido.setStatusPedido(StatusPedido.PAGO);
-        } else if(pedido.getStatusPedido() == StatusPedido.PAGO){
-            throw new ValidationException("Você já pagou este pedido.");
-        } else {
-            throw new ValidationException("O Pedido não foi encontrado");
-        }
-
-    }
 
     @Override
+    @Transactional
     public List<PedidoResponseDTO> meusPedidos() {
         String username = jwt.getName();
         List<PedidoResponseDTO> pedidos = pedidoRepository.find("cliente.pessoa.username", username).stream().map(e -> PedidoResponseDTO.valueOf(e)).toList();
@@ -138,6 +124,31 @@ public class PedidoServiceImpl implements PedidoService{
         }
         return pedidos;
     }
-}
-    
 
+    @Override
+    @Transactional
+    public void mudarStatusPedido(Long idPedido){
+        Pedido pedido = pedidoRepository.findById(idPedido);
+
+        if(pedido == null){
+            throw new ValidationException("Erro","O pedido não foi encontrado.");
+        }
+
+        String username = jwt.getName();
+        if(!pedidoEdoCliente(username, pedido)){
+            throw new ValidationException("Erro","Você não tem permissão para alterar o status do pagamento");
+        }
+
+        if (pedido.getStatusPedido() == StatusPedido.PAGAMENTO_PENDENTE) {
+            pedido.setStatusPedido(StatusPedido.PAGO);
+        } else if(pedido.getStatusPedido() == StatusPedido.PAGO){
+            throw new ValidationException("Erro","Você já pagou este pedido.");
+        } else {
+            throw new ValidationException("Erro","O Pedido não foi encontrado");
+        }    
+    }
+
+    private boolean pedidoEdoCliente(String username, Pedido pedido){
+        return pedido.getCliente().getPessoa().getUsername().equals(username);
+    }
+}

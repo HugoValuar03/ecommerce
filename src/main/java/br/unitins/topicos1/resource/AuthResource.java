@@ -6,8 +6,8 @@ import br.unitins.topicos1.service.ClienteService;
 import br.unitins.topicos1.service.FuncionarioService;
 import br.unitins.topicos1.service.HashService;
 import br.unitins.topicos1.service.JwtService;
+import br.unitins.topicos1.validation.ValidationException;
 import jakarta.inject.Inject;
-import jakarta.validation.ValidationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -43,18 +43,19 @@ public class AuthResource {
             pessoa = funcionarioService.login(dto.username(), hash);
         } else if(dto.perfil() == 2) { // Perfil 2 = Cliente
             pessoa = clienteService.login(dto.username(), hash);
-        } else{
+        } else if (dto.perfil() == 0 || dto.perfil() >= 3) {
+            throw new ValidationException("Error", "Perfil 1 para funcionario e perfil 2 para cliente");
+        } else {
             return Response.status(Status.NOT_FOUND).build();
         }
-
         if (pessoa != null) {
             return Response.ok(pessoa)
-            .header("Authorization", jwtService.generateJwt(pessoa,dto.perfil()))
+            .header("Authorization", jwtService.generateJwt(pessoa, dto))
             .build();
         } else {
-            throw new ValidationException("Erro ao realizar login");
+            throw new ValidationException("Error", "Erro ao realizar login");
         }
 
-       
+
     }
 }

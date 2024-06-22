@@ -29,7 +29,7 @@ public record LenteResponseDTO(
             lente.getPreco(),
             lente.getMaterial(),
             lente.getDimensoes(),
-            new MarcaResponseDTO(lente.getMarca().getId(), lente.getMarca().getMarca()),
+            MarcaResponseDTO.valueOf(lente.getMarca()),
             lente.getNomeImagem()
         );
     }

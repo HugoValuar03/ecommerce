@@ -76,13 +76,6 @@ class Telefone{
   - numero: String
 }
 
-enum BandeiraCartao{
-  + MASTERCARD : int
-  + VISA : int
-  + ELO : int
-  - BandeiraCartao(int id, String bandeira)
-}
-
 enum FormaPagamento{
   + PIX : int
   + DEBITO : int
@@ -97,15 +90,6 @@ enum StatusPedido {
     + ENVIADO: int
     + PAGAMENTO_PENDENTE: int
     + PAGO: int
-}
-
-class Cidade{
-  - nome: String
-}
-
-class Estado{
-  - nome: String
-  - sigla: String
 }
 
 class Cartao{
@@ -134,29 +118,23 @@ class Pedido{
   - pago : Boolean
 }
 
-class Venda{
-  - nome : String
-  - preco : Double
-}
-
-Cliente -right-> Cidade
-Cidade --> Estado 
-
-Produto "1" <-- "*" Pedido
+Produto "1" <-right- "*" ItemPedido
 
 Pedido "1" --> "*" ItemPedido
-Pedido "*" -right-> "1" Cliente 
-ItemPedido "*" -right-> "1" Venda
+Pedido "*" -up-> "1" Cliente 
 Cartao "*" --> "1" Pessoa
-Pessoa "1" *-left-> "*" Telefone
+Pessoa "1" -left-> "1" Telefone
 Pessoa "1" <-left- "1" Funcionario
 Pessoa "1" <-- "1" Cliente
-Pessoa "1" -right- "1" Sexo
+Pessoa "1" -right-> "1" Sexo
 
-Marca "1" <-left-* "*" Produto
+Marca "1" <-right-* "*" Produto
 
-Fornecedor "1" *-up-> "*" Telefone
-Produto "*" o--> "1" Fornecedor
+Fornecedor "1" -up-> "1" Telefone
+Produto "*" o-up-> "1" Fornecedor
 Produto <|-- Camera
 Produto <|-- Lente
+
+Pedido "1" --> "1" StatusPedido
+Pedido "1" --> "1" FormaPagamento
 @enduml

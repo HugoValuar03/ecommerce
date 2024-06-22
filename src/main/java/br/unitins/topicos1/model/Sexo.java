@@ -8,11 +8,11 @@ public enum Sexo {
     FEMININO(2, "Feminino");
 
     private int id;
-    private String nome;
+    private String sexo;
 
-    private Sexo(int id, String nome) {
+    private Sexo(int id, String sexo) {
         this.id = id;
-        this.nome = nome;
+        this.sexo = sexo;
     }
     
     public int getId() {
@@ -23,12 +23,12 @@ public enum Sexo {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public static Sexo valueOf(Integer id) throws IllegalArgumentException{

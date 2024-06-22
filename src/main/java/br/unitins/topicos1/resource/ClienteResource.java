@@ -36,8 +36,6 @@ public class ClienteResource {
     @Inject
     public ClienteService clienteService;
 
-    //Inserir update de senha, nome, email e username
-
     @GET
     @RolesAllowed({"Funcionario"})
     public Response findAll() {
@@ -84,7 +82,7 @@ public class ClienteResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"Cliente"})
     public Response update(@PathParam("id") Long id, ClienteDTO dto) {
         LOG.infof("Iniciando atualização dos dados do cliente: %d", id);
         try {
@@ -99,7 +97,7 @@ public class ClienteResource {
     }
 
     @POST
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"Cliente"})
     public Response create(@Valid ClienteDTO dto){
         LOG.info("Iniciando cadastro de novo cliente");
         try {
@@ -115,7 +113,7 @@ public class ClienteResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"Cliente"})
     public Response delete(@PathParam("id") Long id) {
         LOG.warnf("Deletando cliente com id: %d", id);
         try {
@@ -130,7 +128,7 @@ public class ClienteResource {
     }
 
     @PATCH
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"FCliente"})
     @Path("/senha/{id}")
     @Transactional
     public ClienteResponseDTO updateSenha(@PathParam("id") Long id, UpdateSenhaDTO senha){
@@ -138,7 +136,7 @@ public class ClienteResource {
     }
 
     @PATCH
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"Cliente"})
     @Path("/email/{id}")
     @Transactional
     public ClienteResponseDTO updateEmail(@PathParam("id") Long id, UpdateEmailDTO email){
@@ -155,7 +153,7 @@ public class ClienteResource {
     }
 
     @PATCH
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"Cliente"})
     @Path("/username/{id}")
     @Transactional
     public ClienteResponseDTO updateUsername(@PathParam("id") Long id, UpdateUsernameDTO username){
@@ -163,7 +161,7 @@ public class ClienteResource {
     }
 
     @PATCH
-    @RolesAllowed({"Funcionario"})
+    @RolesAllowed({"Cliente"})
     @Path("/nome/{id}")
     @Transactional
     public ClienteResponseDTO updateNome(@PathParam("id") Long id, UpdateNomeDTO nome){

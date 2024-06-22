@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -36,26 +37,18 @@ public class PedidoResource {
     @POST
     @RolesAllowed({"Funcionario", "Cliente"})
     public Response create(@Valid PedidoDTO dto){
-        LOG.info("Iniciando cadastro de novo pedido");
-        try {
-            Response response = Response.status(Status.CREATED).entity(pedidoService.create(dto)).build();
-            LOG.info("Pedido cadastrado com sucesso");
+        LOG.info("Executando o método create de pedido ");
+        String username = securityIdentity.getPrincipal().getName();
 
-            String username = securityIdentity.getPrincipal().getName();
-
-            if(!pedidoService.clienteAutenticado(username, dto.idCliente())){
-                throw new ValidationException("Verificando...", "Você não tem permissão para realizar o pedido.");
-            }
-            
-            return response;
-        } catch (Exception e) {
-            LOG.error("Erro ao cadastrar novo pedido");
-            return null;
+        if(!pedidoService.clienteEstaAutenticado(username, dto.idCliente())){
+            throw new ValidationException("Verificando...", "Você não tem permissão para realizar o pedido.");
         }
-    }
 
+        return Response.status(Status.CREATED).entity(pedidoService.create(dto)).build();
+    }
+        
     @GET
-    @RolesAllowed({"Funcionario", "Cliente"})
+    @RolesAllowed({"Funcionario"})
     public Response findAll() {
         LOG.info("Iniciando busca de todos os pedidos");
         try {
@@ -84,9 +77,9 @@ public class PedidoResource {
     }
 
     @GET
-    @Path("/search/cliente/{cliente}")
+    @Path("/search/cliente/{id_cliente}")
     @RolesAllowed({"Funcionario"})
-    public Response findByCliente(@PathParam("cliente.id") Long idCliente){
+    public Response findByCliente(@PathParam("id_cliente") Long idCliente){
         LOG.infof("Buscando cliente pelo id");
         try {
             return Response.ok(pedidoService.findByCliente(idCliente)).build();
@@ -96,19 +89,13 @@ public class PedidoResource {
         }
     }
 
-    @GET
-    @Path("/{id}")
-    @RolesAllowed({"Funcionario"})
+    @PATCH
+    @Path("/alterarStatusPedido/{id}")
+    @RolesAllowed({"Cliente"})
     public Response mudarStatusPedido(@PathParam("id") Long id){
-        LOG.info("Alterando status do pedido");
-        try {
-            pedidoService.mudarStatusPedido(id);
-            LOG.info("Status alterado com sucesso");
-            return Response.noContent().build();
-        } catch (Exception e) {
-            LOG.error("Erro ao alterar status do pedido");
-            return null;
-        }
+        LOG.info("Executando o método mudarStatusPedido de pedido");
+        pedidoService.mudarStatusPedido(id);
+        return Response.noContent().build();
     }
 
     @GET

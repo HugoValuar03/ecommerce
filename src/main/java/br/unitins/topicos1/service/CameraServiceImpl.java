@@ -51,7 +51,7 @@ public class CameraServiceImpl implements CameraService{
         camera.setDataCadastro(LocalDateTime.now());  
 
         cameraRepository.persist(camera);
-        return new CameraResponseDTO(camera);
+        return CameraResponseDTO.valueOf(camera);
     }
 
     public void validarModelo(String modelo) {
@@ -92,7 +92,7 @@ public class CameraServiceImpl implements CameraService{
 
     @Override
     public CameraResponseDTO findById(Long id) {
-        return new CameraResponseDTO(cameraRepository.findById(id));
+        return CameraResponseDTO.valueOf(cameraRepository.findById(id));
     }
 
     @Override
@@ -100,7 +100,7 @@ public class CameraServiceImpl implements CameraService{
         return cameraRepository
         .listAll()
         .stream()
-        .map(e -> new CameraResponseDTO(e))
+        .map(e -> CameraResponseDTO.valueOf(e))
         .toList();
     }
 
@@ -109,7 +109,7 @@ public class CameraServiceImpl implements CameraService{
         return cameraRepository
         .findByNomeProduto(nomeProduto)
         .stream()
-        .map(e -> new CameraResponseDTO(e)).toList();
+        .map(e -> CameraResponseDTO.valueOf(e)).toList();
     }
 
     @Override
@@ -117,6 +117,6 @@ public class CameraServiceImpl implements CameraService{
         return cameraRepository
         .findByMarca(marca)
         .stream()
-        .map(e -> new CameraResponseDTO(e)).toList();
+        .map(e -> CameraResponseDTO.valueOf(e)).toList();
     }
 }
