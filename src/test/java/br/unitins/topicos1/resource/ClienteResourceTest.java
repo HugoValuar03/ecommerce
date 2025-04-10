@@ -16,17 +16,20 @@ import jakarta.ws.rs.core.MediaType;
 
 @QuarkusTest
 public class ClienteResourceTest {
+
+    String tokenFuncionario = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjo0LCJzdWIiOiJyYWZhZWwuc29hcmVzIiwiZ3JvdXBzIjpbIkZ1bmNpb25hcmlvIl0sImV4cCI6MTcxOTk3NTcyNSwiaWF0IjoxNzE5ODg5MzI1LCJqdGkiOiI5NDBlNmI4OC1iYWViLTRiM2MtYWMzOC1iOTI4NGUyOTRjYzkifQ.Abl5SP3p_8eHU2VmhR6LPBCujJufoJw6jqJEoxX0KyZqxmR74ewLGUHxb-x98REHOuqTNZbUobI4Edbrzf3mGGYFnOgZ335hKTwb0UP10E9pzLd1o8rhXxfUMCmjxc2bdX56ibezo2FgsARyQ_ywIdFlNmFQbEpVQE1i1xnGkshFhBMUSAwfCQPEBM3t8k-rjpUlqjLioiIiH7evONqI0fev7ikQzYb8Cx0BOVtpsp6vuKw-QDjTQtLEXwx3xFOfwtDSXK2f5_Lzn7mdeVysP3RoGv3dA8QZId5gi7pNbYHy2gu3-nqw7CNhgnASAXeItQxlGNusA5aRTF_gDKpsMw";
+
+    String tokenCliente = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjoxLCJzdWIiOiJqb2FvLmdvbWVzIiwiZ3JvdXBzIjpbIkNsaWVudGUiXSwiZXhwIjoxNzE5OTc1ODE5LCJpYXQiOjE3MTk4ODk0MTksImp0aSI6IjQ3Y2VhM2I1LWRlMTYtNDAxMi04YjlkLTU2MDIxYWZhNWMzZSJ9.d_6yl6YzPpupUQoJ8wghR--NepBpZ9mbBQKx3i-JxGM0qbfiNqSf-1so8oqI26c53m4p1-CQ-Msu7dfNvEepcnsF4BGdcLNWuumtkdO31ZX4hZbtMrClXmLrgABVbazpLn_q0O05jxTdf34QSvQYDLC6zphtekguY7Zv04Lg1W8SHgGLMCY4G23UC905GazmApwluklmEKXz84ARRxWklGi-WkwRGej9ru4eF3G_wEcT-40-mUg9mPlRCmrA4J-uN4gfF35yur7970fAkGrqHqty7NQ9ssLia4RlxpmsqQC9K1E07y1P90YDLXAjaxw7xYKLOtFxWHkpGycZEijudg";
     
     @Test
     public void createTest(){
-        String tokenAdm = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjoxLCJzdWIiOiJqb2FvLmdvbWVzIiwiZ3JvdXBzIjpbIkNsaWVudGUiXSwiZXhwIjoxNzE5MTE0NTU0LCJpYXQiOjE3MTkwMjgxNTQsImp0aSI6ImQ3MGYyZWM3LTkzNDAtNDdlNi04YmYzLTBlODVhMTY4ZjFiOSJ9.NprFF6ctg71PSjDS0J-u21jCKu8qFu2I5O6OQCDWhS9MBwjjQVDn1ievWG4CSqyEui4l2GswcEF-9NNGq8OMaX9IuBtkzIBkqw2oAZaP2BXD03UVnpXaDpXn7D_oeOXYs7B7lH6aDFpndInTmW-BkrkUdFkVH64fMLrCEM14UQzL1VoLo0GRN-0z6ts5Dt1HFjPZggZ1nFiLjkjT8QSzgKBL865B93XNKtG-RsxLfdI-WkbWIT6fecFxO726TKtiX3_J0pwD1ZmkJ4ucq4IoLYG-QoZgB0Uv6bPicKsOutb4M2fDsGIhFspb-AfDKwYxk2D2uOJliqlTLT8bfZWq3g";
 
         TelefoneDTO telefone = new TelefoneDTO("62", "987773277");
 
-        ClienteDTO cliente = new ClienteDTO("Rogério", "rogerio@gmail.com", "080.231.545-41", 1, LocalDate.parse("1992-03-10"), telefone, "rogerio.soares");
+        ClienteDTO cliente = new ClienteDTO("Rogério", "rogerio@gmail.com", "080.231.545-42", 1, LocalDate.parse("1992-03-10"), telefone, "rogerio.soares");
 
         given()
-            .header("Authorization", "Bearer " + tokenAdm)
+            .header("Authorization", "Bearer " + tokenCliente)
             .contentType(MediaType.APPLICATION_JSON)
             .body(cliente)
         .when()
@@ -38,18 +41,17 @@ public class ClienteResourceTest {
 
     @Test
     public void updateTest(){
-        String tokenAdm = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjoxLCJzdWIiOiJqb2FvLmdvbWVzIiwiZ3JvdXBzIjpbIkNsaWVudGUiXSwiZXhwIjoxNzE5MTE0NTU0LCJpYXQiOjE3MTkwMjgxNTQsImp0aSI6ImQ3MGYyZWM3LTkzNDAtNDdlNi04YmYzLTBlODVhMTY4ZjFiOSJ9.NprFF6ctg71PSjDS0J-u21jCKu8qFu2I5O6OQCDWhS9MBwjjQVDn1ievWG4CSqyEui4l2GswcEF-9NNGq8OMaX9IuBtkzIBkqw2oAZaP2BXD03UVnpXaDpXn7D_oeOXYs7B7lH6aDFpndInTmW-BkrkUdFkVH64fMLrCEM14UQzL1VoLo0GRN-0z6ts5Dt1HFjPZggZ1nFiLjkjT8QSzgKBL865B93XNKtG-RsxLfdI-WkbWIT6fecFxO726TKtiX3_J0pwD1ZmkJ4ucq4IoLYG-QoZgB0Uv6bPicKsOutb4M2fDsGIhFspb-AfDKwYxk2D2uOJliqlTLT8bfZWq3g";
 
         TelefoneDTO telefone = new TelefoneDTO("63", "987777777");
 
-        ClienteDTO dto = new ClienteDTO("Rogério", "rogerio@gmail.com", "080.231.545-41", 1, LocalDate.parse("1992-03-10"), telefone, tokenAdm);
+        ClienteDTO dto = new ClienteDTO("Rogério", "rogerio@gmail.com", "080.231.545-41", 1, LocalDate.parse("1992-03-10"), telefone, tokenFuncionario);
 
         given()
-            .header("Authorization", "Bearer " + tokenAdm)
+            .header("Authorization", "Bearer " + tokenCliente)
             .contentType(MediaType.APPLICATION_JSON)
             .body(dto)
         .when()
-            .pathParam("id", 1)
+            .pathParam("id", 2)
             .put("/cliente/{id}")
         .then()
             .statusCode(204);
@@ -57,9 +59,8 @@ public class ClienteResourceTest {
 
     @Test
      public void findAllTest(){
-        String tokenAdm = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjo0LCJzdWIiOiJyYWZhZWwuc29hcmVzIiwiZ3JvdXBzIjpbIkZ1bmNpb25hcmlvIl0sImV4cCI6MTcxOTExMzkyNCwiaWF0IjoxNzE5MDI3NTI0LCJqdGkiOiI2MzQxN2EyNy1mMjJkLTRkZmUtYTFkMy00MTAwNzY5OTMzYTcifQ.fIg1172nGx1qRsbcee2ywd9g5z3sx5M3AOdaue2XDzNmQY_YOev6y1rNWj0xTrSQyLbVHJ_HjnhwHA1jtEcHo9j6A3JHjbgs5LuIowW7z8YMU34H9NB0CpyS8vVbwzq1Tejj2zUEQjwgsb7t3-5m5UbSjhyw4RNTxk1IRAOzhwngLPxeI83_QpvQYRPY_eBHqLvZ8oyeSuAz6IXO6kTGGLzJ8GJTzkPobuO2hxdse0qou8kmfDarhGA4igC20_OdMKCzdzzAEn8nDdnhtBNOtoFjcOZet7vb0aCrAeKZ1ljWi2tnkCYpfiQ5IWktJasWTCTBnG3hgXjRYRXZdLAV-g";
         given()
-            .header("Authorization", "Bearer " + tokenAdm)  
+            .header("Authorization", "Bearer " + tokenFuncionario)  
             .when()
                 .get("/cliente")
             .then()
@@ -69,9 +70,8 @@ public class ClienteResourceTest {
 
     @Test
     public void findByCpf(){
-        String tokenAdm = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjo0LCJzdWIiOiJyYWZhZWwuc29hcmVzIiwiZ3JvdXBzIjpbIkZ1bmNpb25hcmlvIl0sImV4cCI6MTcxOTExMzkyNCwiaWF0IjoxNzE5MDI3NTI0LCJqdGkiOiI2MzQxN2EyNy1mMjJkLTRkZmUtYTFkMy00MTAwNzY5OTMzYTcifQ.fIg1172nGx1qRsbcee2ywd9g5z3sx5M3AOdaue2XDzNmQY_YOev6y1rNWj0xTrSQyLbVHJ_HjnhwHA1jtEcHo9j6A3JHjbgs5LuIowW7z8YMU34H9NB0CpyS8vVbwzq1Tejj2zUEQjwgsb7t3-5m5UbSjhyw4RNTxk1IRAOzhwngLPxeI83_QpvQYRPY_eBHqLvZ8oyeSuAz6IXO6kTGGLzJ8GJTzkPobuO2hxdse0qou8kmfDarhGA4igC20_OdMKCzdzzAEn8nDdnhtBNOtoFjcOZet7vb0aCrAeKZ1ljWi2tnkCYpfiQ5IWktJasWTCTBnG3hgXjRYRXZdLAV-g";
         given()
-            .header("Authorization", "Bearer " + tokenAdm)
+            .header("Authorization", "Bearer " + tokenFuncionario)
             .when()
             .get("/cliente/search/cpf/123.456.729-12")
             .then()
@@ -81,9 +81,8 @@ public class ClienteResourceTest {
 
     @Test
     public void findByIdTest(){
-        String tokenAdm = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjo0LCJzdWIiOiJyYWZhZWwuc29hcmVzIiwiZ3JvdXBzIjpbIkZ1bmNpb25hcmlvIl0sImV4cCI6MTcxOTExMzkyNCwiaWF0IjoxNzE5MDI3NTI0LCJqdGkiOiI2MzQxN2EyNy1mMjJkLTRkZmUtYTFkMy00MTAwNzY5OTMzYTcifQ.fIg1172nGx1qRsbcee2ywd9g5z3sx5M3AOdaue2XDzNmQY_YOev6y1rNWj0xTrSQyLbVHJ_HjnhwHA1jtEcHo9j6A3JHjbgs5LuIowW7z8YMU34H9NB0CpyS8vVbwzq1Tejj2zUEQjwgsb7t3-5m5UbSjhyw4RNTxk1IRAOzhwngLPxeI83_QpvQYRPY_eBHqLvZ8oyeSuAz6IXO6kTGGLzJ8GJTzkPobuO2hxdse0qou8kmfDarhGA4igC20_OdMKCzdzzAEn8nDdnhtBNOtoFjcOZet7vb0aCrAeKZ1ljWi2tnkCYpfiQ5IWktJasWTCTBnG3hgXjRYRXZdLAV-g";
         given()
-            .header("Authorization", "Bearer " + tokenAdm)
+            .header("Authorization", "Bearer " + tokenFuncionario)
             .when()
             .get("/cliente/1")
             .then()
@@ -93,9 +92,8 @@ public class ClienteResourceTest {
 
     @Test
      public void deleteTest(){
-        String tokenAdm = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ1bml0aW5zLWp3dCIsImlkIjoxLCJzdWIiOiJqb2FvLmdvbWVzIiwiZ3JvdXBzIjpbIkNsaWVudGUiXSwiZXhwIjoxNzE5MTE0NTU0LCJpYXQiOjE3MTkwMjgxNTQsImp0aSI6ImQ3MGYyZWM3LTkzNDAtNDdlNi04YmYzLTBlODVhMTY4ZjFiOSJ9.NprFF6ctg71PSjDS0J-u21jCKu8qFu2I5O6OQCDWhS9MBwjjQVDn1ievWG4CSqyEui4l2GswcEF-9NNGq8OMaX9IuBtkzIBkqw2oAZaP2BXD03UVnpXaDpXn7D_oeOXYs7B7lH6aDFpndInTmW-BkrkUdFkVH64fMLrCEM14UQzL1VoLo0GRN-0z6ts5Dt1HFjPZggZ1nFiLjkjT8QSzgKBL865B93XNKtG-RsxLfdI-WkbWIT6fecFxO726TKtiX3_J0pwD1ZmkJ4ucq4IoLYG-QoZgB0Uv6bPicKsOutb4M2fDsGIhFspb-AfDKwYxk2D2uOJliqlTLT8bfZWq3g";
          given()
-         .header("Authorization", "Bearer " + tokenAdm)
+         .header("Authorization", "Bearer " + tokenCliente)
          .when()
          .pathParam("id", 1)
              .delete("/cliente/{id}")

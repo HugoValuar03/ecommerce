@@ -76,9 +76,11 @@ INSERT INTO lente (id, diametroFiltro, distanciaFocal, compatibilidade, montagem
 
 INSERT INTO pedido (id_cliente, dataPedido, total, pago, formaPagamento, dataPrevista, dataChegada, statusPedido) VALUES 
 (1, '2024-07-20', 19000.00, true, 2, '2024-08-28', '2024-08-29', 2),
-(2, '2024-03-20', 25000.00, true, 1, '2024-08-24', '2024-08-21', 3);
+(2, '2024-03-20', 25000.00, true, 1, '2024-08-24', '2024-08-21', 3),
+(3, '2024-03-21', 39000.00, true, 1, '2024-07-10', '2024-07-14', 2);
 
 -- Inserindo item
 INSERT INTO itemPedido (quantidade, idproduto, id_pedido) VALUES 
                                                             (2,1,1),
-                                                            (2,2,2);
+                                                            (2,2,2),
+                                                            (1,2,2);
