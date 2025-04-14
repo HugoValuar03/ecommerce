@@ -23,6 +23,9 @@ jobs:
           command: mvn verify -Dquarkus.datasource.jdbc.url="jdbc:postgresql://localhost:5432/ecommerce" \
                              -Dquarkus.datasource.username="topicos1" \
                              -Dquarkus.datasource.password="123456"
+      - store_artifacts:
+          path: build
+          destination: build-output
       - store_test_results:
           path: target/surefire-reports
       - save_cache:
